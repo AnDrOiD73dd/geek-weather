@@ -27,6 +27,12 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        overallLog("onRestoreInstanceState");
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         overallLog("onResume");
@@ -36,6 +42,12 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         overallLog("onPause");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        overallLog("onSaveInstanceState");
     }
 
     @Override
