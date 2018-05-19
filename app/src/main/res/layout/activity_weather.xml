@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WeatherActivity"
+    android:layout_margin="@dimen/main_margin">
+
+    <TextView
+        android:id="@+id/tvCityValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/city_text_size"/>
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCityValue"
+        android:textSize="@dimen/date_text_size"/>
+
+    <TextView
+        android:id="@+id/tvTemperatureTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDate"
+        android:layout_marginTop="@dimen/main_marginTop"
+        android:text="@string/title_temperature"/>
+
+    <TextView
+        android:id="@+id/tvTemperatureValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDate"
+        android:layout_toEndOf="@id/tvTemperatureTitle"
+        android:layout_marginTop="@dimen/main_marginTop"/>
+
+    <TextView
+        android:id="@+id/tvTemperatureUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDate"
+        android:layout_toEndOf="@id/tvTemperatureValue"
+        android:layout_marginTop="@dimen/main_marginTop"
+        android:text="@string/temperature_unit_cesium"/>
+
+    <TextView
+        android:id="@+id/tvHumidityTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTemperatureTitle"
+        android:text="@string/title_humidity"/>
+
+    <TextView
+        android:id="@+id/tvHumidityValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTemperatureTitle"
+        android:layout_toEndOf="@id/tvHumidityTitle"/>
+
+    <TextView
+        android:id="@+id/tvHumidityUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTemperatureTitle"
+        android:layout_toEndOf="@id/tvHumidityValue"
+        android:text="@string/unit_percentage"/>
+
+    <TextView
+        android:id="@+id/tvWindTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvHumidityTitle"
+        android:text="@string/title_wind"/>
+
+    <TextView
+        android:id="@+id/tvWindValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvHumidityTitle"
+        android:layout_toEndOf="@id/tvWindTitle"/>
+
+    <TextView
+        android:id="@+id/tvWindUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvHumidityTitle"
+        android:layout_toEndOf="@id/tvWindTitle"/>
+
+    <TextView
+        android:id="@+id/tvProbabilityOfPrecipitationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvWindTitle"
+        android:text="@string/title_probability_of_precipitation"/>
+
+    <TextView
+        android:id="@+id/tvProbabilityOfPrecipitationValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvWindTitle"
+        android:layout_toEndOf="@id/tvProbabilityOfPrecipitationTitle"/>
+
+    <TextView
+        android:id="@+id/tvProbabilityOfPrecipitationUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvWindTitle"
+        android:layout_toEndOf="@id/tvProbabilityOfPrecipitationValue"
+        android:text="@string/unit_percentage"/>
+
+</RelativeLayout>
