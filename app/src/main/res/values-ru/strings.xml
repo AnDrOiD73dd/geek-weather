@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello_text">Погода</string>
-    <string name="title_temperature">Температура: </string>
-    <string name="title_humidity">Влажность: </string>
-    <string name="title_wind">Ветер: </string>
-    <string name="title_probability_of_precipitation">Вероятность осадков: </string>
+    <string name="title_temperature">Температура</string>
+    <string name="title_humidity">Влажность</string>
+    <string name="title_wind">Ветер</string>
+    <string name="title_probability_of_precipitation">Вероятность осадков</string>
+    <string name="choose_city_hint_text">Название города</string>
+    <string name="app_name">Погода</string>
+    <string name="show_weather">Показать погоду</string>
 </resources>

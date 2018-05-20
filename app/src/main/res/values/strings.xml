@@ -2,4 +2,10 @@
     <string name="app_name">Weather</string>
     <string name="temperature_unit_cesium"> °C</string>
     <string name="unit_percentage">%</string>
+    <string name="hello_text">Weather</string>
+    <string name="title_humidity">Humidity</string>
+    <string name="title_probability_of_precipitation">Probability of precipitation</string>
+    <string name="title_temperature">Temperature</string>
+    <string name="title_wind">Wind</string>
+    <string name="show_weather">Show weather</string>
 </resources>

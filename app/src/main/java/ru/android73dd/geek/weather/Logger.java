@@ -1,4 +1,4 @@
-package weather.geekbrains.android73dd.ru.weather;
+package ru.android73dd.geek.weather;
 
 import android.util.Log;
 
