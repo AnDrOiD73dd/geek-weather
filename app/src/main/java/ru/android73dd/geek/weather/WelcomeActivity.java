@@ -53,6 +53,15 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         cbProbabilityOfPrecipitation = findViewById(R.id.cb_probability_of_precipitation);
         btShowWeather = findViewById(R.id.bt_show_weather);
         btShowWeather.setOnClickListener(this);
+
+        if (savedInstanceState != null)
+            parseBundle(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        buildBundle(outState);
     }
 
     @Override
@@ -64,11 +73,32 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     private void showWeather() {
         Intent intent = new Intent(this, WeatherActivity.class);
+        startActivity(buildIntent(intent));
+    }
+
+    private Intent buildIntent(Intent intent) {
         intent.putExtra(KEY_CITY_NAME, etCityName.getText().toString().trim());
         intent.putExtra(KEY_PARAM_TEMPERATURE, cbTemperature.isChecked());
         intent.putExtra(KEY_PARAM_HUMIDITY, cbHumidity.isChecked());
         intent.putExtra(KEY_PARAM_WIND, cbWind.isChecked());
         intent.putExtra(KEY_PARAM_PROBABILITY_OF_PRECIPITATION, cbProbabilityOfPrecipitation.isChecked());
-        startActivity(intent);
+        return intent;
+    }
+
+    private Bundle buildBundle(Bundle bundle) {
+        bundle.putString(KEY_CITY_NAME, etCityName.getText().toString().trim());
+        bundle.putBoolean(KEY_PARAM_TEMPERATURE, cbTemperature.isChecked());
+        bundle.putBoolean(KEY_PARAM_HUMIDITY, cbHumidity.isChecked());
+        bundle.putBoolean(KEY_PARAM_WIND, cbWind.isChecked());
+        bundle.putBoolean(KEY_PARAM_PROBABILITY_OF_PRECIPITATION, cbProbabilityOfPrecipitation.isChecked());
+        return bundle;
+    }
+
+    private void parseBundle(Bundle bundle) {
+        etCityName.setText(bundle.getString(KEY_CITY_NAME, ""));
+        cbTemperature.setChecked(bundle.getBoolean(KEY_PARAM_TEMPERATURE, true));
+        cbHumidity.setChecked(bundle.getBoolean(KEY_PARAM_HUMIDITY, true));
+        cbWind.setChecked(bundle.getBoolean(KEY_PARAM_WIND, true));
+        cbProbabilityOfPrecipitation.setChecked(bundle.getBoolean(KEY_PARAM_PROBABILITY_OF_PRECIPITATION, true));
     }
 }

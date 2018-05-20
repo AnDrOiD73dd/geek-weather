@@ -13,6 +13,8 @@ import java.util.Date;
 
 public class WeatherActivity extends AppCompatActivity {
 
+    private static final String KEY_DATE_TIME = "current date time";
+
     private TextView tvCityName;
     private TextView tvDate;
     private TextView tvTempValue;
@@ -40,18 +42,24 @@ public class WeatherActivity extends AppCompatActivity {
         llWind = findViewById(R.id.ll_wind);
         llProbabilityOfPrecipitation = findViewById(R.id.ll_probability_of_precipitation);
 
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        updateUI(extras.getString(WelcomeActivity.KEY_CITY_NAME),
-                extras.getBoolean(WelcomeActivity.KEY_PARAM_TEMPERATURE, true),
-                extras.getBoolean(WelcomeActivity.KEY_PARAM_HUMIDITY, true),
-                extras.getBoolean(WelcomeActivity.KEY_PARAM_WIND, true),
-                extras.getBoolean(WelcomeActivity.KEY_PARAM_PROBABILITY_OF_PRECIPITATION, true));
+        if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            parseBundle(intent.getExtras());
+        } else {
+            parseBundle(savedInstanceState);
+        }
     }
 
-    private void updateUI(String cityName, boolean showTemp, boolean showHumidity, boolean showWind, boolean showProbabilityOfPrecipitation) {
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putAll(getIntent().getExtras());
+        outState.putString(KEY_DATE_TIME, tvDate.getText().toString());
+    }
+
+    private void updateUI(String cityName, String date, boolean showTemp, boolean showHumidity, boolean showWind, boolean showProbabilityOfPrecipitation) {
         tvCityName.setText(cityName);
-        tvDate.setText(getCurrentTime());
+        tvDate.setText(date);
         llTemperature.setVisibility(showTemp ? View.VISIBLE : View.GONE);
         llHumidity.setVisibility(showHumidity ? View.VISIBLE : View.GONE);
         llWind.setVisibility(showWind ? View.VISIBLE : View.GONE);
@@ -74,4 +82,12 @@ public class WeatherActivity extends AppCompatActivity {
         return res;
     }
 
+    private void parseBundle(Bundle bundle) {
+        updateUI(bundle.getString(WelcomeActivity.KEY_CITY_NAME),
+                bundle.getString(KEY_DATE_TIME, getCurrentTime()),
+                bundle.getBoolean(WelcomeActivity.KEY_PARAM_TEMPERATURE, true),
+                bundle.getBoolean(WelcomeActivity.KEY_PARAM_HUMIDITY, true),
+                bundle.getBoolean(WelcomeActivity.KEY_PARAM_WIND, true),
+                bundle.getBoolean(WelcomeActivity.KEY_PARAM_PROBABILITY_OF_PRECIPITATION, true));
+    }
 }
