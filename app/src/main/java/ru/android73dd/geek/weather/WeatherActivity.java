@@ -45,8 +45,7 @@ public class WeatherActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
-            if (bundle != null)
-                parseBundle(bundle);
+            if (bundle != null) parseBundle(bundle);
         } else {
             parseBundle(savedInstanceState);
         }
