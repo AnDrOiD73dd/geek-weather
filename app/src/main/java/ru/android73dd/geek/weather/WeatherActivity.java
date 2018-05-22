@@ -68,25 +68,9 @@ public class WeatherActivity extends AppCompatActivity {
         llProbabilityOfPrecipitation.setVisibility(showProbabilityOfPrecipitation ? View.VISIBLE : View.GONE);
     }
 
-    private String getCurrentTime() {
-        String res;
-        String sdf = "EEEE, dd MMMM yyyy, hh:mm:ss";
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            Calendar calendar = Calendar.getInstance();
-//            res = String.format(Locale.getDefault(), "%1$tA %1$tb %1$td %1$tY, %1$tI:%1$tM %1$Tp", calendar);
-            SimpleDateFormat format = new SimpleDateFormat(sdf);
-            res = format.format(calendar.getTime());
-        } else {
-            android.text.format.DateFormat df = new android.text.format.DateFormat();
-            Date date = new java.util.Date();
-            res = df.format(sdf, date).toString();
-        }
-        return res;
-    }
-
     private void parseBundle(Bundle bundle) {
         updateUI(bundle.getString(WelcomeActivity.KEY_CITY_NAME),
-                bundle.getString(KEY_DATE_TIME, getCurrentTime()),
+                bundle.getString(KEY_DATE_TIME, Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT)),
                 bundle.getBoolean(WelcomeActivity.KEY_PARAM_TEMPERATURE, true),
                 bundle.getBoolean(WelcomeActivity.KEY_PARAM_HUMIDITY, true),
                 bundle.getBoolean(WelcomeActivity.KEY_PARAM_WIND, true),
