@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,12 +20,20 @@
         android:layout_below="@id/tv_city_value"
         style="@style/SubTitleTextAppearance"/>
 
+    <ImageView
+        android:id="@+id/iv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_date"
+        android:layout_marginTop="@dimen/main_margin"
+        app:srcCompat="@drawable/sunny"/>
+
     <LinearLayout
         android:id="@+id/ll_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/tv_date">
+        android:layout_below="@id/iv_status">
 
         <TextView
             android:id="@+id/tv_temperature_title"
