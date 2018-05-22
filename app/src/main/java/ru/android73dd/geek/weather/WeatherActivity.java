@@ -1,15 +1,11 @@
 package ru.android73dd.geek.weather;
 
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.Date;
 
 public class WeatherActivity extends AppCompatActivity {
 

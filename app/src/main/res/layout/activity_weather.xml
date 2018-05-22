@@ -10,14 +10,14 @@
         android:id="@+id/tv_city_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/city_text_size"/>
+        style="@style/TitleTextAppearance"/>
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_city_value"
-        android:textSize="@dimen/date_text_size"/>
+        style="@style/SubTitleTextAppearance"/>
 
     <LinearLayout
         android:id="@+id/ll_temperature"
@@ -31,20 +31,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/main_marginTop"
-            android:text="@string/title_temperature"/>
+            android:text="@string/title_temperature"
+            style="@style/CommonTextStyle"/>
 
         <TextView
             android:id="@+id/tv_temperature_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/main_marginTop"/>
+            android:layout_marginTop="@dimen/main_marginTop"
+            style="@style/CommonTextStyle"/>
 
         <TextView
             android:id="@+id/tv_temperature_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/main_marginTop"
-            android:text="@string/temperature_unit_cesium"/>
+            android:text="@string/temperature_unit_cesium"
+            style="@style/CommonTextStyle"/>
 
     </LinearLayout>
 
@@ -59,18 +62,21 @@
             android:id="@+id/tv_humidity_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_humidity"/>
+            android:text="@string/title_humidity"
+            style="@style/CommonTextStyle"/>
 
         <TextView
             android:id="@+id/tv_humidity_value"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            style="@style/CommonTextStyle"/>
 
         <TextView
             android:id="@+id/tv_humidity_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/unit_percentage"/>
+            android:text="@string/unit_percentage"
+            style="@style/CommonTextStyle"/>
 
     </LinearLayout>
 
@@ -85,17 +91,20 @@
             android:id="@+id/tv_wind_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_wind"/>
+            android:text="@string/title_wind"
+            style="@style/CommonTextStyle"/>
 
         <TextView
             android:id="@+id/tv_wind_value"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            style="@style/CommonTextStyle"/>
 
         <TextView
             android:id="@+id/tv_wind_unit"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            style="@style/CommonTextStyle"/>
 
     </LinearLayout>
 
@@ -110,18 +119,21 @@
             android:id="@+id/tv_probability_of_precipitation_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_probability_of_precipitation"/>
+            android:text="@string/title_probability_of_precipitation"
+            style="@style/CommonTextStyle"/>
 
         <TextView
             android:id="@+id/tv_probability_of_precipitation_value"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            style="@style/CommonTextStyle"/>
 
         <TextView
             android:id="@+id/tv_probability_of_precipitation_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/unit_percentage"/>
+            android:text="@string/unit_percentage"
+            style="@style/CommonTextStyle"/>
 
     </LinearLayout>
 

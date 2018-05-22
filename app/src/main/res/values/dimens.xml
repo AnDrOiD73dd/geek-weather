@@ -2,6 +2,7 @@
 <resources>
     <dimen name="main_marginTop">20dp</dimen>
     <dimen name="main_margin">10dp</dimen>
-    <dimen name="city_text_size">20sp</dimen>
-    <dimen name="date_text_size">16sp</dimen>
+    <dimen name="text_size_title">20sp</dimen>
+    <dimen name="text_size_sub_title">16sp</dimen>
+    <dimen name="text_size_common">10sp</dimen>
 </resources>
