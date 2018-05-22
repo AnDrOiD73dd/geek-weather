@@ -8,4 +8,6 @@
     <string name="choose_city_hint_text">Название города</string>
     <string name="app_name">Погода</string>
     <string name="show_weather">Показать погоду</string>
+    <string name="temperature_unit_cesium" translatable="false">°C</string>
+    <string name="unit_percentage">%</string>
 </resources>

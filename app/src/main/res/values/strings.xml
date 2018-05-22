@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Weather</string>
-    <string name="temperature_unit_cesium"> °C</string>
+    <string name="temperature_unit_cesium">°C</string>
     <string name="unit_percentage">%</string>
     <string name="hello_text">Weather</string>
     <string name="title_humidity">Humidity</string>
@@ -8,4 +8,5 @@
     <string name="title_temperature">Temperature</string>
     <string name="title_wind">Wind</string>
     <string name="show_weather">Show weather</string>
+    <string name="choose_city_hint_text">City name</string>
 </resources>
