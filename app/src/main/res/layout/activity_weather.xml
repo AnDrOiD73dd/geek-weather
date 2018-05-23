@@ -51,14 +51,6 @@
             android:layout_marginTop="@dimen/main_marginTop"
             style="@style/CommonTextStyle"/>
 
-        <TextView
-            android:id="@+id/tv_temperature_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/main_marginTop"
-            android:text="@string/temperature_unit_cesium"
-            style="@style/CommonTextStyle"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -79,13 +71,6 @@
             android:id="@+id/tv_humidity_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/CommonTextStyle"/>
-
-        <TextView
-            android:id="@+id/tv_humidity_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unit_percentage"
             style="@style/CommonTextStyle"/>
 
     </LinearLayout>
@@ -110,12 +95,6 @@
             android:layout_height="wrap_content"
             style="@style/CommonTextStyle"/>
 
-        <TextView
-            android:id="@+id/tv_wind_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/CommonTextStyle"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -136,13 +115,6 @@
             android:id="@+id/tv_probability_of_precipitation_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/CommonTextStyle"/>
-
-        <TextView
-            android:id="@+id/tv_probability_of_precipitation_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unit_percentage"
             style="@style/CommonTextStyle"/>
 
     </LinearLayout>
