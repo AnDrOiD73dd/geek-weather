@@ -12,5 +12,8 @@
     <color name="secondaryText">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
-    <color name="color_sunny">#FFCE00</color>
+    <color name="status_gray">#7694B4</color>
+    <color name="status_yellow">#FFCE00</color>
+    <color name="status_gray_light">#D5DCE2</color>
+    <color name="status_blue">#009EFF</color>
 </resources>

@@ -5,6 +5,8 @@
     <dimen name="text_size_title">20sp</dimen>
     <dimen name="text_size_sub_title">16sp</dimen>
     <dimen name="text_size_common">10sp</dimen>
-    <dimen name="sunny_width">55dp</dimen>
-    <dimen name="sunny_height">38dp</dimen>
+    <dimen name="status_width">55dp</dimen>
+    <dimen name="status_height">38dp</dimen>
+    <dimen name="status_height_36dp">36dp</dimen>
+    <dimen name="status_height_46dp">46dp</dimen>
 </resources>

@@ -1,9 +1,11 @@
 package ru.android73dd.geek.weather;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     private TextView tvCityName;
     private TextView tvDate;
+    private ImageView ivStatus;
     private TextView tvTempValue;
     private TextView tvHumidityValue;
     private TextView tvWindValue;
@@ -29,6 +32,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         tvCityName = findViewById(R.id.tv_city_value);
         tvDate = findViewById(R.id.tv_date);
+        ivStatus = findViewById(R.id.iv_status);
         tvTempValue = findViewById(R.id.tv_temperature_value);
         tvHumidityValue = findViewById(R.id.tv_humidity_value);
         tvWindValue = findViewById(R.id.tv_wind_value);
@@ -71,4 +75,10 @@ public class WeatherActivity extends AppCompatActivity {
                 bundle.getBoolean(WelcomeActivity.KEY_PARAM_WIND, true),
                 bundle.getBoolean(WelcomeActivity.KEY_PARAM_PROBABILITY_OF_PRECIPITATION, true));
     }
+
+    private void updateStatus(Drawable drawable) {
+        ivStatus.setImageDrawable(drawable);
+    }
+
+
 }

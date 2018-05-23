@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_date"
         android:layout_marginTop="@dimen/main_margin"
-        app:srcCompat="@drawable/sunny"/>
+        app:srcCompat="@drawable/weather_sunny"
+        android:contentDescription="@string/weather_status_content_description"/>
 
     <LinearLayout
         android:id="@+id/ll_temperature"
