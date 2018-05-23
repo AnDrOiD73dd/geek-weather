@@ -44,7 +44,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void afterTextChanged(Editable s) {
-                btShowWeather.setEnabled(!s.toString().isEmpty());
+                btShowWeather.setEnabled(!s.toString().trim().isEmpty());
             }
         });
         cbTemperature = findViewById(R.id.cb_temperature);

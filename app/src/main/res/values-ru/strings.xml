@@ -8,4 +8,5 @@
     <string name="choose_city_hint_text">Название города</string>
     <string name="app_name">Погода</string>
     <string name="show_weather">Показать погоду</string>
+    <string name="weather_status_content_description">Состояние погоды</string>
 </resources>
