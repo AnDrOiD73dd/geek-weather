@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".WelcomeActivity"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/main_margin"
@@ -24,36 +23,36 @@
         android:id="@+id/cb_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_temperature"
-        android:checked="true"/>
+        android:checked="true"
+        android:text="@string/title_temperature" />
 
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/cb_humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_humidity"
-        android:checked="true"/>
+        android:checked="true"
+        android:text="@string/title_humidity" />
 
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/cb_wind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_wind"
-        android:checked="true"/>
+        android:checked="true"
+        android:text="@string/title_wind" />
 
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/cb_probability_of_precipitation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_probability_of_precipitation"
-        android:checked="true"/>
+        android:checked="true"
+        android:text="@string/title_probability_of_precipitation" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/bt_show_weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/show_weather"
         android:layout_gravity="center"
-        android:enabled="false"/>
+        android:enabled="false"
+        android:text="@string/show_weather" />
 
 </LinearLayout>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WeatherActivity"
     android:layout_margin="@dimen/main_margin">
 
     <TextView
@@ -26,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_date"
         android:layout_marginTop="@dimen/main_margin"
+        android:layout_marginBottom="@dimen/main_marginBottom"
         app:srcCompat="@drawable/weather_sunny"
         android:contentDescription="@string/weather_status_content_description"/>
 
@@ -40,7 +40,6 @@
             android:id="@+id/tv_temperature_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/main_marginTop"
             android:text="@string/title_temperature"
             style="@style/CommonTextStyle"/>
 
@@ -48,7 +47,6 @@
             android:id="@+id/tv_temperature_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/main_marginTop"
             style="@style/CommonTextStyle"/>
 
     </LinearLayout>
