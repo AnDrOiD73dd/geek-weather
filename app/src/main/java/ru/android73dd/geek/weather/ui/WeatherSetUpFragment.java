@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather;
+package ru.android73dd.geek.weather.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -16,6 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+
+import ru.android73dd.geek.weather.Logger;
+import ru.android73dd.geek.weather.R;
+import ru.android73dd.geek.weather.model.WeatherConfig;
 
 public class WeatherSetUpFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 

@@ -1,9 +1,12 @@
-package ru.android73dd.geek.weather;
+package ru.android73dd.geek.weather.ui;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import ru.android73dd.geek.weather.Logger;
+import ru.android73dd.geek.weather.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather;
+package ru.android73dd.geek.weather.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

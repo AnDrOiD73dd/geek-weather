@@ -12,7 +12,7 @@
 
         <fragment
             android:id="@+id/weather_set_up_container"
-            android:name="ru.android73dd.geek.weather.WeatherSetUpFragment"
+            android:name="ru.android73dd.geek.weather.ui.WeatherSetUpFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>

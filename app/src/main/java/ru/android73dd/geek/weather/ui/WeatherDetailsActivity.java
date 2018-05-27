@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather;
+package ru.android73dd.geek.weather.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

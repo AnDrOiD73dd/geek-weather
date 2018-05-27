@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather;
+package ru.android73dd.geek.weather.ui;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -10,6 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import ru.android73dd.geek.weather.Logger;
+import ru.android73dd.geek.weather.R;
+import ru.android73dd.geek.weather.Utils;
+import ru.android73dd.geek.weather.model.WeatherConfig;
 
 public class WeatherDetailsFragment extends Fragment {
 
