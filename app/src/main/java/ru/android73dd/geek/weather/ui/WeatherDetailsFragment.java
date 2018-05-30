@@ -11,11 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.android73dd.geek.weather.R;
-import ru.android73dd.geek.weather.utils.Utils;
 import ru.android73dd.geek.weather.model.WeatherConfig;
+import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
+import ru.android73dd.geek.weather.utils.Utils;
 
 public class WeatherDetailsFragment extends Fragment {
 
+    private static final String KEY_WEATHER_CONFIG = "kwc";
     private TextView tvCityName;
     private TextView tvDate;
     private ImageView ivStatus;
@@ -31,7 +33,7 @@ public class WeatherDetailsFragment extends Fragment {
     public static WeatherDetailsFragment newInstance(WeatherConfig weatherConfig) {
         WeatherDetailsFragment detailsFragment = new WeatherDetailsFragment();
         Bundle args = new Bundle();
-        args.putParcelable(WeatherSetUpFragment.KEY_WEATHER_CONFIG, weatherConfig);
+        args.putParcelable(KEY_WEATHER_CONFIG, weatherConfig);
         detailsFragment.setArguments(args);
         return detailsFragment;
     }
@@ -46,7 +48,7 @@ public class WeatherDetailsFragment extends Fragment {
     }
 
     public WeatherConfig getWeatherConfig() {
-        return getArguments().getParcelable(WeatherSetUpFragment.KEY_WEATHER_CONFIG);
+        return SettingsRepositoryImpl.getInstance().getSettings(getActivity());
     }
 
     private void updateUI(WeatherConfig weatherConfig) {
