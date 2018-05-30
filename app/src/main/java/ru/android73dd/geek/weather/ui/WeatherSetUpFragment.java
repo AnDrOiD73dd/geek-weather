@@ -3,7 +3,6 @@ package ru.android73dd.geek.weather.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,11 +16,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 
-import ru.android73dd.geek.weather.Logger;
 import ru.android73dd.geek.weather.R;
 import ru.android73dd.geek.weather.model.WeatherConfig;
 
-public class WeatherSetUpFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class WeatherSetUpFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
 
     public static final String KEY_WEATHER_CONFIG = "weather config";
 
@@ -32,6 +30,7 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
     private Button btShowWeather;
 
     private boolean isWeatherDetailsOnScreen = false;
+    private TextWatcher textWatcher;
 
     @Nullable
     @Override
@@ -42,30 +41,26 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Logger.d("onActivityCreated");
+        initViews();
+        WeatherConfig currentConfig;
+        if (savedInstanceState != null) {
+            currentConfig = savedInstanceState.getParcelable(KEY_WEATHER_CONFIG);
+            if (currentConfig == null) {
+                currentConfig = new WeatherConfig("", false, false, false);
+            }
+        } else {
+            currentConfig = getCurrentConfig();
+        }
+
+        if (isWeatherDetailsOnScreen) {
+            showWeatherDetails(currentConfig);
+        }
+    }
+
+    private void initViews() {
         Activity activity = getActivity();
         etCityName = activity.findViewById(R.id.et_city_name);
-        etCityName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String cityName = s.toString().trim();
-                if (btShowWeather.getVisibility() != View.GONE) {
-                    btShowWeather.setEnabled(!cityName.isEmpty());
-                } else {
-                    showWeatherDetails(getCurrentConfig());
-                }
-            }
-        });
+        etCityName.addTextChangedListener(this);
         cbHumidity = activity.findViewById(R.id.cb_humidity);
         cbWind = activity.findViewById(R.id.cb_wind);
         cbProbabilityOfPrecipitation = activity.findViewById(R.id.cb_probability_of_precipitation);
@@ -81,20 +76,6 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
         } else {
             isWeatherDetailsOnScreen = false;
             btShowWeather.setOnClickListener(this);
-        }
-
-        WeatherConfig currentConfig;
-        if (savedInstanceState != null) {
-            currentConfig = savedInstanceState.getParcelable(KEY_WEATHER_CONFIG);
-            if (currentConfig == null) {
-                currentConfig = new WeatherConfig("", false, false, false);
-            }
-        } else {
-            currentConfig = getCurrentConfig();
-        }
-
-        if (isWeatherDetailsOnScreen) {
-            showWeatherDetails(currentConfig);
         }
     }
 
@@ -139,5 +120,25 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         showWeatherDetails(getCurrentConfig());
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        String cityName = s.toString().trim();
+        if (btShowWeather.getVisibility() != View.GONE) {
+            btShowWeather.setEnabled(!cityName.isEmpty());
+        } else {
+            showWeatherDetails(getCurrentConfig());
+        }
     }
 }
