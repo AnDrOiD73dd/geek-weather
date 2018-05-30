@@ -26,7 +26,6 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
     public static final String KEY_WEATHER_CONFIG = "weather config";
 
     private TextInputEditText etCityName;
-    private AppCompatCheckBox cbTemperature;
     private AppCompatCheckBox cbHumidity;
     private AppCompatCheckBox cbWind;
     private AppCompatCheckBox cbProbabilityOfPrecipitation;
@@ -43,6 +42,7 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Logger.d("onActivityCreated");
         Activity activity = getActivity();
         etCityName = activity.findViewById(R.id.et_city_name);
         etCityName.addTextChangedListener(new TextWatcher() {
@@ -66,7 +66,6 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
                 }
             }
         });
-        cbTemperature = activity.findViewById(R.id.cb_temperature);
         cbHumidity = activity.findViewById(R.id.cb_humidity);
         cbWind = activity.findViewById(R.id.cb_wind);
         cbProbabilityOfPrecipitation = activity.findViewById(R.id.cb_probability_of_precipitation);
@@ -76,7 +75,6 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
         if (weatherDetails != null && weatherDetails.getVisibility() == View.VISIBLE) {
             isWeatherDetailsOnScreen = true;
             btShowWeather.setVisibility(View.GONE);
-            cbTemperature.setOnCheckedChangeListener(this);
             cbHumidity.setOnCheckedChangeListener(this);
             cbWind.setOnCheckedChangeListener(this);
             cbProbabilityOfPrecipitation.setOnCheckedChangeListener(this);
@@ -85,10 +83,12 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
             btShowWeather.setOnClickListener(this);
         }
 
-        // Если это не повторное создание, то восстановим текущую позицию
         WeatherConfig currentConfig;
         if (savedInstanceState != null) {
             currentConfig = savedInstanceState.getParcelable(KEY_WEATHER_CONFIG);
+            if (currentConfig == null) {
+                currentConfig = new WeatherConfig("", false, false, false);
+            }
         } else {
             currentConfig = getCurrentConfig();
         }
@@ -102,14 +102,12 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
         String cityName = etCityName.getText().toString().trim();
         if (cityName.isEmpty()) {
             return new WeatherConfig(cityName, false, false,
-                    false, false);
+                    false);
         }
-        return new WeatherConfig(cityName, cbTemperature.isChecked(), cbHumidity.isChecked(),
-                cbWind.isChecked(), cbProbabilityOfPrecipitation.isChecked());
+        return new WeatherConfig(cityName, cbHumidity.isChecked(), cbWind.isChecked(),
+                cbProbabilityOfPrecipitation.isChecked());
     }
 
-    // Показать герб. Ecли возможно, то показать рядом со списком,
-    // если нет, то открыть второе активити
     private void showWeatherDetails(WeatherConfig parcel) {
         if (isWeatherDetailsOnScreen) {
             WeatherDetailsFragment detail = (WeatherDetailsFragment)

@@ -8,14 +8,12 @@ import java.util.Objects;
 public class WeatherConfig implements Parcelable {
 
     private String cityName;
-    private boolean showTemperature;
     private boolean showHumidity;
     private boolean showWind;
     private boolean showProbabilityOfPrecipitation;
 
-    public WeatherConfig(String cityName, boolean showTemperature, boolean showHumidity, boolean showWind, boolean showProbabilityOfPrecipitation) {
+    public WeatherConfig(String cityName, boolean showHumidity, boolean showWind, boolean showProbabilityOfPrecipitation) {
         this.cityName = cityName;
-        this.showTemperature = showTemperature;
         this.showHumidity = showHumidity;
         this.showWind = showWind;
         this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
@@ -23,10 +21,6 @@ public class WeatherConfig implements Parcelable {
 
     public String getCityName() {
         return cityName;
-    }
-
-    public boolean isShowTemperature() {
-        return showTemperature;
     }
 
     public boolean isShowHumidity() {
@@ -41,6 +35,21 @@ public class WeatherConfig implements Parcelable {
         return showProbabilityOfPrecipitation;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WeatherConfig that = (WeatherConfig) o;
+        return showHumidity == that.showHumidity &&
+                showWind == that.showWind &&
+                showProbabilityOfPrecipitation == that.showProbabilityOfPrecipitation &&
+                Objects.equals(cityName, that.cityName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cityName, showHumidity, showWind, showProbabilityOfPrecipitation);
+    }
 
     @Override
     public int describeContents() {
@@ -50,7 +59,6 @@ public class WeatherConfig implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.cityName);
-        dest.writeByte(this.showTemperature ? (byte) 1 : (byte) 0);
         dest.writeByte(this.showHumidity ? (byte) 1 : (byte) 0);
         dest.writeByte(this.showWind ? (byte) 1 : (byte) 0);
         dest.writeByte(this.showProbabilityOfPrecipitation ? (byte) 1 : (byte) 0);
@@ -58,7 +66,6 @@ public class WeatherConfig implements Parcelable {
 
     protected WeatherConfig(Parcel in) {
         this.cityName = in.readString();
-        this.showTemperature = in.readByte() != 0;
         this.showHumidity = in.readByte() != 0;
         this.showWind = in.readByte() != 0;
         this.showProbabilityOfPrecipitation = in.readByte() != 0;
@@ -75,21 +82,4 @@ public class WeatherConfig implements Parcelable {
             return new WeatherConfig[size];
         }
     };
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        WeatherConfig that = (WeatherConfig) o;
-        return showTemperature == that.showTemperature &&
-                showHumidity == that.showHumidity &&
-                showWind == that.showWind &&
-                showProbabilityOfPrecipitation == that.showProbabilityOfPrecipitation &&
-                Objects.equals(cityName, that.cityName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cityName, showTemperature, showHumidity, showWind, showProbabilityOfPrecipitation);
-    }
 }
