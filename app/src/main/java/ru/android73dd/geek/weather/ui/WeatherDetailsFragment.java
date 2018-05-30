@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.android73dd.geek.weather.R;
-import ru.android73dd.geek.weather.Utils;
+import ru.android73dd.geek.weather.utils.Utils;
 import ru.android73dd.geek.weather.model.WeatherConfig;
 
 public class WeatherDetailsFragment extends Fragment {
