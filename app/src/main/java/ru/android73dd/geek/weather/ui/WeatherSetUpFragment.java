@@ -19,7 +19,7 @@ import android.widget.CompoundButton;
 import ru.android73dd.geek.weather.R;
 import ru.android73dd.geek.weather.model.WeatherConfig;
 
-public class WeatherSetUpFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
+public class WeatherSetUpFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     public static final String KEY_WEATHER_CONFIG = "weather config";
 
@@ -30,7 +30,28 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
     private Button btShowWeather;
 
     private boolean isWeatherDetailsOnScreen = false;
-    private TextWatcher textWatcher;
+
+    private TextWatcher cityNameTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String cityName = s.toString().trim();
+            if (btShowWeather.getVisibility() != View.GONE) {
+                btShowWeather.setEnabled(!cityName.isEmpty());
+            } else {
+                showWeatherDetails(getCurrentConfig());
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -60,7 +81,7 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
     private void initViews() {
         Activity activity = getActivity();
         etCityName = activity.findViewById(R.id.et_city_name);
-        etCityName.addTextChangedListener(this);
+        etCityName.addTextChangedListener(cityNameTextWatcher);
         cbHumidity = activity.findViewById(R.id.cb_humidity);
         cbWind = activity.findViewById(R.id.cb_wind);
         cbProbabilityOfPrecipitation = activity.findViewById(R.id.cb_probability_of_precipitation);
@@ -120,25 +141,5 @@ public class WeatherSetUpFragment extends Fragment implements View.OnClickListen
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         showWeatherDetails(getCurrentConfig());
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        String cityName = s.toString().trim();
-        if (btShowWeather.getVisibility() != View.GONE) {
-            btShowWeather.setEnabled(!cityName.isEmpty());
-        } else {
-            showWeatherDetails(getCurrentConfig());
-        }
     }
 }
