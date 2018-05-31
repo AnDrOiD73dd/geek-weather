@@ -43,8 +43,13 @@ public class WeatherDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_weather_details, container, false);
         initViews(layout);
-        updateUI(getWeatherConfig());
         return layout;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateUI(getWeatherConfig());
     }
 
     public WeatherConfig getWeatherConfig() {
