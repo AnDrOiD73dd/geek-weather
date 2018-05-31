@@ -3,13 +3,20 @@
     <string name="unit_cesium" translatable="false">°C</string>
     <string name="unit_percentage" translatable="false">%</string>
     <string name="hello_text">Weather</string>
-    <string name="title_humidity">Humidity</string>
-    <string name="title_probability_of_precipitation">Probability of precipitation</string>
     <string name="title_temperature">Temperature</string>
+    <string name="title_humidity">Humidity</string>
     <string name="title_wind">Wind</string>
+    <string name="title_probability_of_precipitation">Probability of precipitation</string>
     <string name="show_weather">Show weather</string>
     <string name="choose_city_hint_text">City name</string>
     <string name="weather_status_content_description">Weather status</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
+
+    <string name="pref_header_general">General</string>
+    <string name="pref_title_city_name">City name</string>
+    <string name="pref_default_city_name">Saratov</string>
+    <string name="pref_summary_humidity">Turn on to load info about humidity</string>
+    <string name="pref_summary_wind">Turn on to load info about wind</string>
+    <string name="pref_summary_probability_of_precipitation">Turn on to load info about probability of precipitation</string>
 </resources>

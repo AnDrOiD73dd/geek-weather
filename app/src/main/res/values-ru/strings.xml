@@ -10,4 +10,10 @@
     <string name="show_weather">Показать погоду</string>
     <string name="weather_status_content_description">Состояние погоды</string>
     <string name="action_settings">Настройки</string>
+
+    <string name="pref_title_city_name">Название города</string>
+    <string name="pref_default_city_name">Саратов</string>
+    <string name="pref_summary_humidity">Включите, чтобы загружать информацию о влажности</string>
+    <string name="pref_summary_wind">Включите, чтобы загружать информацию о ветре</string>
+    <string name="pref_summary_probability_of_precipitation">Включите, чтобы загружать информацию о вероятности осадков</string>
 </resources>
