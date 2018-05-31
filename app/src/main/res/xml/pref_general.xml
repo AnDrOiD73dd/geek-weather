@@ -1,0 +1,30 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="pref_city_name"
+        android:title="@string/pref_title_city_name"
+        android:defaultValue="@string/pref_default_city_name"
+        android:inputType="textCapWords"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <SwitchPreference
+        android:key="pref_show_humidity"
+        android:title="@string/title_humidity"
+        android:summary="@string/pref_summary_humidity"
+        android:defaultValue="true" />
+
+    <SwitchPreference
+        android:key="pref_show_wind"
+        android:title="@string/title_wind"
+        android:summary="@string/pref_summary_wind"
+        android:defaultValue="true" />
+
+    <SwitchPreference
+        android:key="pref_show_probability_of_precipitation"
+        android:title="@string/title_probability_of_precipitation"
+        android:summary="@string/pref_summary_probability_of_precipitation"
+        android:defaultValue="true" />
+
+</PreferenceScreen>

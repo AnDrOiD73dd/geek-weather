@@ -1,26 +1,45 @@
 package ru.android73dd.geek.weather.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import ru.android73dd.geek.weather.model.WeatherConfig;
-
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import ru.android73dd.geek.weather.R;
+import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 
 public class WeatherDetailsActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_weather_details);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
-            finish();
-            return;
+        WeatherDetailsFragment details = (WeatherDetailsFragment) getFragmentManager().findFragmentById(R.id.weather_container);
+        if (details == null) {
+            details = WeatherDetailsFragment.newInstance(SettingsRepositoryImpl.getInstance().getSettings(this));
+            getFragmentManager().beginTransaction().add(R.id.weather_container, details).commit();
+        } else {
+            getFragmentManager().beginTransaction().replace(R.id.weather_container, details).commit();
         }
+    }
 
-        if (savedInstanceState == null) {
-            WeatherConfig weatherConfig = getIntent().getParcelableExtra(WeatherSetUpFragment.KEY_WEATHER_CONFIG);
-            WeatherDetailsFragment details = WeatherDetailsFragment.newInstance(weatherConfig);
-            getFragmentManager().beginTransaction().add(android.R.id.content, details).commit();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
         }
+        return false;
     }
 }

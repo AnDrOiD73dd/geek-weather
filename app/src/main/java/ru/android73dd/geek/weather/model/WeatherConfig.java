@@ -19,6 +19,22 @@ public class WeatherConfig implements Parcelable {
         this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
     }
 
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public void setShowHumidity(boolean showHumidity) {
+        this.showHumidity = showHumidity;
+    }
+
+    public void setShowWind(boolean showWind) {
+        this.showWind = showWind;
+    }
+
+    public void setShowProbabilityOfPrecipitation(boolean showProbabilityOfPrecipitation) {
+        this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
+    }
+
     public String getCityName() {
         return cityName;
     }

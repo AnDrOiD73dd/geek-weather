@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather;
+package ru.android73dd.geek.weather.utils;
 
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
