@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -129,11 +130,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class GeneralPreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+        private static final String PREF_CITIES_LIST = "pref_cities_list";
         private static final String PREF_CITY_NAME = "pref_city_name";
         private static final String PREF_HUMIDITY = "pref_show_humidity";
         private static final String PREF_WIND = "pref_show_wind";
         private static final String PREF_SHOW_PROBABILITY_OF_PRECIPITATION = "pref_show_probability_of_precipitation";
 
+        private MultiSelectListPreference prefCitiesList;
         private EditTextPreference prefCityName;
         private SwitchPreference prefHumidity;
         private SwitchPreference prefWind;
@@ -144,12 +147,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
-            bindPreferenceSummaryToValue(findPreference(PREF_CITY_NAME));
+            prefCitiesList = (MultiSelectListPreference) findPreference(PREF_CITIES_LIST);
             prefCityName = (EditTextPreference) findPreference(PREF_CITY_NAME);
+            bindPreferenceSummaryToValue(prefCityName);
             prefHumidity = (SwitchPreference) findPreference(PREF_HUMIDITY);
             prefWind = (SwitchPreference) findPreference(PREF_WIND);
             prefPoP = (SwitchPreference) findPreference(PREF_SHOW_PROBABILITY_OF_PRECIPITATION);
+
             WeatherConfig weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+            prefCitiesList.setValues(weatherConfig.getCitiesSet());
             prefCityName.setText(weatherConfig.getCityName());
             prefHumidity.setChecked(weatherConfig.isShowHumidity());
             prefWind.setChecked(weatherConfig.isShowWind());
@@ -183,8 +189,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             switch (key) {
-                case PREF_CITY_NAME:
+                case PREF_CITIES_LIST:
                     WeatherConfig weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+                    weatherConfig.setCitiesSet(prefCitiesList.getValues());
+                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
+                    break;
+                case PREF_CITY_NAME:
+                    weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
                     weatherConfig.setCityName(prefCityName.getText());
                     SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
                     break;

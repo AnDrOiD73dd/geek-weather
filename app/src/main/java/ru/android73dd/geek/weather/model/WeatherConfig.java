@@ -3,36 +3,29 @@ package ru.android73dd.geek.weather.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Objects;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class WeatherConfig implements Parcelable {
 
+    private Set<String> citiesSet;
     private String cityName;
     private boolean showHumidity;
     private boolean showWind;
     private boolean showProbabilityOfPrecipitation;
 
-    public WeatherConfig(String cityName, boolean showHumidity, boolean showWind, boolean showProbabilityOfPrecipitation) {
+    private WeatherConfig(Set<String> citiesSet, String cityName, boolean showHumidity,
+                          boolean showWind, boolean showProbabilityOfPrecipitation) {
+        this.citiesSet = citiesSet;
         this.cityName = cityName;
         this.showHumidity = showHumidity;
         this.showWind = showWind;
         this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public void setShowHumidity(boolean showHumidity) {
-        this.showHumidity = showHumidity;
-    }
-
-    public void setShowWind(boolean showWind) {
-        this.showWind = showWind;
-    }
-
-    public void setShowProbabilityOfPrecipitation(boolean showProbabilityOfPrecipitation) {
-        this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
+    public Set<String> getCitiesSet() {
+        return citiesSet;
     }
 
     public String getCityName() {
@@ -51,20 +44,62 @@ public class WeatherConfig implements Parcelable {
         return showProbabilityOfPrecipitation;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        WeatherConfig that = (WeatherConfig) o;
-        return showHumidity == that.showHumidity &&
-                showWind == that.showWind &&
-                showProbabilityOfPrecipitation == that.showProbabilityOfPrecipitation &&
-                Objects.equals(cityName, that.cityName);
+    public void setCitiesSet(Set<String> citiesSet) {
+        this.citiesSet = citiesSet;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(cityName, showHumidity, showWind, showProbabilityOfPrecipitation);
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public void setShowHumidity(boolean showHumidity) {
+        this.showHumidity = showHumidity;
+    }
+
+    public void setShowWind(boolean showWind) {
+        this.showWind = showWind;
+    }
+
+    public void setShowProbabilityOfPrecipitation(boolean showProbabilityOfPrecipitation) {
+        this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
+    }
+
+    public static class Builder {
+
+        private Set<String> citiesSet;
+        private String cityName;
+        private boolean showHumidity;
+        private boolean showWind;
+        private boolean showProbabilityOfPrecipitation;
+
+        public Builder setCitiesSet(Set<String> citiesSet) {
+            this.citiesSet = citiesSet;
+            return this;
+        }
+
+        public Builder setCityName(String cityName) {
+            this.cityName = cityName;
+            return this;
+        }
+
+        public Builder setShowHumidity(boolean showHumidity) {
+            this.showHumidity = showHumidity;
+            return this;
+        }
+
+        public Builder setShowWind(boolean showWind) {
+            this.showWind = showWind;
+            return this;
+        }
+
+        public Builder setShowProbabilityOfPrecipitation(boolean showProbabilityOfPrecipitation) {
+            this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
+            return this;
+        }
+
+        public WeatherConfig create() {
+            return new WeatherConfig(citiesSet, cityName, showHumidity, showWind, showProbabilityOfPrecipitation);
+        }
     }
 
     @Override
@@ -74,6 +109,9 @@ public class WeatherConfig implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        String[] citiesArray = new String[0];
+        citiesSet.toArray(citiesArray);
+        dest.writeStringArray(citiesArray);
         dest.writeString(this.cityName);
         dest.writeByte(this.showHumidity ? (byte) 1 : (byte) 0);
         dest.writeByte(this.showWind ? (byte) 1 : (byte) 0);
@@ -81,6 +119,8 @@ public class WeatherConfig implements Parcelable {
     }
 
     protected WeatherConfig(Parcel in) {
+        String[] citiesArray = in.createStringArray();
+        this.citiesSet = new HashSet<>(Arrays.asList(citiesArray));
         this.cityName = in.readString();
         this.showHumidity = in.readByte() != 0;
         this.showWind = in.readByte() != 0;

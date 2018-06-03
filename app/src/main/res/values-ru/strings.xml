@@ -16,4 +16,15 @@
     <string name="pref_summary_humidity">Включите, чтобы загружать информацию о влажности</string>
     <string name="pref_summary_wind">Включите, чтобы загружать информацию о ветре</string>
     <string name="pref_summary_probability_of_precipitation">Включите, чтобы загружать информацию о вероятности осадков</string>
+    <string name="pref_cities_list_title">Список городов</string>
+    <string name="pref_cities_list_summary">Выберите города, информацию о погоде которых вы хотите загружать</string>
+    <string name="pref_cities_list_dialog">Выберите города</string>
+
+    <string-array name="pref_cities_list">
+        <item>Москва</item>
+        <item>Лондон</item>
+        <item>Нью Йорк</item>
+        <item>Саратов</item>
+        <item>Амстердам</item>
+    </string-array>
 </resources>
