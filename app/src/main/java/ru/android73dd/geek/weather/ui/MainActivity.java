@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.List;
 
@@ -20,9 +21,10 @@ import ru.android73dd.geek.weather.model.WeatherConfig;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.DataSourceBuilder;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements WeatherAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
+    private List<Weather> dataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,8 +53,9 @@ public class MainActivity extends AppCompatActivity{
 
     private void setupAdapter() {
         DataSourceBuilder builder = new DataSourceBuilder(this);
-        final List<Weather> dataSource = builder.build();
+        dataSource = builder.build();
         final WeatherAdapter adapter = new WeatherAdapter(dataSource, getWeatherConfig());
+        adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -70,5 +73,10 @@ public class MainActivity extends AppCompatActivity{
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        startActivity(WeatherDetailsActivity.getIntent(this, dataSource.get(position).getCityName()));
     }
 }

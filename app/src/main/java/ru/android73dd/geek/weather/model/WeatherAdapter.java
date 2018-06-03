@@ -58,7 +58,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         void onItemClick(View view , int position);
     }
 
-    public void SetOnItemClickListener(OnItemClickListener itemClickListener){
+    public void setOnItemClickListener(OnItemClickListener itemClickListener){
         this.itemClickListener = itemClickListener;
     }
 
@@ -76,6 +76,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
         public ViewHolder(View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onItemClick(v, getAdapterPosition());
+                    }
+                }
+            });
 
             cityName = itemView.findViewById(R.id.tv_city_name);
             statusPic = itemView.findViewById(R.id.iv_status);
