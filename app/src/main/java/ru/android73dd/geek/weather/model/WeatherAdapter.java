@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -15,10 +16,12 @@ import ru.android73dd.geek.weather.R;
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
     private List<Weather> dataSource;
+    private WeatherConfig weatherConfig;
     private OnItemClickListener itemClickListener;
 
-    public WeatherAdapter(List<Weather> dataSource) {
+    public WeatherAdapter(List<Weather> dataSource, WeatherConfig weatherConfig) {
         this.dataSource = dataSource;
+        this.weatherConfig = weatherConfig;
     }
 
     @NonNull
@@ -35,9 +38,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         holder.cityName.setText(item.getCityName());
         holder.statusPic.setImageResource(item.getStatusPic());
         holder.temperature.setText(item.getTemperature());
+
         holder.humidity.setText(item.getHumidity());
+        holder.llHumidity.setVisibility(weatherConfig.isShowHumidity() ? View.VISIBLE : View.GONE);
+
         holder.wind.setText(item.getWind());
+        holder.llWind.setVisibility(weatherConfig.isShowWind() ? View.VISIBLE : View.GONE);
+
         holder.probabilityOfPrecipitation.setText(item.getProbabilityOfPrecipitation());
+        holder.llProbabilityOfPrecipitation.setVisibility(weatherConfig.isShowProbabilityOfPrecipitation() ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -61,6 +70,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         private TextView humidity;
         private TextView wind;
         private TextView probabilityOfPrecipitation;
+        private LinearLayout llHumidity;
+        private LinearLayout llWind;
+        private LinearLayout llProbabilityOfPrecipitation;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -71,6 +83,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             humidity = itemView.findViewById(R.id.tv_humidity_value);
             wind = itemView.findViewById(R.id.tv_wind_value);
             probabilityOfPrecipitation = itemView.findViewById(R.id.tv_probability_of_precipitation_value);
+
+            llHumidity = itemView.findViewById(R.id.ll_humidity);
+            llWind = itemView.findViewById(R.id.ll_wind);
+            llProbabilityOfPrecipitation = itemView.findViewById(R.id.ll_probability_of_precipitation);
         }
     }
 }

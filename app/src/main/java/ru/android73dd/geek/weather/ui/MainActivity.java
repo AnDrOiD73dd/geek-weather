@@ -16,6 +16,8 @@ import java.util.List;
 import ru.android73dd.geek.weather.R;
 import ru.android73dd.geek.weather.model.Weather;
 import ru.android73dd.geek.weather.model.WeatherAdapter;
+import ru.android73dd.geek.weather.model.WeatherConfig;
+import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.DataSourceBuilder;
 
 public class MainActivity extends AppCompatActivity{
@@ -31,11 +33,8 @@ public class MainActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
         recyclerView = findViewById(R.id.recycler_view);
-
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         recyclerView.setHasFixedSize(true);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
     }
@@ -43,10 +42,17 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
+        setupAdapter();
+    }
 
+    public WeatherConfig getWeatherConfig() {
+        return SettingsRepositoryImpl.getInstance().getSettings(this);
+    }
+
+    private void setupAdapter() {
         DataSourceBuilder builder = new DataSourceBuilder(this);
         final List<Weather> dataSource = builder.build();
-        final WeatherAdapter adapter = new WeatherAdapter(dataSource);
+        final WeatherAdapter adapter = new WeatherAdapter(dataSource, getWeatherConfig());
         recyclerView.setAdapter(adapter);
     }
 
