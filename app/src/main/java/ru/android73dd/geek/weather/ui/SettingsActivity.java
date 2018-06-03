@@ -148,8 +148,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
             prefCitiesList = (MultiSelectListPreference) findPreference(PREF_CITIES_LIST);
+
             prefCityName = (EditTextPreference) findPreference(PREF_CITY_NAME);
-            bindPreferenceSummaryToValue(prefCityName);
+//            bindPreferenceSummaryToValue(prefCityName);
+            getPreferenceScreen().removePreference(prefCityName);
+
             prefHumidity = (SwitchPreference) findPreference(PREF_HUMIDITY);
             prefWind = (SwitchPreference) findPreference(PREF_WIND);
             prefPoP = (SwitchPreference) findPreference(PREF_SHOW_PROBABILITY_OF_PRECIPITATION);
