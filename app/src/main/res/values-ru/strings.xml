@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="unit_wind_speed" translatable="false">м/с</string>
     <string name="hello_text">Погода</string>
     <string name="title_temperature">Температура</string>
     <string name="title_humidity">Влажность</string>
