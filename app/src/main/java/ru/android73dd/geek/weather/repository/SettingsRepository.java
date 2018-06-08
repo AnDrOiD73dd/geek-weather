@@ -8,4 +8,6 @@ public interface SettingsRepository {
 
     void saveSettings(Context context, WeatherConfig weatherConfig);
     WeatherConfig getSettings(Context context);
+
+    void addCity(Context context, String cityName);
 }

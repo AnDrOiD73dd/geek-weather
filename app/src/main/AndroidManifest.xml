@@ -21,8 +21,7 @@
         </activity>
         <activity
             android:name=".ui.WeatherDetailsActivity"
-            android:theme="@style/CustomTheme.NoActionBar">
-        </activity>
+            android:theme="@style/CustomTheme.NoActionBar" />
         <activity
             android:name=".ui.SettingsActivity"
             android:label="@string/title_activity_settings" />

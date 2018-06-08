@@ -83,4 +83,13 @@ public class SettingsRepositoryImpl implements SettingsRepository {
 
         return this.weatherConfig;
     }
+
+    @Override
+    public void addCity(Context context, String cityName) {
+        SharedPreferences prefs = PrefUtils.getPrefs(context);
+        Set<String> citiesSet = prefs.getStringSet(KEY_WEATHER_CITIES_LIST, new HashSet<String>());
+        citiesSet.add(cityName);
+        this.weatherConfig.setCitiesSet(citiesSet);
+        PrefUtils.getEditor(context).putStringSet(KEY_WEATHER_CITIES_LIST, weatherConfig.getCitiesSet()).commit();
+    }
 }
