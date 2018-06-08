@@ -2,6 +2,7 @@
     <string name="app_name">Weather</string>
     <string name="unit_cesium" translatable="false">°C</string>
     <string name="unit_percentage" translatable="false">%</string>
+    <string name="unit_wind_speed" translatable="false">m/s</string>
     <string name="hello_text">Weather</string>
     <string name="title_temperature">Temperature</string>
     <string name="title_humidity">Humidity</string>
@@ -19,4 +20,16 @@
     <string name="pref_summary_humidity">Turn on to load info about humidity</string>
     <string name="pref_summary_wind">Turn on to load info about wind</string>
     <string name="pref_summary_probability_of_precipitation">Turn on to load info about probability of precipitation</string>
+    <string name="pref_cities_list_title">Cities list</string>
+    <string name="pref_cities_list_summary">Select the cities whose weather information you want to load</string>
+    <string name="pref_cities_list_dialog">Select the cities</string>
+
+    <string-array name="empty_array"/>
+    <string-array name="pref_cities_list">
+        <item>Moscow</item>
+        <item>London</item>
+        <item>New York</item>
+        <item>Saratov</item>
+        <item>Amsterdam</item>
+    </string-array>
 </resources>

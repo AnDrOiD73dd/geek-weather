@@ -2,11 +2,17 @@
 <resources>
     <dimen name="main_margin">10dp</dimen>
     <dimen name="main_marginBottom">20dp</dimen>
+
     <dimen name="text_size_title">20sp</dimen>
     <dimen name="text_size_sub_title">16sp</dimen>
     <dimen name="text_size_common">10sp</dimen>
+
     <dimen name="status_width">55dp</dimen>
     <dimen name="status_height">38dp</dimen>
     <dimen name="status_height_36dp">36dp</dimen>
     <dimen name="status_height_46dp">46dp</dimen>
+
+    <dimen name="list_item_margin">5dp</dimen>
+    <dimen name="list_item_elevation">3dp</dimen>
+    <dimen name="list_item_card_corner_radius">10dp</dimen>
 </resources>
