@@ -4,27 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import java.util.List;
 
 import ru.android73dd.geek.weather.R;
-import ru.android73dd.geek.weather.model.Weather;
-import ru.android73dd.geek.weather.model.WeatherAdapter;
-import ru.android73dd.geek.weather.model.WeatherConfig;
-import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
-import ru.android73dd.geek.weather.utils.DataSourceBuilder;
 
-public class MainActivity extends AppCompatActivity implements WeatherAdapter.OnItemClickListener {
-
-    private RecyclerView recyclerView;
-    private List<Weather> dataSource;
+public class MainActivity extends AppCompatActivity implements CitiesFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,29 +20,8 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setupAdapter();
-    }
-
-    public WeatherConfig getWeatherConfig() {
-        return SettingsRepositoryImpl.getInstance().getSettings(this);
-    }
-
-    private void setupAdapter() {
-        DataSourceBuilder builder = new DataSourceBuilder(this);
-        dataSource = builder.build();
-        final WeatherAdapter adapter = new WeatherAdapter(dataSource, getWeatherConfig());
-        adapter.setOnItemClickListener(this);
-        recyclerView.setAdapter(adapter);
+        CitiesFragment citiesFragment = CitiesFragment.newInstance();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, citiesFragment).commit();
     }
 
     @Override
@@ -76,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.On
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        startActivity(WeatherDetailsActivity.getIntent(this, dataSource.get(position).getCityName()));
+    public void onItemClicked(String cityName) {
+        startActivity(WeatherDetailsActivity.getIntent(this, cityName));
     }
 }

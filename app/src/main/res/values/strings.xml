@@ -24,7 +24,7 @@
     <string name="pref_cities_list_summary">Select the cities whose weather information you want to load</string>
     <string name="pref_cities_list_dialog">Select the cities</string>
 
-    <string-array name="empty_array"/>
+    <string-array name="empty_array" />
     <string-array name="pref_cities_list">
         <item>Moscow</item>
         <item>London</item>
