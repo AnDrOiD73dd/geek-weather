@@ -1,5 +1,9 @@
 package ru.android73dd.geek.weather.model;
 
+import android.content.Context;
+
+import ru.android73dd.geek.weather.R;
+
 public class Weather {
 
     private String cityName;
@@ -64,5 +68,13 @@ public class Weather {
 
     public void setProbabilityOfPrecipitation(String probabilityOfPrecipitation) {
         this.probabilityOfPrecipitation = probabilityOfPrecipitation;
+    }
+
+    public static Weather createDefault(Context context, String cityName) {
+        return new Weather(cityName, R.drawable.weather_sunny,
+                "+22" + context.getResources().getString(R.string.unit_cesium),
+                " 40%",
+                " 3-5" + context.getResources().getString(R.string.unit_wind_speed),
+                " 20%");
     }
 }

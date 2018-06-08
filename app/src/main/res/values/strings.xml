@@ -32,4 +32,9 @@
         <item>Saratov</item>
         <item>Amsterdam</item>
     </string-array>
+
+    <string name="dialog_add_city_title">Please input city name</string>
+    <string name="dialog_add_city_button_add">Add</string>
+    <string name="dialog_add_city_button_cancel">Cancel</string>
+
 </resources>
