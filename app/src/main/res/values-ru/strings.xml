@@ -38,4 +38,5 @@
     <string name="nav_group_communicate_title">Связь</string>
     <string name="nav_about_developer_title">О разработчике</string>
     <string name="nav_site_title">Сайт</string>
+    <string name="fragment_about_developer_title">О разработчике</string>
 </resources>

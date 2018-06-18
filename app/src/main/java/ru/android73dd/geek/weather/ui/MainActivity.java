@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -78,13 +79,16 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_stub:
                 break;
             case R.id.nav_about_developer:
+                FragmentManager manager = getSupportFragmentManager();
+                AboutDeveloperFragment aboutDeveloperFragment = new AboutDeveloperFragment();
+                aboutDeveloperFragment.show(manager, "about developer dialog");
                 break;
             case R.id.nav_site:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
                 startActivity(browserIntent);
                 break;
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
+//        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }
