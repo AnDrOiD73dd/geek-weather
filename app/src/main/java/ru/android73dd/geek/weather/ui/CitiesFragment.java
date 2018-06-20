@@ -26,7 +26,7 @@ import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.DataSourceBuilder;
 import ru.android73dd.geek.weather.utils.Logger;
 
-public class CitiesFragment extends Fragment implements View.OnClickListener, WeatherAdapter.OnItemClickListener {
+public class CitiesFragment extends BaseFragment implements View.OnClickListener, WeatherAdapter.OnItemClickListener {
 
     private OnFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
