@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, CitiesFragment.OnFragmentInteractionListener {
 
     DrawerLayout drawerLayout;
+    private CitiesFragment citiesFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        CitiesFragment citiesFragment = CitiesFragment.newInstance();
+        citiesFragment = CitiesFragment.newInstance();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, citiesFragment).commit();
     }
 
@@ -79,16 +80,20 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_stub:
                 break;
             case R.id.nav_about_developer:
-                FragmentManager manager = getSupportFragmentManager();
-                AboutDeveloperFragment aboutDeveloperFragment = new AboutDeveloperFragment();
-                aboutDeveloperFragment.show(manager, "about developer dialog");
+                if (citiesFragment != null) {
+                    citiesFragment.showAboutDeveloper();
+                }
                 break;
             case R.id.nav_site:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-                startActivity(browserIntent);
+                openMySite();
                 break;
         }
-//        drawerLayout.closeDrawer(GravityCompat.START);
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openMySite() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+        startActivity(browserIntent);
     }
 }
