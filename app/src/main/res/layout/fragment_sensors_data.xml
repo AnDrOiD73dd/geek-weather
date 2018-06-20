@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srl_sensors_data"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/main_margin">
+
+    <LinearLayout
+        android:id="@+id/ll_sensors_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TitleTextAppearance"/>
+
+        <LinearLayout
+            android:id="@+id/ll_temperature_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/main_margin">
+
+            <ImageView
+                android:id="@+id/iv_temperature_value"
+                android:layout_width="@dimen/sensors_data_icon_size"
+                android:layout_height="@dimen/sensors_data_icon_size"
+                app:srcCompat="@drawable/ic_thermometer" />
+
+            <TextView
+                android:id="@+id/tv_temperature_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/main_margin"
+                style="@style/CommonTextStyle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_humidity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/main_margin">
+
+            <ImageView
+                android:id="@+id/iv_humidity_value"
+                android:layout_width="@dimen/sensors_data_icon_size"
+                android:layout_height="@dimen/sensors_data_icon_size"
+                app:srcCompat="@drawable/ic_velocity_vector"/>
+
+            <TextView
+                android:id="@+id/tv_humidity_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/main_margin"
+                style="@style/CommonTextStyle"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
