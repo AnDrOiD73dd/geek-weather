@@ -1,15 +1,18 @@
 package ru.android73dd.geek.weather.ui;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.android73dd.geek.weather.R;
@@ -40,6 +43,17 @@ public class SensorsDataFragment extends BaseFragment {
         tvTemperatureValue = view.findViewById(R.id.tv_temperature_value);
         tvHumidityValue = view.findViewById(R.id.tv_humidity_value);
 
+        Context context = getActivity();
+        SensorManager sensorManager = SensorUtils.getSensorManager(context);
+        if (SensorUtils.getTemperatureSensor(sensorManager) == null) {
+            LinearLayout ll = view.findViewById(R.id.ll_temperature_value);
+            ll.setVisibility(View.GONE);
+        }
+        if (SensorUtils.getHumiditySensor(sensorManager) == null) {
+            LinearLayout ll = view.findViewById(R.id.ll_humidity_value);
+            ll.setVisibility(View.GONE);
+        }
+
         Resources resources = getResources();
         unitPercentage = resources.getString(R.string.unit_percentage);
         unitCesium = resources.getString(R.string.unit_cesium);
@@ -61,7 +75,7 @@ public class SensorsDataFragment extends BaseFragment {
     }
 
     private void setValues() {
-        tvCityName.setText("???");
+        tvCityName.setText("City name"); // Stub
         tvTemperatureValue.setText("0");
         tvHumidityValue.setText("0");
     }

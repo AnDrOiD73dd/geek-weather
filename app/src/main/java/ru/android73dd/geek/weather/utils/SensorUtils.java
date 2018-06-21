@@ -9,12 +9,20 @@ import static android.content.Context.SENSOR_SERVICE;
 
 public class SensorUtils {
 
-    private static SensorManager getSensorManager(Context context) {
+    public static SensorManager getSensorManager(Context context) {
         return (SensorManager) context.getSystemService(SENSOR_SERVICE);
     }
 
     private static Sensor getSensor(SensorManager sensorManager, int sensorType) {
         return sensorManager.getDefaultSensor(sensorType);
+    }
+
+    public static Sensor getTemperatureSensor(SensorManager sensorManager) {
+        return getSensor(sensorManager, Sensor.TYPE_AMBIENT_TEMPERATURE);
+    }
+
+    public static Sensor getHumiditySensor(SensorManager sensorManager) {
+        return getSensor(sensorManager, Sensor.TYPE_RELATIVE_HUMIDITY);
     }
 
     private static boolean subscribeSensor(Context context, SensorEventListener listener, int sensorType) {
