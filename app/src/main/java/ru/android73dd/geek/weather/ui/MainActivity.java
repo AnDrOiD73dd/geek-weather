@@ -1,12 +1,14 @@
 package ru.android73dd.geek.weather.ui;
 
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,12 +18,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ru.android73dd.geek.weather.R;
+import ru.android73dd.geek.weather.utils.SensorUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, CitiesFragment.OnFragmentInteractionListener {
 
     DrawerLayout drawerLayout;
-    private CitiesFragment citiesFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,8 +42,14 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        citiesFragment = CitiesFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, citiesFragment).commit();
+        BaseFragment fragment;
+        if (isSensorsExist()) {
+            fragment = SensorsDataFragment.newInstance();
+        } else {
+            fragment = CitiesFragment.newInstance();
+        }
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
     }
 
     @Override
@@ -80,9 +88,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_stub:
                 break;
             case R.id.nav_about_developer:
-                if (citiesFragment != null) {
-                    citiesFragment.showAboutDeveloper();
-                }
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                ((BaseFragment) fragment).showAboutDeveloper();
                 break;
             case R.id.nav_site:
                 openMySite();
@@ -95,5 +102,10 @@ public class MainActivity extends AppCompatActivity
     private void openMySite() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
         startActivity(browserIntent);
+    }
+
+    private boolean isSensorsExist() {
+        SensorManager sensorManager = SensorUtils.getSensorManager(this);
+        return SensorUtils.getTemperatureSensor(sensorManager) != null || SensorUtils.getHumiditySensor(sensorManager) != null;
     }
 }
