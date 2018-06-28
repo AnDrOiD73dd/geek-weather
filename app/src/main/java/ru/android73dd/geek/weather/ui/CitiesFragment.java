@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +27,7 @@ import ru.android73dd.geek.weather.utils.Logger;
 
 public class CitiesFragment extends BaseFragment implements View.OnClickListener, WeatherAdapter.OnItemClickListener {
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener listener;
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private List<Weather> dataSource;
@@ -46,7 +45,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            listener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -77,7 +76,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
     @Override
@@ -123,7 +122,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onItemClick(View view, int position) {
-        mListener.onItemClicked(dataSource.get(position).getCityName());
+        listener.onItemClicked(dataSource.get(position).getCityName());
     }
 
     public WeatherConfig getWeatherConfig() {

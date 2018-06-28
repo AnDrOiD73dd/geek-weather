@@ -21,7 +21,8 @@ import ru.android73dd.geek.weather.R;
 import ru.android73dd.geek.weather.utils.SensorUtils;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, CitiesFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        CitiesFragment.OnFragmentInteractionListener {
 
     DrawerLayout drawerLayout;
 
@@ -42,13 +43,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        BaseFragment fragment;
-        if (isSensorsExist()) {
-            fragment = SensorsDataFragment.newInstance();
-        } else {
-            fragment = CitiesFragment.newInstance();
-        }
-
+        BaseFragment fragment = CitiesFragment.newInstance();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
     }
 
