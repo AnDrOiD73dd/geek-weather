@@ -48,5 +48,8 @@
     <string name="fragment_about_developer_title">About developer</string>
     <string name="fragment_about_developer_body">Evgeny Uleikin\nandroid73.dd@gmail.com</string>
     <string name="ok">OK</string>
+    <string name="add_city_fragment_city_name_hint">City name</string>
+    <string name="add_city_fragment_city_name_title">Please enter city name</string>
+    <string name="button_add">Add</string>
 
 </resources>

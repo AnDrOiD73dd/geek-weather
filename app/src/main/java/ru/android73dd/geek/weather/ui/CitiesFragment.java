@@ -83,7 +83,8 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_add_city:
-                showAddCityDialog(v);
+//                showAddCityDialog(v);
+                showAddCityDialogFragment();
                 break;
             default:
                 Logger.d("Unknown view = " + v.getId());

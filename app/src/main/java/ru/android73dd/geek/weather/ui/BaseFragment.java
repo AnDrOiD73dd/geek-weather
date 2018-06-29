@@ -14,4 +14,18 @@ public class BaseFragment extends Fragment {
             aboutDeveloperFragment.show(manager, "about developer dialog");
         }
     }
+
+    public void showAddCityDialogFragment() {
+        FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+        if (manager != null) {
+            final AddCityDialogFragment addCityDialog = new AddCityDialogFragment();
+            addCityDialog.setListener(new AddCityDialogFragment.AddClickListener() {
+                @Override
+                public void onAddClick(String s) {
+                    addCityDialog.dismiss();
+                }
+            });
+            addCityDialog.show(manager, "Add city dialog");
+        }
+    }
 }
