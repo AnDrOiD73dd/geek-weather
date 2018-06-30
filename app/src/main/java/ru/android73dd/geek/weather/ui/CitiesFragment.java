@@ -33,7 +33,6 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
 
     private OnFragmentInteractionListener listener;
     private RecyclerView recyclerView;
-    private FloatingActionButton fab;
     private List<Weather> dataSource;
     private WeatherAdapter adapter;
     private AddCityDialogFragment addCityDialog;
@@ -67,7 +66,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        fab = layout.findViewById(R.id.fab_add_city);
+        FloatingActionButton fab = layout.findViewById(R.id.fab_add_city);
         fab.setOnClickListener(this);
         return layout;
     }
@@ -89,7 +88,6 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_add_city:
-//                showAddCityDialog(v);
                 showAddCityDialogFragment();
                 break;
             default:
