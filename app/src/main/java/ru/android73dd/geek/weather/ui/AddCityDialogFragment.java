@@ -17,7 +17,7 @@ import ru.android73dd.geek.weather.R;
 
 public class AddCityDialogFragment extends DialogFragment {
 
-    private AddClickListener listener;
+    private ActionListener listener;
 
     @NonNull
     @Override
@@ -37,35 +37,38 @@ public class AddCityDialogFragment extends DialogFragment {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (listener != null) {
+                    listener.onTextChanged(s.toString());
+                }
             }
         });
         AppCompatButton button = layout.findViewById(R.id.bt_add_city);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onAddClick(editText.getText().toString());
+                if (listener != null) {
+                    listener.onAddClick(editText.getText().toString());
+                }
             }
         });
 
         return builder.create();
     }
 
-    interface AddClickListener {
+    interface ActionListener {
+        void onTextChanged(String s);
         void onAddClick(String s);
     }
 
-    public void setListener(AddClickListener listener) {
+    public void setListener(ActionListener listener) {
         this.listener = listener;
     }
 }

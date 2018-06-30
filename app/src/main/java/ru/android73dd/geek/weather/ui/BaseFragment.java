@@ -19,7 +19,12 @@ public class BaseFragment extends Fragment {
         FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
         if (manager != null) {
             final AddCityDialogFragment addCityDialog = new AddCityDialogFragment();
-            addCityDialog.setListener(new AddCityDialogFragment.AddClickListener() {
+            addCityDialog.setListener(new AddCityDialogFragment.ActionListener() {
+                @Override
+                public void onTextChanged(String s) {
+
+                }
+
                 @Override
                 public void onAddClick(String s) {
                     addCityDialog.dismiss();
