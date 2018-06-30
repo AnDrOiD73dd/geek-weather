@@ -70,7 +70,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
     @Override
     public void addCity(Context context, String cityName) {
         SharedPreferences prefs = PrefUtils.getPrefs(context);
-        Set<String> citiesSet = prefs.getStringSet(KEY_WEATHER_CITIES_LIST, new HashSet<String>());
+        Set<String> citiesSet = new HashSet<>(prefs.getStringSet(KEY_WEATHER_CITIES_LIST, new HashSet<String>()));
         citiesSet.add(cityName);
         this.weatherConfig.setCitiesSet(citiesSet);
         PrefUtils.getEditor(context).putStringSet(KEY_WEATHER_CITIES_LIST, weatherConfig.getCitiesSet()).commit();
