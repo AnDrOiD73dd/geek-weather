@@ -131,9 +131,14 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
 
     public void showAddCityDialogFragment() {
         FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
-        if (manager != null) {
-            addCityDialog = new AddCityDialogFragment();
-            addCityDialog.setListener(this);
+        if (addCityDialog == null) {
+            if (manager != null) {
+                addCityDialog = new AddCityDialogFragment();
+                addCityDialog.setListener(this);
+                addCityDialog.show(manager, "Add city dialog");
+            }
+        }
+        else {
             addCityDialog.show(manager, "Add city dialog");
         }
     }
