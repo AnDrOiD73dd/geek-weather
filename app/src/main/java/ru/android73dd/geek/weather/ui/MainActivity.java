@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         CitiesFragment.OnFragmentInteractionListener {
 
-    DrawerLayout drawerLayout;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,10 +74,5 @@ public class MainActivity extends AppCompatActivity
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private boolean isSensorsExist() {
-        SensorManager sensorManager = SensorUtils.getSensorManager(this);
-        return SensorUtils.getTemperatureSensor(sensorManager) != null || SensorUtils.getHumiditySensor(sensorManager) != null;
     }
 }
