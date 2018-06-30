@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,22 +17,26 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.util.List;
+import java.util.Objects;
 
 import ru.android73dd.geek.weather.R;
 import ru.android73dd.geek.weather.model.Weather;
 import ru.android73dd.geek.weather.model.WeatherAdapter;
 import ru.android73dd.geek.weather.model.WeatherConfig;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
+import ru.android73dd.geek.weather.ui.dialog.AddCityDialogFragment;
 import ru.android73dd.geek.weather.utils.DataSourceBuilder;
 import ru.android73dd.geek.weather.utils.Logger;
 
-public class CitiesFragment extends BaseFragment implements View.OnClickListener, WeatherAdapter.OnItemClickListener {
+public class CitiesFragment extends BaseFragment implements View.OnClickListener,
+        WeatherAdapter.OnItemClickListener, AddCityDialogFragment.ActionListener {
 
     private OnFragmentInteractionListener listener;
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private List<Weather> dataSource;
     private WeatherAdapter adapter;
+    private AddCityDialogFragment addCityDialog;
 
     public CitiesFragment() {
         // Required empty public constructor
@@ -77,6 +82,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     public void onDetach() {
         super.onDetach();
         listener = null;
+        addCityDialog.setListener(null);
     }
 
     @Override
@@ -90,35 +96,6 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
                 Logger.d("Unknown view = " + v.getId());
                 break;
         }
-    }
-
-    private void showAddCityDialog(View v) {
-        final EditText input = new EditText(v.getContext());
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        input.setLayoutParams(lp);
-        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext())
-                .setView(input)
-                .setTitle(R.string.dialog_add_city_title)
-                .setPositiveButton(R.string.dialog_add_city_button_add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String cityName = input.getText().toString().trim();
-                        if (!cityName.isEmpty()) {
-                            SettingsRepositoryImpl.getInstance().addCity(getActivity(), cityName);
-                            dataSource.add(Weather.createDefault(getContext(), cityName));
-                            adapter.notifyDataSetChanged();
-                        }
-                    }
-                })
-                .setNegativeButton(R.string.dialog_add_city_button_cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        builder.show();
     }
 
     @Override
@@ -150,5 +127,30 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         adapter = new WeatherAdapter(dataSource, getWeatherConfig());
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
+    }
+
+    public void showAddCityDialogFragment() {
+        FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+        if (manager != null) {
+            addCityDialog = new AddCityDialogFragment();
+            addCityDialog.setListener(this);
+            addCityDialog.show(manager, "Add city dialog");
+        }
+    }
+
+    @Override
+    public void onTextChanged(String s) {
+
+    }
+
+    @Override
+    public void onAddClick(String s) {
+        addCityDialog.dismiss();
+        String cityName = s.trim();
+        if (!cityName.isEmpty()) {
+            SettingsRepositoryImpl.getInstance().addCity(getActivity(), cityName);
+            dataSource.add(Weather.createDefault(getContext(), cityName));
+            adapter.notifyDataSetChanged();
+        }
     }
 }

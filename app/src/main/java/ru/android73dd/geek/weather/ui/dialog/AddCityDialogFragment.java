@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather.ui;
+package ru.android73dd.geek.weather.ui.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -63,7 +63,7 @@ public class AddCityDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    interface ActionListener {
+    public interface ActionListener {
         void onTextChanged(String s);
         void onAddClick(String s);
     }

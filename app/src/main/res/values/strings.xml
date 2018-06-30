@@ -31,10 +31,6 @@
         <item>Amsterdam</item>
     </string-array>
 
-    <string name="dialog_add_city_title">Please input city name</string>
-    <string name="dialog_add_city_button_add">Add</string>
-    <string name="dialog_add_city_button_cancel">Cancel</string>
-
     <string name="author_name">Evgeny Uleikin</string>
     <string name="author_email">android73.dd@gmail.com</string>
     <string name="nav_group_communicate_title">Communicate</string>
