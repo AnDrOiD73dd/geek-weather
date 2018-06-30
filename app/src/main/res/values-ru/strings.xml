@@ -11,23 +11,10 @@
     <string name="show_weather">Показать погоду</string>
     <string name="weather_status_content_description">Состояние погоды</string>
 
-    <string name="pref_header_general">Общие</string>
-    <string name="pref_title_city_name">Название города</string>
-    <string name="pref_default_city_name">Саратов</string>
+    <string name="pref_header_interface">Интерфейс</string>
     <string name="pref_summary_humidity">Включите, чтобы загружать информацию о влажности</string>
     <string name="pref_summary_wind">Включите, чтобы загружать информацию о ветре</string>
     <string name="pref_summary_probability_of_precipitation">Включите, чтобы загружать информацию о вероятности осадков</string>
-    <string name="pref_cities_list_title">Список городов</string>
-    <string name="pref_cities_list_summary">Выберите города, информацию о погоде которых вы хотите загружать</string>
-    <string name="pref_cities_list_dialog">Выберите города</string>
-
-    <string-array name="pref_cities_list">
-        <item>Москва</item>
-        <item>Лондон</item>
-        <item>Нью Йорк</item>
-        <item>Саратов</item>
-        <item>Амстердам</item>
-    </string-array>
 
     <string name="author_name">Евгений Улейкин</string>
     <string name="nav_group_communicate_title">Связь</string>

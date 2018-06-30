@@ -12,24 +12,10 @@
     <string name="choose_city_hint_text">City name</string>
     <string name="weather_status_content_description">Weather status</string>
 
-    <string name="pref_header_general">General</string>
-    <string name="pref_title_city_name">City name</string>
-    <string name="pref_default_city_name">Saratov</string>
+    <string name="pref_header_interface">Интерфейс</string>
     <string name="pref_summary_humidity">Turn on to load info about humidity</string>
     <string name="pref_summary_wind">Turn on to load info about wind</string>
     <string name="pref_summary_probability_of_precipitation">Turn on to load info about probability of precipitation</string>
-    <string name="pref_cities_list_title">Cities list</string>
-    <string name="pref_cities_list_summary">Select the cities whose weather information you want to load</string>
-    <string name="pref_cities_list_dialog">Select the cities</string>
-
-    <string-array name="empty_array" />
-    <string-array name="pref_cities_list">
-        <item>Moscow</item>
-        <item>London</item>
-        <item>New York</item>
-        <item>Saratov</item>
-        <item>Amsterdam</item>
-    </string-array>
 
     <string name="author_name">Evgeny Uleikin</string>
     <string name="author_email">android73.dd@gmail.com</string>
