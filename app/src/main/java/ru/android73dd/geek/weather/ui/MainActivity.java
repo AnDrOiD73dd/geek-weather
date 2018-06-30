@@ -48,22 +48,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-        }
-        return false;
-    }
-
-    @Override
     public void onItemClicked(String cityName) {
         startActivity(WeatherDetailsActivity.getIntent(this, cityName));
     }
@@ -80,23 +64,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_stub:
-                break;
             case R.id.nav_about_developer:
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
                 ((BaseFragment) fragment).showAboutDeveloper();
                 break;
-            case R.id.nav_site:
-                openMySite();
+            case R.id.nav_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void openMySite() {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-        startActivity(browserIntent);
     }
 
     private boolean isSensorsExist() {

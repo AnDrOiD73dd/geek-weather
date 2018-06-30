@@ -10,7 +10,6 @@
     <string name="app_name">Погода</string>
     <string name="show_weather">Показать погоду</string>
     <string name="weather_status_content_description">Состояние погоды</string>
-    <string name="action_settings">Настройки</string>
 
     <string name="pref_header_general">Общие</string>
     <string name="pref_title_city_name">Название города</string>
@@ -34,12 +33,11 @@
     <string name="dialog_add_city_button_add">Добавить</string>
     <string name="dialog_add_city_button_cancel">Отмена</string>
     <string name="author_name">Евгений Улейкин</string>
-    <string name="nav_stub_title">Заглушка</string>
     <string name="nav_group_communicate_title">Связь</string>
     <string name="nav_about_developer_title">О разработчике</string>
-    <string name="nav_site_title">Сайт</string>
     <string name="fragment_about_developer_title">О разработчике</string>
     <string name="add_city_fragment_city_name_hint">Название города</string>
     <string name="add_city_fragment_city_name_title">Введите название города</string>
     <string name="button_add">Добавить</string>
+    <string name="settings_title">Настройки</string>
 </resources>

@@ -6,17 +6,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_stub"
-            android:icon="@android:drawable/ic_menu_help"
-            android:title="@string/nav_stub_title" />
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_20px_vector"
+            android:title="@string/settings_title" />
         <item
             android:id="@+id/nav_about_developer"
             android:icon="@android:drawable/ic_menu_info_details"
             android:title="@string/nav_about_developer_title" />
-        <item
-            android:id="@+id/nav_site"
-            android:icon="@android:drawable/ic_menu_mapmode"
-            android:title="@string/nav_site_title" />
     </group>
 
 </menu>

@@ -42,20 +42,4 @@ public class WeatherDetailsActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_CITY_NAME, cityName);
         return intent;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-        }
-        return false;
-    }
 }
