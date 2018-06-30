@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
-import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -141,8 +139,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_general);
-            setHasOptionsMenu(true);
+            addPreferencesFromResource(R.xml.pref_interface);
 
             prefHumidity = (SwitchPreference) findPreference(PREF_HUMIDITY);
             prefWind = (SwitchPreference) findPreference(PREF_WIND);
@@ -155,26 +152,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
         @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
-
-        @Override
         public void onResume() {
             super.onResume();
-            // Set up a listener whenever a key changes
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         }
 
         @Override
         public void onPause() {
             super.onPause();
-            // Set up a listener whenever a key changes
             getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
         }
 

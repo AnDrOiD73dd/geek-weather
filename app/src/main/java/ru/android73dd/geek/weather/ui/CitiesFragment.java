@@ -81,7 +81,9 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     public void onDetach() {
         super.onDetach();
         listener = null;
-        addCityDialog.setListener(null);
+        if (addCityDialog != null) {
+            addCityDialog.setListener(null);
+        }
     }
 
     @Override
