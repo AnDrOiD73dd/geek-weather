@@ -2,7 +2,6 @@ package ru.android73dd.geek.weather.ui;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -13,7 +12,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
-import android.view.MenuItem;
 
 import java.util.List;
 
@@ -118,15 +116,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || GeneralPreferenceFragment.class.getName().equals(fragmentName);
+                || InterfacePreferenceFragment.class.getName().equals(fragmentName)
+                || NotificationsPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
-     * This fragment shows general preferences only. It is used when the
+     * This fragment shows interface preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class GeneralPreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+    public static class InterfacePreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
         private static final String PREF_HUMIDITY = "pref_show_humidity";
         private static final String PREF_WIND = "pref_show_wind";
@@ -181,6 +180,41 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     weatherConfig.setShowProbabilityOfPrecipitation(prefPoP.isChecked());
                     SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
                     break;
+                default:
+                    Logger.d("Unknown key = " + key);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * This fragment shows notifications preferences only.
+     * This is stub, not implemented yet
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class NotificationsPreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_notifications);
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            switch (key) {
                 default:
                     Logger.d("Unknown key = " + key);
                     break;

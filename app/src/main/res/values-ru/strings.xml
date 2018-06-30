@@ -12,6 +12,7 @@
     <string name="weather_status_content_description">Состояние погоды</string>
 
     <string name="pref_header_interface">Интерфейс</string>
+    <string name="pref_header_notifications">Уведомления</string>
     <string name="pref_summary_humidity">Включите, чтобы загружать информацию о влажности</string>
     <string name="pref_summary_wind">Включите, чтобы загружать информацию о ветре</string>
     <string name="pref_summary_probability_of_precipitation">Включите, чтобы загружать информацию о вероятности осадков</string>
