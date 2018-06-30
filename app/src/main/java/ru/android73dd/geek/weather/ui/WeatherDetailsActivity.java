@@ -27,10 +27,7 @@ public class WeatherDetailsActivity extends AppCompatActivity {
 
         WeatherDetailsFragment details = (WeatherDetailsFragment) getFragmentManager().findFragmentById(R.id.weather_container);
         if (details == null) {
-            WeatherConfig weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(this);
-            // TODO replace it
-            weatherConfig.setCityName(cityName);
-            details = WeatherDetailsFragment.newInstance(weatherConfig);
+            details = WeatherDetailsFragment.newInstance(cityName);
             getFragmentManager().beginTransaction().add(R.id.weather_container, details).commit();
         } else {
             getFragmentManager().beginTransaction().replace(R.id.weather_container, details).commit();

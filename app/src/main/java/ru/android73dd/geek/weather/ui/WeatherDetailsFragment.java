@@ -17,7 +17,8 @@ import ru.android73dd.geek.weather.utils.Utils;
 
 public class WeatherDetailsFragment extends Fragment {
 
-    private static final String KEY_WEATHER_CONFIG = "kwc";
+    private static final String KEY_CITY_NAME = "kcn";
+
     private TextView tvCityName;
     private TextView tvDate;
     private ImageView ivStatus;
@@ -30,10 +31,10 @@ public class WeatherDetailsFragment extends Fragment {
     private LinearLayout llWind;
     private LinearLayout llProbabilityOfPrecipitation;
 
-    public static WeatherDetailsFragment newInstance(WeatherConfig weatherConfig) {
+    public static WeatherDetailsFragment newInstance(String cityName) {
         WeatherDetailsFragment detailsFragment = new WeatherDetailsFragment();
         Bundle args = new Bundle();
-        args.putParcelable(KEY_WEATHER_CONFIG, weatherConfig);
+        args.putString(KEY_CITY_NAME, cityName);
         detailsFragment.setArguments(args);
         return detailsFragment;
     }
@@ -57,7 +58,8 @@ public class WeatherDetailsFragment extends Fragment {
     }
 
     private void updateUI(WeatherConfig weatherConfig) {
-        updateUI(weatherConfig.getCityName(), Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT),
+        String cityName = getArguments().getString(KEY_CITY_NAME);
+        updateUI(cityName, Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT),
                 weatherConfig.isShowHumidity(), weatherConfig.isShowWind(), weatherConfig.isShowProbabilityOfPrecipitation());
     }
 
