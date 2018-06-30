@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!--http://materialmixer.co/-->
     <color name="primary">#2196F3</color>
     <color name="primaryDark">#1976D2</color>
     <color name="primaryLight">#BBDEFB</color>
