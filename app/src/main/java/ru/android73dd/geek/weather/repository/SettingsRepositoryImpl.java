@@ -43,8 +43,8 @@ public class SettingsRepositoryImpl implements SettingsRepository {
                 .putBoolean(KEY_WEATHER_HUMIDITY, weatherPreferences.isShowHumidity())
                 .putBoolean(KEY_WEATHER_WIND, weatherPreferences.isShowWind())
                 .putBoolean(KEY_WEATHER_PROBABILITY_OF_PRECIPITATION, weatherPreferences.isShowProbabilityOfPrecipitation())
-                .commit();
-//        sendNotify(weatherPreferences);
+                .apply();
+        // TODO notify observers
     }
 
     @Override
@@ -73,6 +73,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         Set<String> citiesSet = new HashSet<>(prefs.getStringSet(KEY_WEATHER_CITIES_LIST, new HashSet<String>()));
         citiesSet.add(cityName);
         this.weatherPreferences.setCitiesSet(citiesSet);
-        PrefUtils.getEditor(context).putStringSet(KEY_WEATHER_CITIES_LIST, weatherPreferences.getCitiesSet()).commit();
+        PrefUtils.getEditor(context).putStringSet(KEY_WEATHER_CITIES_LIST, weatherPreferences.getCitiesSet()).apply();
+        // TODO notify observers
     }
 }
