@@ -2,15 +2,15 @@ package ru.android73dd.geek.weather.model;
 
 import java.util.Set;
 
-public class WeatherConfig {
+public class WeatherPreferences {
 
     private Set<String> citiesSet;
     private boolean showHumidity;
     private boolean showWind;
     private boolean showProbabilityOfPrecipitation;
 
-    private WeatherConfig(Set<String> citiesSet, boolean showHumidity, boolean showWind,
-                          boolean showProbabilityOfPrecipitation) {
+    private WeatherPreferences(Set<String> citiesSet, boolean showHumidity, boolean showWind,
+                               boolean showProbabilityOfPrecipitation) {
         this.citiesSet = citiesSet;
         this.showHumidity = showHumidity;
         this.showWind = showWind;
@@ -76,8 +76,8 @@ public class WeatherConfig {
             return this;
         }
 
-        public WeatherConfig create() {
-            return new WeatherConfig(citiesSet, showHumidity, showWind, showProbabilityOfPrecipitation);
+        public WeatherPreferences create() {
+            return new WeatherPreferences(citiesSet, showHumidity, showWind, showProbabilityOfPrecipitation);
         }
     }
 }

@@ -16,12 +16,12 @@ import ru.android73dd.geek.weather.R;
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
     private List<WeatherSimpleEntry> dataSource;
-    private WeatherConfig weatherConfig;
+    private WeatherPreferences weatherPreferences;
     private OnItemClickListener itemClickListener;
 
-    public WeatherAdapter(List<WeatherSimpleEntry> dataSource, WeatherConfig weatherConfig) {
+    public WeatherAdapter(List<WeatherSimpleEntry> dataSource, WeatherPreferences weatherPreferences) {
         this.dataSource = dataSource;
-        this.weatherConfig = weatherConfig;
+        this.weatherPreferences = weatherPreferences;
     }
 
     @NonNull
@@ -40,13 +40,13 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         holder.temperature.setText(item.getTemperature());
 
         holder.humidity.setText(item.getHumidity());
-        holder.llHumidity.setVisibility(weatherConfig.isShowHumidity() ? View.VISIBLE : View.GONE);
+        holder.llHumidity.setVisibility(weatherPreferences.isShowHumidity() ? View.VISIBLE : View.GONE);
 
         holder.wind.setText(item.getWind());
-        holder.llWind.setVisibility(weatherConfig.isShowWind() ? View.VISIBLE : View.GONE);
+        holder.llWind.setVisibility(weatherPreferences.isShowWind() ? View.VISIBLE : View.GONE);
 
         holder.probabilityOfPrecipitation.setText(item.getProbabilityOfPrecipitation());
-        holder.llProbabilityOfPrecipitation.setVisibility(weatherConfig.isShowProbabilityOfPrecipitation() ? View.VISIBLE : View.GONE);
+        holder.llProbabilityOfPrecipitation.setVisibility(weatherPreferences.isShowProbabilityOfPrecipitation() ? View.VISIBLE : View.GONE);
     }
 
     @Override

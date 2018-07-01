@@ -16,7 +16,7 @@ import android.support.v7.app.ActionBar;
 import java.util.List;
 
 import ru.android73dd.geek.weather.R;
-import ru.android73dd.geek.weather.model.WeatherConfig;
+import ru.android73dd.geek.weather.model.WeatherPreferences;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.Logger;
 
@@ -144,10 +144,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             prefWind = (SwitchPreference) findPreference(PREF_WIND);
             prefPoP = (SwitchPreference) findPreference(PREF_SHOW_PROBABILITY_OF_PRECIPITATION);
 
-            WeatherConfig weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-            prefHumidity.setChecked(weatherConfig.isShowHumidity());
-            prefWind.setChecked(weatherConfig.isShowWind());
-            prefPoP.setChecked(weatherConfig.isShowProbabilityOfPrecipitation());
+            WeatherPreferences weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+            prefHumidity.setChecked(weatherPreferences.isShowHumidity());
+            prefWind.setChecked(weatherPreferences.isShowWind());
+            prefPoP.setChecked(weatherPreferences.isShowProbabilityOfPrecipitation());
         }
 
         @Override
@@ -166,19 +166,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             switch (key) {
                 case PREF_HUMIDITY:
-                    WeatherConfig weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-                    weatherConfig.setShowHumidity(prefHumidity.isChecked());
-                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
+                    WeatherPreferences weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+                    weatherPreferences.setShowHumidity(prefHumidity.isChecked());
+                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherPreferences);
                     break;
                 case PREF_WIND:
-                    weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-                    weatherConfig.setShowWind(prefWind.isChecked());
-                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
+                    weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+                    weatherPreferences.setShowWind(prefWind.isChecked());
+                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherPreferences);
                     break;
                 case PREF_SHOW_PROBABILITY_OF_PRECIPITATION:
-                    weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-                    weatherConfig.setShowProbabilityOfPrecipitation(prefPoP.isChecked());
-                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
+                    weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+                    weatherPreferences.setShowProbabilityOfPrecipitation(prefPoP.isChecked());
+                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherPreferences);
                     break;
                 default:
                     Logger.d("Unknown key = " + key);

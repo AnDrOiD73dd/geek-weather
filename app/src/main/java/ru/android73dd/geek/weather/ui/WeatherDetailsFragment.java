@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.android73dd.geek.weather.R;
-import ru.android73dd.geek.weather.model.WeatherConfig;
+import ru.android73dd.geek.weather.model.WeatherPreferences;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.Utils;
 
@@ -53,14 +53,14 @@ public class WeatherDetailsFragment extends Fragment {
         updateUI(getWeatherConfig());
     }
 
-    public WeatherConfig getWeatherConfig() {
+    public WeatherPreferences getWeatherConfig() {
         return SettingsRepositoryImpl.getInstance().getSettings(getActivity());
     }
 
-    private void updateUI(WeatherConfig weatherConfig) {
+    private void updateUI(WeatherPreferences weatherPreferences) {
         String cityName = getArguments().getString(KEY_CITY_NAME);
         updateUI(cityName, Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT),
-                weatherConfig.isShowHumidity(), weatherConfig.isShowWind(), weatherConfig.isShowProbabilityOfPrecipitation());
+                weatherPreferences.isShowHumidity(), weatherPreferences.isShowWind(), weatherPreferences.isShowProbabilityOfPrecipitation());
     }
 
     private void updateUI(String cityName, String date, boolean showHumidity, boolean showWind, boolean showProbabilityOfPrecipitation) {

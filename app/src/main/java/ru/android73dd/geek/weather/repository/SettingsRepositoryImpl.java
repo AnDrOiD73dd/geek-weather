@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import java.util.HashSet;
 import java.util.Set;
 
-import ru.android73dd.geek.weather.model.WeatherConfig;
+import ru.android73dd.geek.weather.model.WeatherPreferences;
 
 public class SettingsRepositoryImpl implements SettingsRepository {
 
@@ -16,7 +16,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
     private static final String KEY_WEATHER_PROBABILITY_OF_PRECIPITATION = "kwpop";
 
     private static SettingsRepositoryImpl instance;
-    private WeatherConfig weatherConfig;
+    private WeatherPreferences weatherPreferences;
 
     private SettingsRepositoryImpl() {
     }
@@ -36,35 +36,35 @@ public class SettingsRepositoryImpl implements SettingsRepository {
 
 
     @Override
-    public void saveSettings(Context context, WeatherConfig weatherConfig) {
-        this.weatherConfig = weatherConfig;
+    public void saveSettings(Context context, WeatherPreferences weatherPreferences) {
+        this.weatherPreferences = weatherPreferences;
         PrefUtils.getEditor(context)
-                .putStringSet(KEY_WEATHER_CITIES_LIST, weatherConfig.getCitiesSet())
-                .putBoolean(KEY_WEATHER_HUMIDITY, weatherConfig.isShowHumidity())
-                .putBoolean(KEY_WEATHER_WIND, weatherConfig.isShowWind())
-                .putBoolean(KEY_WEATHER_PROBABILITY_OF_PRECIPITATION, weatherConfig.isShowProbabilityOfPrecipitation())
+                .putStringSet(KEY_WEATHER_CITIES_LIST, weatherPreferences.getCitiesSet())
+                .putBoolean(KEY_WEATHER_HUMIDITY, weatherPreferences.isShowHumidity())
+                .putBoolean(KEY_WEATHER_WIND, weatherPreferences.isShowWind())
+                .putBoolean(KEY_WEATHER_PROBABILITY_OF_PRECIPITATION, weatherPreferences.isShowProbabilityOfPrecipitation())
                 .commit();
-//        sendNotify(weatherConfig);
+//        sendNotify(weatherPreferences);
     }
 
     @Override
-    public WeatherConfig getSettings(Context context) {
-        if (this.weatherConfig != null) {
-            return this.weatherConfig;
+    public WeatherPreferences getSettings(Context context) {
+        if (this.weatherPreferences != null) {
+            return this.weatherPreferences;
         }
         SharedPreferences prefs = PrefUtils.getPrefs(context);
         Set<String> citiesSet = prefs.getStringSet(KEY_WEATHER_CITIES_LIST, new HashSet<String>());
         boolean showHumidity = prefs.getBoolean(KEY_WEATHER_HUMIDITY, true);
         boolean showWind = prefs.getBoolean(KEY_WEATHER_WIND, true);
         boolean showProbabilityOfPrecipitation = prefs.getBoolean(KEY_WEATHER_PROBABILITY_OF_PRECIPITATION, true);
-        this.weatherConfig = new WeatherConfig.Builder()
+        this.weatherPreferences = new WeatherPreferences.Builder()
                 .setCitiesSet(citiesSet)
                 .setShowHumidity(showHumidity)
                 .setShowWind(showWind)
                 .setShowProbabilityOfPrecipitation(showProbabilityOfPrecipitation)
                 .create();
 
-        return this.weatherConfig;
+        return this.weatherPreferences;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         SharedPreferences prefs = PrefUtils.getPrefs(context);
         Set<String> citiesSet = new HashSet<>(prefs.getStringSet(KEY_WEATHER_CITIES_LIST, new HashSet<String>()));
         citiesSet.add(cityName);
-        this.weatherConfig.setCitiesSet(citiesSet);
-        PrefUtils.getEditor(context).putStringSet(KEY_WEATHER_CITIES_LIST, weatherConfig.getCitiesSet()).commit();
+        this.weatherPreferences.setCitiesSet(citiesSet);
+        PrefUtils.getEditor(context).putStringSet(KEY_WEATHER_CITIES_LIST, weatherPreferences.getCitiesSet()).commit();
     }
 }

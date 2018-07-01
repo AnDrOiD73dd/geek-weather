@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Objects;
 
 import ru.android73dd.geek.weather.R;
+import ru.android73dd.geek.weather.model.WeatherPreferences;
 import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
 import ru.android73dd.geek.weather.model.WeatherAdapter;
-import ru.android73dd.geek.weather.model.WeatherConfig;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.ui.dialog.AddCityDialogFragment;
 import ru.android73dd.geek.weather.utils.DataSourceBuilder;
@@ -99,7 +99,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         listener.onItemClicked(dataSource.get(position).getCityName());
     }
 
-    public WeatherConfig getWeatherConfig() {
+    public WeatherPreferences getWeatherConfig() {
         return SettingsRepositoryImpl.getInstance().getSettings(getActivity());
     }
 
