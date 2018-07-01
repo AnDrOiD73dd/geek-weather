@@ -44,6 +44,11 @@ public class OpenWeatherRepositoryImpl implements OpenWeatherRepository {
     }
 
     @Override
+    public OpenWeatherMapModel getByCityName(String cityName) {
+        return weatherMap.get(cityName);
+    }
+
+    @Override
     public ConcurrentHashMap<String, OpenWeatherMapModel> getAll() {
         return weatherMap;
     }

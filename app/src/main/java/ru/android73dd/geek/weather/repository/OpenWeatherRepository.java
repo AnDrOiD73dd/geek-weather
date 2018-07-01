@@ -9,6 +9,7 @@ public interface OpenWeatherRepository {
     void add(OpenWeatherMapModel instance);
     void remove(OpenWeatherMapModel instance);
     void update(OpenWeatherMapModel instance);
+    OpenWeatherMapModel getByCityName(String cityName);
     ConcurrentHashMap<String, OpenWeatherMapModel> getAll();
     int getSize();
     void clear();

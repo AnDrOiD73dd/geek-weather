@@ -1,5 +1,6 @@
 package ru.android73dd.geek.weather.model;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -98,7 +99,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             if (getLayoutPosition() != RecyclerView.NO_POSITION) {
                 WeatherSimpleEntry item = dataSource.get(position);
                 setData(item);
-                requestWeather(item, position);
+                updateValues(item, position);
             }
         }
 
@@ -117,9 +118,21 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             llProbabilityOfPrecipitation.setVisibility(weatherPreferences.isShowProbabilityOfPrecipitation() ? View.VISIBLE : View.GONE);
         }
 
-        private void requestWeather(WeatherSimpleEntry item, final int position) {
+        private void updateValues(WeatherSimpleEntry item, final int position) {
             final String cityName = item.getCityName();
             if (item.equals(WeatherSimpleEntry.createDefault(cityName))) {
+                OpenWeatherMapModel openWeatherMapModel = OpenWeatherRepositoryImpl.getInstance().getByCityName(cityName);
+                if (openWeatherMapModel != null) {
+                    dataSource.set(position, WeatherSimpleEntry.map(openWeatherMapModel));
+                    Handler handler = new Handler();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            notifyDataSetChanged();
+                        }
+                    });
+                    return;
+                }
                 OpenWeatherRequester openWeatherRequester = new OpenWeatherRequester();
                 openWeatherRequester.getWeather(cityName, new Callback<OpenWeatherMapModel>() {
                     @Override
