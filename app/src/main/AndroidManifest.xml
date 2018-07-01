@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.android73dd.geek.weather">
+    <uses-permission android:name = "android.permission.INTERNET"/>
 
     <application
         android:name=".WeatherApp"
@@ -25,6 +26,7 @@
         <activity
             android:name=".ui.SettingsActivity"
             android:label="@string/settings_title" />
+
     </application>
 
 </manifest>

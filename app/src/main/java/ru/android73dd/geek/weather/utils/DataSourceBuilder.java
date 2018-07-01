@@ -21,8 +21,8 @@ public class DataSourceBuilder {
 
     public List<WeatherSimpleEntry> build() {
         WeatherPreferences weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(context);
-        for (String s: weatherPreferences.getCitiesSet()) {
-            dataSource.add(WeatherSimpleEntry.createDefault(context, s));
+        for (String cityName: weatherPreferences.getCitiesSet()) {
+            dataSource.add(WeatherSimpleEntry.createDefault(cityName));
         }
         return dataSource;
     }

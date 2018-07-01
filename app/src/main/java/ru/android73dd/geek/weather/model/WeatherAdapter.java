@@ -11,7 +11,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ru.android73dd.geek.weather.R;
+import ru.android73dd.geek.weather.model.openweathermap.WeatherRequest;
+import ru.android73dd.geek.weather.network.openweathermap.OpenWeatherRequester;
+import ru.android73dd.geek.weather.utils.Logger;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
@@ -34,19 +40,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        WeatherSimpleEntry item = dataSource.get(position);
-        holder.cityName.setText(item.getCityName());
-        holder.statusPic.setImageResource(item.getStatusPic());
-        holder.temperature.setText(item.getTemperature());
-
-        holder.humidity.setText(item.getHumidity());
-        holder.llHumidity.setVisibility(weatherPreferences.isShowHumidity() ? View.VISIBLE : View.GONE);
-
-        holder.wind.setText(item.getWind());
-        holder.llWind.setVisibility(weatherPreferences.isShowWind() ? View.VISIBLE : View.GONE);
-
-        holder.probabilityOfPrecipitation.setText(item.getProbabilityOfPrecipitation());
-        holder.llProbabilityOfPrecipitation.setVisibility(weatherPreferences.isShowProbabilityOfPrecipitation() ? View.VISIBLE : View.GONE);
+        holder.bind(position);
     }
 
     @Override
@@ -96,6 +90,46 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             llHumidity = itemView.findViewById(R.id.ll_humidity);
             llWind = itemView.findViewById(R.id.ll_wind);
             llProbabilityOfPrecipitation = itemView.findViewById(R.id.ll_probability_of_precipitation);
+        }
+
+        void bind(int position) {
+            if (getLayoutPosition() != RecyclerView.NO_POSITION) {
+                final WeatherSimpleEntry item = dataSource.get(position);
+                setData(item);
+                final String cityName = item.getCityName();
+                if (item.equals(WeatherSimpleEntry.createDefault(cityName))) {
+                    OpenWeatherRequester openWeatherRequester = new OpenWeatherRequester();
+                    openWeatherRequester.getWeather(cityName, new Callback<WeatherRequest>() {
+                        @Override
+                        public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
+                            String temp = Float.toString(response.body().getMain().getTemp());
+                            Logger.d(temp);
+                            item.setTemperature(temp);
+                            notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onFailure(Call<WeatherRequest> call, Throwable t) {
+                            Logger.d(t.toString());
+                        }
+                    });
+                }
+            }
+        }
+
+        private void setData(WeatherSimpleEntry item) {
+            cityName.setText(item.getCityName());
+            statusPic.setImageResource(item.getStatusPic());
+            temperature.setText(item.getTemperature());
+
+            humidity.setText(item.getHumidity());
+            llHumidity.setVisibility(weatherPreferences.isShowHumidity() ? View.VISIBLE : View.GONE);
+
+            wind.setText(item.getWind());
+            llWind.setVisibility(weatherPreferences.isShowWind() ? View.VISIBLE : View.GONE);
+
+            probabilityOfPrecipitation.setText(item.getProbabilityOfPrecipitation());
+            llProbabilityOfPrecipitation.setVisibility(weatherPreferences.isShowProbabilityOfPrecipitation() ? View.VISIBLE : View.GONE);
         }
     }
 }

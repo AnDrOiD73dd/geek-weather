@@ -1,6 +1,6 @@
 package ru.android73dd.geek.weather.model;
 
-import android.content.Context;
+import java.util.Objects;
 
 import ru.android73dd.geek.weather.R;
 
@@ -70,11 +70,28 @@ public class WeatherSimpleEntry {
         this.probabilityOfPrecipitation = probabilityOfPrecipitation;
     }
 
-    public static WeatherSimpleEntry createDefault(Context context, String cityName) {
-        return new WeatherSimpleEntry(cityName, R.drawable.weather_sunny,
-                "+22" + context.getResources().getString(R.string.unit_cesium),
-                " 40%",
-                " 3-5" + context.getResources().getString(R.string.unit_wind_speed),
-                " 20%");
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WeatherSimpleEntry that = (WeatherSimpleEntry) o;
+        return statusPic == that.statusPic &&
+                Objects.equals(cityName, that.cityName) &&
+                Objects.equals(temperature, that.temperature) &&
+                Objects.equals(humidity, that.humidity) &&
+                Objects.equals(wind, that.wind) &&
+                Objects.equals(probabilityOfPrecipitation, that.probabilityOfPrecipitation);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(cityName, statusPic, temperature, humidity, wind, probabilityOfPrecipitation);
+    }
+
+    public static WeatherSimpleEntry createDefault(String cityName) {
+        String unknown = "N/A";
+        return new WeatherSimpleEntry(cityName, R.drawable.weather_sunny, unknown, unknown, unknown,
+                unknown);
     }
 }
