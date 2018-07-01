@@ -96,10 +96,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
         void bind(int position) {
             if (getLayoutPosition() != RecyclerView.NO_POSITION) {
-                final int currentPosition = position;
                 WeatherSimpleEntry item = dataSource.get(position);
                 setData(item);
-                requestWeather(item, currentPosition);
+                requestWeather(item, position);
             }
         }
 
