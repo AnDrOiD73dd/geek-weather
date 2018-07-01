@@ -141,7 +141,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onTextChanged(String s) {
-
+        // TODO: Implement auto complete city name
     }
 
     @Override
