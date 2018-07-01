@@ -47,6 +47,7 @@
             android:id="@+id/tv_temperature_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/weather_value_margin_start"
             style="@style/CommonTextStyle"/>
 
     </LinearLayout>
@@ -69,6 +70,7 @@
             android:id="@+id/tv_humidity_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/weather_value_margin_start"
             style="@style/CommonTextStyle"/>
 
     </LinearLayout>
@@ -91,6 +93,7 @@
             android:id="@+id/tv_wind_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/weather_value_margin_start"
             style="@style/CommonTextStyle"/>
 
     </LinearLayout>
@@ -113,6 +116,7 @@
             android:id="@+id/tv_probability_of_precipitation_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/weather_value_margin_start"
             style="@style/CommonTextStyle"/>
 
     </LinearLayout>
