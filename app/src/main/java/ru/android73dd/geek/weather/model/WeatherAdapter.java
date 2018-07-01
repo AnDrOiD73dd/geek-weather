@@ -132,6 +132,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
                                 notifyDataSetChanged();
                             }
                         }
+                        else {
+                            Snackbar.make(itemView, R.string.error_load_data, Snackbar.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override
