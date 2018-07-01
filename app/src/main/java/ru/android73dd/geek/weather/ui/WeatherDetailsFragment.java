@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import ru.android73dd.geek.weather.R;
 import ru.android73dd.geek.weather.model.WeatherPreferences;
+import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
+import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
+import ru.android73dd.geek.weather.repository.OpenWeatherRepositoryImpl;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.Utils;
 
@@ -51,6 +54,7 @@ public class WeatherDetailsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         updateUI(getWeatherConfig());
+        setValues();
     }
 
     public WeatherPreferences getWeatherConfig() {
@@ -86,5 +90,17 @@ public class WeatherDetailsFragment extends Fragment {
         llHumidity = layout.findViewById(R.id.ll_humidity);
         llWind = layout.findViewById(R.id.ll_wind);
         llProbabilityOfPrecipitation = layout.findViewById(R.id.ll_probability_of_precipitation);
+    }
+
+    private void setValues() {
+        String cityName = getArguments().getString(KEY_CITY_NAME);
+        tvCityName.setText(cityName);
+        tvDate.setText(Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT));
+        OpenWeatherMapModel openWeatherMapModel = OpenWeatherRepositoryImpl.getInstance().getByCityName(cityName);
+        WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(openWeatherMapModel);
+        tvTempValue.setText(weatherSimpleEntry .getTemperature());
+        tvHumidityValue.setText(weatherSimpleEntry.getHumidity());
+        tvWindValue.setText(weatherSimpleEntry.getWind());
+        tvProbabilityOfPrecipitationValue.setText(weatherSimpleEntry.getProbabilityOfPrecipitation());
     }
 }
