@@ -4,7 +4,7 @@ import android.content.Context;
 
 import ru.android73dd.geek.weather.R;
 
-public class Weather {
+public class WeatherSimpleEntry {
 
     private String cityName;
     private int statusPic;
@@ -13,7 +13,7 @@ public class Weather {
     private String wind;
     private String probabilityOfPrecipitation;
 
-    public Weather(String cityName, int statusPic, String temperature, String humidity, String wind, String probabilityOfPrecipitation) {
+    public WeatherSimpleEntry(String cityName, int statusPic, String temperature, String humidity, String wind, String probabilityOfPrecipitation) {
         this.cityName = cityName;
         this.statusPic = statusPic;
         this.temperature = temperature;
@@ -70,8 +70,8 @@ public class Weather {
         this.probabilityOfPrecipitation = probabilityOfPrecipitation;
     }
 
-    public static Weather createDefault(Context context, String cityName) {
-        return new Weather(cityName, R.drawable.weather_sunny,
+    public static WeatherSimpleEntry createDefault(Context context, String cityName) {
+        return new WeatherSimpleEntry(cityName, R.drawable.weather_sunny,
                 "+22" + context.getResources().getString(R.string.unit_cesium),
                 " 40%",
                 " 3-5" + context.getResources().getString(R.string.unit_wind_speed),

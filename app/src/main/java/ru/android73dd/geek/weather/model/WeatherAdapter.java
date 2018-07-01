@@ -15,11 +15,11 @@ import ru.android73dd.geek.weather.R;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
-    private List<Weather> dataSource;
+    private List<WeatherSimpleEntry> dataSource;
     private WeatherConfig weatherConfig;
     private OnItemClickListener itemClickListener;
 
-    public WeatherAdapter(List<Weather> dataSource, WeatherConfig weatherConfig) {
+    public WeatherAdapter(List<WeatherSimpleEntry> dataSource, WeatherConfig weatherConfig) {
         this.dataSource = dataSource;
         this.weatherConfig = weatherConfig;
     }
@@ -34,7 +34,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Weather item = dataSource.get(position);
+        WeatherSimpleEntry item = dataSource.get(position);
         holder.cityName.setText(item.getCityName());
         holder.statusPic.setImageResource(item.getStatusPic());
         holder.temperature.setText(item.getTemperature());

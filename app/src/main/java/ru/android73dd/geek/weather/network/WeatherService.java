@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import ru.android73dd.geek.weather.model.Weather;
+import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
 
 public class WeatherService extends Service {
 
@@ -24,8 +24,8 @@ public class WeatherService extends Service {
         if (intent.hasExtra(KEY_WEATHER) && intent.hasExtra(KEY_LISTENER)) {
             Bundle extras = intent.getExtras();
             WeatherRequestListener listener = extras.getParcelable(KEY_LISTENER);
-            Weather weather = extras.getParcelable(KEY_WEATHER);
-            new OpenWeatherRequester(listener).getWeather(weather.getCityName());
+            WeatherSimpleEntry weatherSimpleEntry = extras.getParcelable(KEY_WEATHER);
+            new OpenWeatherRequester(listener).getWeather(weatherSimpleEntry.getCityName());
         }
         return START_NOT_STICKY;
     }

@@ -1,26 +1,22 @@
 package ru.android73dd.geek.weather.ui;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import java.util.List;
 import java.util.Objects;
 
 import ru.android73dd.geek.weather.R;
-import ru.android73dd.geek.weather.model.Weather;
+import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
 import ru.android73dd.geek.weather.model.WeatherAdapter;
 import ru.android73dd.geek.weather.model.WeatherConfig;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
@@ -33,7 +29,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
 
     private OnFragmentInteractionListener listener;
     private RecyclerView recyclerView;
-    private List<Weather> dataSource;
+    private List<WeatherSimpleEntry> dataSource;
     private WeatherAdapter adapter;
     private AddCityDialogFragment addCityDialog;
 
@@ -154,7 +150,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         String cityName = s.trim();
         if (!cityName.isEmpty()) {
             SettingsRepositoryImpl.getInstance().addCity(getActivity(), cityName);
-            dataSource.add(Weather.createDefault(getContext(), cityName));
+            dataSource.add(WeatherSimpleEntry.createDefault(getContext(), cityName));
             adapter.notifyDataSetChanged();
         }
     }

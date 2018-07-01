@@ -2,9 +2,9 @@ package ru.android73dd.geek.weather.network;
 
 import android.os.AsyncTask;
 
-import ru.android73dd.geek.weather.model.Weather;
+import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
 
-public class Requester extends AsyncTask<String, Void, Weather> {
+public class Requester extends AsyncTask<String, Void, WeatherSimpleEntry> {
 
     private final WeatherRequestListener listener;
 
@@ -13,12 +13,12 @@ public class Requester extends AsyncTask<String, Void, Weather> {
     }
 
     @Override
-    protected Weather doInBackground(String... strings) {
+    protected WeatherSimpleEntry doInBackground(String... strings) {
         return null;
     }
 
     @Override
-    protected void onPostExecute(Weather weather) {
-        listener.onWeatherReceived(weather);
+    protected void onPostExecute(WeatherSimpleEntry weatherSimpleEntry) {
+        listener.onWeatherReceived(weatherSimpleEntry);
     }
 }
