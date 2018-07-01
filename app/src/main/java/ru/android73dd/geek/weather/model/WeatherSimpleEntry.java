@@ -3,9 +3,11 @@ package ru.android73dd.geek.weather.model;
 import java.util.Objects;
 
 import ru.android73dd.geek.weather.R;
+import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
 
 public class WeatherSimpleEntry {
 
+    private static String unknown = "N/A";
     private String cityName;
     private int statusPic;
     private String temperature;
@@ -90,8 +92,15 @@ public class WeatherSimpleEntry {
     }
 
     public static WeatherSimpleEntry createDefault(String cityName) {
-        String unknown = "N/A";
         return new WeatherSimpleEntry(cityName, R.drawable.weather_sunny, unknown, unknown, unknown,
                 unknown);
+    }
+
+    public static WeatherSimpleEntry map(OpenWeatherMapModel openWeatherMapModel) {
+        String temperature = Float.toString(openWeatherMapModel.getMain().getTemp());
+        String humidity = Integer.toString(openWeatherMapModel.getMain().getHumidity());
+        String wind = Float.toString(openWeatherMapModel.getWind().getSpeed());
+        return new WeatherSimpleEntry(openWeatherMapModel.getName(), R.drawable.weather_sunny,
+                temperature, humidity, wind, unknown);
     }
 }

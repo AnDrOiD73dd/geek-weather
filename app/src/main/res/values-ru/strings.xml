@@ -25,4 +25,6 @@
     <string name="add_city_fragment_city_name_title">Введите название города</string>
     <string name="button_add">Добавить</string>
     <string name="settings_title">Настройки</string>
+
+    <string name="error_load_data">Ошибка при загрузке данных</string>
 </resources>

@@ -3,7 +3,7 @@ package ru.android73dd.geek.weather.model.openweathermap;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class WeatherRequest {
+public class OpenWeatherMapModel {
     @SerializedName("coord")
     @Expose
     private Coord coord;

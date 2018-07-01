@@ -3,7 +3,7 @@ package ru.android73dd.geek.weather.network.openweathermap;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import ru.android73dd.geek.weather.model.openweathermap.WeatherRequest;
+import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
 import ru.android73dd.geek.weather.network.BaseRequester;
 
 public class OpenWeatherRequester implements BaseRequester {
@@ -22,7 +22,7 @@ public class OpenWeatherRequester implements BaseRequester {
     }
 
     @Override
-    public void getWeather(String cityName, Callback<WeatherRequest> listener) {
+    public void getWeather(String cityName, Callback<OpenWeatherMapModel> listener) {
         requestRetrofit(cityName, listener);
     }
 
@@ -47,7 +47,7 @@ public class OpenWeatherRequester implements BaseRequester {
         openWeather = retrofit.create(OpenWeather.class);
     }
 
-    private void requestRetrofit(String cityName, Callback<WeatherRequest> listener){
+    private void requestRetrofit(String cityName, Callback<OpenWeatherMapModel> listener){
         openWeather.loadWeather(cityName, API_KEY).enqueue(listener);
     }
 }
