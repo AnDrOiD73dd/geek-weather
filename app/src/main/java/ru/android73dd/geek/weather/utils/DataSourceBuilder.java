@@ -5,13 +5,13 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.android73dd.geek.weather.model.Weather;
-import ru.android73dd.geek.weather.model.WeatherConfig;
+import ru.android73dd.geek.weather.model.WeatherPreferences;
+import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 
 public class DataSourceBuilder {
 
-    private List<Weather> dataSource;
+    private List<WeatherSimpleEntry> dataSource;
     private Context context;
 
     public DataSourceBuilder(Context context) {
@@ -19,10 +19,10 @@ public class DataSourceBuilder {
         this.context = context;
     }
 
-    public List<Weather> build() {
-        WeatherConfig weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(context);
-        for (String s: weatherConfig.getCitiesSet()) {
-            dataSource.add(Weather.createDefault(context, s));
+    public List<WeatherSimpleEntry> build() {
+        WeatherPreferences weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(context);
+        for (String cityName: weatherPreferences.getCitiesSet()) {
+            dataSource.add(WeatherSimpleEntry.createDefault(cityName));
         }
         return dataSource;
     }

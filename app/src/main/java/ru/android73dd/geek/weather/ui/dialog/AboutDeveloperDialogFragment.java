@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather.ui;
+package ru.android73dd.geek.weather.ui.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -10,7 +10,7 @@ import android.support.v7.app.AlertDialog;
 
 import ru.android73dd.geek.weather.R;
 
-public class AboutDeveloperFragment extends DialogFragment {
+public class AboutDeveloperDialogFragment extends DialogFragment {
 
     @NonNull
     @Override

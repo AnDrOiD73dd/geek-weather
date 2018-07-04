@@ -2,25 +2,21 @@ package ru.android73dd.geek.weather.ui;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
-import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
-import android.view.MenuItem;
 
 import java.util.List;
 
 import ru.android73dd.geek.weather.R;
-import ru.android73dd.geek.weather.model.WeatherConfig;
+import ru.android73dd.geek.weather.model.WeatherPreferences;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.Logger;
 
@@ -120,24 +116,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || GeneralPreferenceFragment.class.getName().equals(fragmentName);
+                || InterfacePreferenceFragment.class.getName().equals(fragmentName)
+                || NotificationsPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
-     * This fragment shows general preferences only. It is used when the
+     * This fragment shows interface preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class GeneralPreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+    public static class InterfacePreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-        private static final String PREF_CITIES_LIST = "pref_cities_list";
-        private static final String PREF_CITY_NAME = "pref_city_name";
         private static final String PREF_HUMIDITY = "pref_show_humidity";
         private static final String PREF_WIND = "pref_show_wind";
         private static final String PREF_SHOW_PROBABILITY_OF_PRECIPITATION = "pref_show_probability_of_precipitation";
 
-        private MultiSelectListPreference prefCitiesList;
-        private EditTextPreference prefCityName;
         private SwitchPreference prefHumidity;
         private SwitchPreference prefWind;
         private SwitchPreference prefPoP;
@@ -145,78 +138,83 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_general);
-            setHasOptionsMenu(true);
-            prefCitiesList = (MultiSelectListPreference) findPreference(PREF_CITIES_LIST);
-
-            prefCityName = (EditTextPreference) findPreference(PREF_CITY_NAME);
-//            bindPreferenceSummaryToValue(prefCityName);
-            getPreferenceScreen().removePreference(prefCityName);
+            addPreferencesFromResource(R.xml.pref_interface);
 
             prefHumidity = (SwitchPreference) findPreference(PREF_HUMIDITY);
             prefWind = (SwitchPreference) findPreference(PREF_WIND);
             prefPoP = (SwitchPreference) findPreference(PREF_SHOW_PROBABILITY_OF_PRECIPITATION);
 
-            WeatherConfig weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-            prefCitiesList.setValues(weatherConfig.getCitiesSet());
-            prefCityName.setText(weatherConfig.getCityName());
-            prefHumidity.setChecked(weatherConfig.isShowHumidity());
-            prefWind.setChecked(weatherConfig.isShowWind());
-            prefPoP.setChecked(weatherConfig.isShowProbabilityOfPrecipitation());
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
+            WeatherPreferences weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+            prefHumidity.setChecked(weatherPreferences.isShowHumidity());
+            prefWind.setChecked(weatherPreferences.isShowWind());
+            prefPoP.setChecked(weatherPreferences.isShowProbabilityOfPrecipitation());
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            // Set up a listener whenever a key changes
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         }
 
         @Override
         public void onPause() {
             super.onPause();
-            // Set up a listener whenever a key changes
             getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
         }
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             switch (key) {
-                case PREF_CITIES_LIST:
-                    WeatherConfig weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-                    weatherConfig.setCitiesSet(prefCitiesList.getValues());
-                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
-                    break;
-                case PREF_CITY_NAME:
-                    weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-                    weatherConfig.setCityName(prefCityName.getText());
-                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
-                    break;
                 case PREF_HUMIDITY:
-                    weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-                    weatherConfig.setShowHumidity(prefHumidity.isChecked());
-                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
+                    WeatherPreferences weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+                    weatherPreferences.setShowHumidity(prefHumidity.isChecked());
+                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherPreferences);
                     break;
                 case PREF_WIND:
-                    weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-                    weatherConfig.setShowWind(prefWind.isChecked());
-                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
+                    weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+                    weatherPreferences.setShowWind(prefWind.isChecked());
+                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherPreferences);
                     break;
                 case PREF_SHOW_PROBABILITY_OF_PRECIPITATION:
-                    weatherConfig = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-                    weatherConfig.setShowProbabilityOfPrecipitation(prefPoP.isChecked());
-                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherConfig);
+                    weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+                    weatherPreferences.setShowProbabilityOfPrecipitation(prefPoP.isChecked());
+                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherPreferences);
                     break;
+                default:
+                    Logger.d("Unknown key = " + key);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * This fragment shows notifications preferences only.
+     * This is stub, not implemented yet
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class NotificationsPreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_notifications);
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            switch (key) {
                 default:
                     Logger.d("Unknown key = " + key);
                     break;

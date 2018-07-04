@@ -11,13 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.android73dd.geek.weather.R;
-import ru.android73dd.geek.weather.model.WeatherConfig;
+import ru.android73dd.geek.weather.model.WeatherPreferences;
+import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
+import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
+import ru.android73dd.geek.weather.repository.OpenWeatherRepositoryImpl;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.Utils;
 
 public class WeatherDetailsFragment extends Fragment {
 
-    private static final String KEY_WEATHER_CONFIG = "kwc";
+    private static final String KEY_CITY_NAME = "kcn";
+
     private TextView tvCityName;
     private TextView tvDate;
     private ImageView ivStatus;
@@ -30,10 +34,10 @@ public class WeatherDetailsFragment extends Fragment {
     private LinearLayout llWind;
     private LinearLayout llProbabilityOfPrecipitation;
 
-    public static WeatherDetailsFragment newInstance(WeatherConfig weatherConfig) {
+    public static WeatherDetailsFragment newInstance(String cityName) {
         WeatherDetailsFragment detailsFragment = new WeatherDetailsFragment();
         Bundle args = new Bundle();
-        args.putParcelable(KEY_WEATHER_CONFIG, weatherConfig);
+        args.putString(KEY_CITY_NAME, cityName);
         detailsFragment.setArguments(args);
         return detailsFragment;
     }
@@ -50,15 +54,17 @@ public class WeatherDetailsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         updateUI(getWeatherConfig());
+        setValues();
     }
 
-    public WeatherConfig getWeatherConfig() {
+    public WeatherPreferences getWeatherConfig() {
         return SettingsRepositoryImpl.getInstance().getSettings(getActivity());
     }
 
-    private void updateUI(WeatherConfig weatherConfig) {
-        updateUI(weatherConfig.getCityName(), Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT),
-                weatherConfig.isShowHumidity(), weatherConfig.isShowWind(), weatherConfig.isShowProbabilityOfPrecipitation());
+    private void updateUI(WeatherPreferences weatherPreferences) {
+        String cityName = getArguments().getString(KEY_CITY_NAME);
+        updateUI(cityName, Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT),
+                weatherPreferences.isShowHumidity(), weatherPreferences.isShowWind(), weatherPreferences.isShowProbabilityOfPrecipitation());
     }
 
     private void updateUI(String cityName, String date, boolean showHumidity, boolean showWind, boolean showProbabilityOfPrecipitation) {
@@ -84,5 +90,17 @@ public class WeatherDetailsFragment extends Fragment {
         llHumidity = layout.findViewById(R.id.ll_humidity);
         llWind = layout.findViewById(R.id.ll_wind);
         llProbabilityOfPrecipitation = layout.findViewById(R.id.ll_probability_of_precipitation);
+    }
+
+    private void setValues() {
+        String cityName = getArguments().getString(KEY_CITY_NAME);
+        tvCityName.setText(cityName);
+        tvDate.setText(Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT));
+        OpenWeatherMapModel openWeatherMapModel = OpenWeatherRepositoryImpl.getInstance().getByCityName(cityName);
+        WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(openWeatherMapModel);
+        tvTempValue.setText(weatherSimpleEntry .getTemperature());
+        tvHumidityValue.setText(weatherSimpleEntry.getHumidity());
+        tvWindValue.setText(weatherSimpleEntry.getWind());
+        tvProbabilityOfPrecipitationValue.setText(weatherSimpleEntry.getProbabilityOfPrecipitation());
     }
 }

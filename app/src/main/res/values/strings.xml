@@ -11,42 +11,26 @@
     <string name="show_weather">Show weather</string>
     <string name="choose_city_hint_text">City name</string>
     <string name="weather_status_content_description">Weather status</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_settings">Settings</string>
 
-    <string name="pref_header_general">General</string>
-    <string name="pref_title_city_name">City name</string>
-    <string name="pref_default_city_name">Saratov</string>
+    <string name="pref_header_interface">Интерфейс</string>
+    <string name="pref_header_notifications">Notifications</string>
     <string name="pref_summary_humidity">Turn on to load info about humidity</string>
     <string name="pref_summary_wind">Turn on to load info about wind</string>
     <string name="pref_summary_probability_of_precipitation">Turn on to load info about probability of precipitation</string>
-    <string name="pref_cities_list_title">Cities list</string>
-    <string name="pref_cities_list_summary">Select the cities whose weather information you want to load</string>
-    <string name="pref_cities_list_dialog">Select the cities</string>
-
-    <string-array name="empty_array" />
-    <string-array name="pref_cities_list">
-        <item>Moscow</item>
-        <item>London</item>
-        <item>New York</item>
-        <item>Saratov</item>
-        <item>Amsterdam</item>
-    </string-array>
-
-    <string name="dialog_add_city_title">Please input city name</string>
-    <string name="dialog_add_city_button_add">Add</string>
-    <string name="dialog_add_city_button_cancel">Cancel</string>
 
     <string name="author_name">Evgeny Uleikin</string>
     <string name="author_email">android73.dd@gmail.com</string>
-    <string name="nav_stub_title">Stub</string>
     <string name="nav_group_communicate_title">Communicate</string>
     <string name="nav_about_developer_title">About developer</string>
-    <string name="nav_site_title">Site</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="fragment_about_developer_title">About developer</string>
     <string name="fragment_about_developer_body">Evgeny Uleikin\nandroid73.dd@gmail.com</string>
     <string name="ok">OK</string>
+    <string name="add_city_fragment_city_name_hint">City name</string>
+    <string name="add_city_fragment_city_name_title">Please enter city name</string>
+    <string name="button_add">Add</string>
+    <string name="settings_title">Settings</string>
 
+    <string name="error_load_data">An error occurred while loading weather</string>
 </resources>

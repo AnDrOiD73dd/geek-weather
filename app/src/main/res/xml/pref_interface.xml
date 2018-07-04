@@ -1,23 +1,5 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <MultiSelectListPreference
-        android:key="pref_cities_list"
-        android:title="@string/pref_cities_list_title"
-        android:summary="@string/pref_cities_list_summary"
-        android:dialogTitle="@string/pref_cities_list_dialog"
-        android:entries="@array/pref_cities_list"
-        android:entryValues="@array/pref_cities_list"
-        android:defaultValue="@array/empty_array"/>
-
-    <EditTextPreference
-        android:key="pref_city_name"
-        android:title="@string/pref_title_city_name"
-        android:defaultValue="@string/pref_default_city_name"
-        android:inputType="textCapWords"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:maxLines="1"/>
-
     <SwitchPreference
         android:key="pref_show_humidity"
         android:title="@string/title_humidity"
