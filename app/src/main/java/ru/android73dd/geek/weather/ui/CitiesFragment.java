@@ -11,14 +11,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ru.android73dd.geek.weather.R;
 import ru.android73dd.geek.weather.model.WeatherAdapter;
 import ru.android73dd.geek.weather.model.WeatherPreferences;
 import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
+import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
+import ru.android73dd.geek.weather.network.openweathermap.OpenWeatherRequester;
+import ru.android73dd.geek.weather.repository.OpenWeatherRepositoryImpl;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.ui.dialog.AddCityDialogFragment;
 import ru.android73dd.geek.weather.utils.DataSourceBuilder;
@@ -71,6 +78,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     public void onStart() {
         super.onStart();
         setupAdapter();
+        loadAllWeather();
     }
 
     @Override
@@ -152,6 +160,55 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
             SettingsRepositoryImpl.getInstance().addCity(getActivity(), cityName);
             dataSource.add(WeatherSimpleEntry.createDefault(cityName));
             adapter.notifyDataSetChanged();
+            loadAllWeather();
         }
+    }
+
+    private void loadAllWeather() {
+        for (int i = 0; i < dataSource.size(); i++) {
+            loadItemWeather(dataSource.get(i), i);
+        }
+    }
+
+    private void loadItemWeather(WeatherSimpleEntry item, final int position) {
+        final String cityName = item.getCityName();
+        if (item.equals(WeatherSimpleEntry.createDefault(cityName))) {
+            OpenWeatherMapModel openWeatherMapModel = OpenWeatherRepositoryImpl.getInstance().getByCityName(cityName);
+            if (openWeatherMapModel != null) {
+                dataSource.set(position, WeatherSimpleEntry.map(openWeatherMapModel));
+                adapter.notifyDataSetChanged();
+            }
+            OpenWeatherRequester openWeatherRequester = new OpenWeatherRequester();
+            openWeatherRequester.getWeather(cityName, new Callback<OpenWeatherMapModel>() {
+
+                String cityName = dataSource.get(position).getCityName();
+                String error = String.format("%s: %s", getContext().getString(R.string.error_load_data), cityName);
+
+                @Override
+                public void onResponse(Call<OpenWeatherMapModel> call, Response<OpenWeatherMapModel> response) {
+                    if (response.code() == 200) {
+                        OpenWeatherMapModel openWeatherMapModel = response.body();
+                        if (openWeatherMapModel != null) {
+                            OpenWeatherRepositoryImpl.getInstance().add(openWeatherMapModel);
+                            dataSource.set(position, WeatherSimpleEntry.map(openWeatherMapModel));
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                    else {
+                        showToast(error);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<OpenWeatherMapModel> call, Throwable t) {
+                    Logger.d(t.toString());
+                    showToast(error);
+                }
+            });
+        }
+    }
+
+    private void showToast(String text) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
     }
 }
