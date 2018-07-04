@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -191,7 +192,9 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
                         OpenWeatherMapModel openWeatherMapModel = response.body();
                         if (openWeatherMapModel != null) {
                             OpenWeatherRepositoryImpl.getInstance().add(openWeatherMapModel);
-                            dataSource.set(position, WeatherSimpleEntry.map(openWeatherMapModel));
+                            WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(openWeatherMapModel);
+                            weatherSimpleEntry = setDataUnits(weatherSimpleEntry);
+                            dataSource.set(position, weatherSimpleEntry);
                             adapter.notifyDataSetChanged();
                         }
                     }
@@ -211,5 +214,28 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
 
     private void showToast(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+    }
+
+    private WeatherSimpleEntry setDataUnits(WeatherSimpleEntry item) {
+        String temperatureUnit = getWeatherConfig().getTemperatureUnit();
+        double currentTemp = Double.valueOf(item.getTemperature());
+        if (temperatureUnit.equals(getContext().getString(R.string.unit_cesium))) {
+            double temp = currentTemp - 273.15;
+            item.setTemperature(String.format(Locale.getDefault(), "%.0f %s", temp, temperatureUnit));
+        }
+        else if (temperatureUnit.equals(getContext().getString(R.string.unit_fahrenheit))) {
+            double temp = 1.8 * (currentTemp - 273) + 32;
+            item.setTemperature(String.format(Locale.getDefault(), "%.0f %s", temp, temperatureUnit));
+        }
+        String windSpeedUnit = getWeatherConfig().getWindSpeedUnit();
+        double currentWindSpeed = Double.valueOf(item.getWindSpeed());
+        if (windSpeedUnit.equals(getContext().getString(R.string.unit_meter_second))) {
+            item.setWind(String.format(Locale.getDefault(), "%.0f %s", currentWindSpeed, windSpeedUnit));
+        }
+        else if (windSpeedUnit.equals(getContext().getString(R.string.unit_miles_hour))) {
+            // TODO convert
+            item.setWind(String.format(Locale.getDefault(), "%.0f %s", currentWindSpeed, windSpeedUnit));
+        }
+        return item;
     }
 }

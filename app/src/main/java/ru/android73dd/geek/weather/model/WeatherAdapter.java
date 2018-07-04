@@ -101,7 +101,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             humidity.setText(item.getHumidity());
             llHumidity.setVisibility(weatherPreferences.isShowHumidity() ? View.VISIBLE : View.GONE);
 
-            wind.setText(item.getWind());
+            wind.setText(item.getWindSpeed());
             llWind.setVisibility(weatherPreferences.isShowWind() ? View.VISIBLE : View.GONE);
 
             probabilityOfPrecipitation.setText(item.getProbabilityOfPrecipitation());

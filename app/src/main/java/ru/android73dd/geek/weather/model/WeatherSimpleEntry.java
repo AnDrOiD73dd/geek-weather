@@ -56,7 +56,7 @@ public class WeatherSimpleEntry {
         this.humidity = humidity;
     }
 
-    public String getWind() {
+    public String getWindSpeed() {
         return wind;
     }
 

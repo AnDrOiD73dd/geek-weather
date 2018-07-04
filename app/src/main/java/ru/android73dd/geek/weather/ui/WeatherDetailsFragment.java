@@ -103,7 +103,7 @@ public class WeatherDetailsFragment extends Fragment {
         }
         tvTempValue.setText(weatherSimpleEntry .getTemperature());
         tvHumidityValue.setText(weatherSimpleEntry.getHumidity());
-        tvWindValue.setText(weatherSimpleEntry.getWind());
+        tvWindValue.setText(weatherSimpleEntry.getWindSpeed());
         tvProbabilityOfPrecipitationValue.setText(weatherSimpleEntry.getProbabilityOfPrecipitation());
     }
 }
