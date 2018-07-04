@@ -97,6 +97,9 @@ public class WeatherSimpleEntry {
     }
 
     public static WeatherSimpleEntry map(OpenWeatherMapModel openWeatherMapModel) {
+        if (openWeatherMapModel == null) {
+            return null;
+        }
         String temperature = Float.toString(openWeatherMapModel.getMain().getTemp());
         String humidity = Integer.toString(openWeatherMapModel.getMain().getHumidity());
         String wind = Float.toString(openWeatherMapModel.getWind().getSpeed());

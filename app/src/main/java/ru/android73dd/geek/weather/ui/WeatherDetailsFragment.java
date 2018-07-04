@@ -98,6 +98,9 @@ public class WeatherDetailsFragment extends Fragment {
         tvDate.setText(Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT));
         OpenWeatherMapModel openWeatherMapModel = OpenWeatherRepositoryImpl.getInstance().getByCityName(cityName);
         WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(openWeatherMapModel);
+        if (weatherSimpleEntry == null) {
+            weatherSimpleEntry = WeatherSimpleEntry.createDefault(cityName);
+        }
         tvTempValue.setText(weatherSimpleEntry .getTemperature());
         tvHumidityValue.setText(weatherSimpleEntry.getHumidity());
         tvWindValue.setText(weatherSimpleEntry.getWind());
