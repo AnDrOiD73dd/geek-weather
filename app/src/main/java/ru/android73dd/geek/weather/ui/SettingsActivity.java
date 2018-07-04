@@ -132,11 +132,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         private static final String PREF_WIND = "pref_show_wind";
         private static final String PREF_SHOW_PROBABILITY_OF_PRECIPITATION = "pref_show_probability_of_precipitation";
         private static final String PREF_TEMPERATURE_UNITS = "pref_interface_temperature_unit";
+        private static final String PREF_WIND_UNITS = "pref_interface_wind_unit";
 
         private SwitchPreference prefHumidity;
         private SwitchPreference prefWind;
         private SwitchPreference prefPoP;
-        private ListPreference prefTemperatureList;
+        private ListPreference prefTemperatureUnitList;
+        private ListPreference prefWindUnitList;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -146,12 +148,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             prefHumidity = (SwitchPreference) findPreference(PREF_HUMIDITY);
             prefWind = (SwitchPreference) findPreference(PREF_WIND);
             prefPoP = (SwitchPreference) findPreference(PREF_SHOW_PROBABILITY_OF_PRECIPITATION);
-            prefTemperatureList = (ListPreference) findPreference(PREF_TEMPERATURE_UNITS);
+            prefTemperatureUnitList = (ListPreference) findPreference(PREF_TEMPERATURE_UNITS);
+            prefWindUnitList = (ListPreference) findPreference(PREF_WIND_UNITS);
 
             WeatherPreferences weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
             prefHumidity.setChecked(weatherPreferences.isShowHumidity());
             prefWind.setChecked(weatherPreferences.isShowWind());
             prefPoP.setChecked(weatherPreferences.isShowProbabilityOfPrecipitation());
+            prefTemperatureUnitList.setValue(weatherPreferences.getTemperatureUnit());
+            prefWindUnitList.setValue(weatherPreferences.getWindSpeedUnit());
         }
 
         @Override
@@ -186,7 +191,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     break;
                 case PREF_TEMPERATURE_UNITS:
                     weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
-                    weatherPreferences.setTemperatureUnit(prefTemperatureList.getValue());
+                    weatherPreferences.setTemperatureUnit(prefTemperatureUnitList.getValue());
+                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherPreferences);
+                    break;
+                case PREF_WIND_UNITS:
+                    weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+                    weatherPreferences.setWindSpeedUnit(prefWindUnitList.getValue());
                     SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherPreferences);
                     break;
                 default:

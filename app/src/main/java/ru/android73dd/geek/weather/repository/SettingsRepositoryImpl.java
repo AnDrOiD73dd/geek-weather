@@ -18,6 +18,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
     private static final String KEY_WEATHER_PROBABILITY_OF_PRECIPITATION = "kwpop";
 
     private static final String KEY_INTERFACE_TEMPERATURE_UNIT = "kitu";
+    private static final String KEY_INTERFACE_WIND_UNIT = "kiwu";
 
     private static SettingsRepositoryImpl instance;
     private WeatherPreferences weatherPreferences;
@@ -48,6 +49,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
                 .putBoolean(KEY_WEATHER_WIND, weatherPreferences.isShowWind())
                 .putBoolean(KEY_WEATHER_PROBABILITY_OF_PRECIPITATION, weatherPreferences.isShowProbabilityOfPrecipitation())
                 .putString(KEY_INTERFACE_TEMPERATURE_UNIT, weatherPreferences.getTemperatureUnit())
+                .putString(KEY_INTERFACE_WIND_UNIT, weatherPreferences.getWindSpeedUnit())
                 .apply();
         // TODO notify observers
     }
@@ -63,12 +65,14 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         boolean showWind = prefs.getBoolean(KEY_WEATHER_WIND, true);
         boolean showProbabilityOfPrecipitation = prefs.getBoolean(KEY_WEATHER_PROBABILITY_OF_PRECIPITATION, true);
         String temperatureUnit = prefs.getString(KEY_INTERFACE_TEMPERATURE_UNIT, context.getString(R.string.unit_cesium));
+        String windSpeedUnit = prefs.getString(KEY_INTERFACE_WIND_UNIT, context.getString(R.string.unit_meter_second));
         this.weatherPreferences = new WeatherPreferences.Builder()
                 .setCitiesSet(citiesSet)
                 .setShowHumidity(showHumidity)
                 .setShowWind(showWind)
                 .setShowProbabilityOfPrecipitation(showProbabilityOfPrecipitation)
                 .setTemperatureUnit(temperatureUnit)
+                .setWindSpeedUnit(windSpeedUnit)
                 .create();
 
         return this.weatherPreferences;
