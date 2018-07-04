@@ -13,15 +13,14 @@ public class WeatherSimpleEntry {
     private String temperature;
     private String humidity;
     private String wind;
-    private String probabilityOfPrecipitation;
 
-    public WeatherSimpleEntry(String cityName, int statusPic, String temperature, String humidity, String wind, String probabilityOfPrecipitation) {
+    public WeatherSimpleEntry(String cityName, int statusPic, String temperature, String humidity,
+                              String wind) {
         this.cityName = cityName;
         this.statusPic = statusPic;
         this.temperature = temperature;
         this.humidity = humidity;
         this.wind = wind;
-        this.probabilityOfPrecipitation = probabilityOfPrecipitation;
     }
 
     public String getCityName() {
@@ -64,14 +63,6 @@ public class WeatherSimpleEntry {
         this.wind = wind;
     }
 
-    public String getProbabilityOfPrecipitation() {
-        return probabilityOfPrecipitation;
-    }
-
-    public void setProbabilityOfPrecipitation(String probabilityOfPrecipitation) {
-        this.probabilityOfPrecipitation = probabilityOfPrecipitation;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,19 +72,16 @@ public class WeatherSimpleEntry {
                 Objects.equals(cityName, that.cityName) &&
                 Objects.equals(temperature, that.temperature) &&
                 Objects.equals(humidity, that.humidity) &&
-                Objects.equals(wind, that.wind) &&
-                Objects.equals(probabilityOfPrecipitation, that.probabilityOfPrecipitation);
+                Objects.equals(wind, that.wind);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(cityName, statusPic, temperature, humidity, wind, probabilityOfPrecipitation);
+        return Objects.hash(cityName, statusPic, temperature, humidity, wind);
     }
 
     public static WeatherSimpleEntry createDefault(String cityName) {
-        return new WeatherSimpleEntry(cityName, R.drawable.weather_sunny, unknown, unknown, unknown,
-                unknown);
+        return new WeatherSimpleEntry(cityName, R.drawable.weather_sunny, unknown, unknown, unknown);
     }
 
     public static WeatherSimpleEntry map(OpenWeatherMapModel openWeatherMapModel) {
@@ -104,6 +92,6 @@ public class WeatherSimpleEntry {
         String humidity = Integer.toString(openWeatherMapModel.getMain().getHumidity());
         String wind = Float.toString(openWeatherMapModel.getWind().getSpeed());
         return new WeatherSimpleEntry(openWeatherMapModel.getName(), R.drawable.weather_sunny,
-                temperature, humidity, wind, unknown);
+                temperature, humidity, wind);
     }
 }

@@ -7,17 +7,14 @@ public class WeatherPreferences {
     private Set<String> citiesSet;
     private boolean showHumidity;
     private boolean showWind;
-    private boolean showProbabilityOfPrecipitation;
     private String temperatureUnit;
     private String windSpeedUnit;
 
     private WeatherPreferences(Set<String> citiesSet, boolean showHumidity, boolean showWind,
-                               boolean showProbabilityOfPrecipitation, String temperatureUnit,
-                               String windSpeedUnit) {
+                               String temperatureUnit, String windSpeedUnit) {
         this.citiesSet = citiesSet;
         this.showHumidity = showHumidity;
         this.showWind = showWind;
-        this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
         this.temperatureUnit = temperatureUnit;
         this.windSpeedUnit = windSpeedUnit;
     }
@@ -32,10 +29,6 @@ public class WeatherPreferences {
 
     public boolean isShowWind() {
         return showWind;
-    }
-
-    public boolean isShowProbabilityOfPrecipitation() {
-        return showProbabilityOfPrecipitation;
     }
 
     public String getTemperatureUnit() {
@@ -58,10 +51,6 @@ public class WeatherPreferences {
         this.showWind = showWind;
     }
 
-    public void setShowProbabilityOfPrecipitation(boolean showProbabilityOfPrecipitation) {
-        this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
-    }
-
     public void setTemperatureUnit(String temperatureUnit) {
         this.temperatureUnit = temperatureUnit;
     }
@@ -75,7 +64,6 @@ public class WeatherPreferences {
         private Set<String> citiesSet;
         private boolean showHumidity;
         private boolean showWind;
-        private boolean showProbabilityOfPrecipitation;
         private String temperatureUnit;
         private String windSpeedUnit;
 
@@ -94,11 +82,6 @@ public class WeatherPreferences {
             return this;
         }
 
-        public Builder setShowProbabilityOfPrecipitation(boolean showProbabilityOfPrecipitation) {
-            this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
-            return this;
-        }
-
         public Builder setTemperatureUnit(String temperatureUnit) {
             this.temperatureUnit = temperatureUnit;
             return this;
@@ -110,8 +93,8 @@ public class WeatherPreferences {
         }
 
         public WeatherPreferences create() {
-            return new WeatherPreferences(citiesSet, showHumidity, showWind,
-                    showProbabilityOfPrecipitation, temperatureUnit, windSpeedUnit);
+            return new WeatherPreferences(citiesSet, showHumidity, showWind,  temperatureUnit,
+                    windSpeedUnit);
         }
     }
 }

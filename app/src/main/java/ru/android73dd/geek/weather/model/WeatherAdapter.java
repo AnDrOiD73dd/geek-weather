@@ -57,10 +57,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         private TextView temperature;
         private TextView humidity;
         private TextView wind;
-        private TextView probabilityOfPrecipitation;
         private LinearLayout llHumidity;
         private LinearLayout llWind;
-        private LinearLayout llProbabilityOfPrecipitation;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -79,11 +77,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             temperature = itemView.findViewById(R.id.tv_temperature_value);
             humidity = itemView.findViewById(R.id.tv_humidity_value);
             wind = itemView.findViewById(R.id.tv_wind_value);
-            probabilityOfPrecipitation = itemView.findViewById(R.id.tv_probability_of_precipitation_value);
 
             llHumidity = itemView.findViewById(R.id.ll_humidity);
             llWind = itemView.findViewById(R.id.ll_wind);
-            llProbabilityOfPrecipitation = itemView.findViewById(R.id.ll_probability_of_precipitation);
         }
 
         void bind(int position) {
@@ -103,9 +99,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
             wind.setText(item.getWindSpeed());
             llWind.setVisibility(weatherPreferences.isShowWind() ? View.VISIBLE : View.GONE);
-
-            probabilityOfPrecipitation.setText(item.getProbabilityOfPrecipitation());
-            llProbabilityOfPrecipitation.setVisibility(weatherPreferences.isShowProbabilityOfPrecipitation() ? View.VISIBLE : View.GONE);
         }
     }
 }

@@ -17,7 +17,6 @@
     <string name="title_temperature">Temperature</string>
     <string name="title_humidity">Humidity</string>
     <string name="title_wind">Wind</string>
-    <string name="title_probability_of_precipitation">Probability of precipitation</string>
     <string name="show_weather">Show weather</string>
     <string name="choose_city_hint_text">City name</string>
     <string name="weather_status_content_description">Weather status</string>
@@ -26,7 +25,6 @@
     <string name="pref_header_notifications">Notifications</string>
     <string name="pref_summary_humidity">Turn on to load info about humidity</string>
     <string name="pref_summary_wind">Turn on to load info about wind</string>
-    <string name="pref_summary_probability_of_precipitation">Turn on to load info about probability of precipitation</string>
 
     <string name="author_name">Evgeny Uleikin</string>
     <string name="author_email" translatable="false">android73.dd@gmail.com</string>
@@ -47,4 +45,5 @@
     <string name="pref_wind_units_title">Wind unit</string>
     <string name="pref_wind_units_summary">Select the unit of wind</string>
     <string name="pref_temperature_units_summary">Select the unit of temperature</string>
+    <string name="title_probability_of_precipitation">Probability of precipitation</string>
 </resources>
