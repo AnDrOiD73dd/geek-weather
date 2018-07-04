@@ -3,6 +3,10 @@
     <string name="unit_cesium" translatable="false">°C</string>
     <string name="unit_percentage" translatable="false">%</string>
     <string name="unit_wind_speed" translatable="false">m/s</string>
+    <string-array name="temperature_units_array">
+        <item>°C</item>
+        <item>°F</item>
+    </string-array>
     <string name="hello_text">Weather</string>
     <string name="title_temperature">Temperature</string>
     <string name="title_humidity">Humidity</string>
@@ -33,4 +37,6 @@
     <string name="settings_title">Settings</string>
 
     <string name="error_load_data">An error occurred while loading weather</string>
+    <string name="pref_temperature_units_title">Temperature unit</string>
+    <string name="pref_temperature_units_summary">Select the unit of temperature</string>
 </resources>

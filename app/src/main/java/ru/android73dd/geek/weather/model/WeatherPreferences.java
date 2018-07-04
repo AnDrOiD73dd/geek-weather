@@ -8,13 +8,15 @@ public class WeatherPreferences {
     private boolean showHumidity;
     private boolean showWind;
     private boolean showProbabilityOfPrecipitation;
+    private String temperatureUnit;
 
     private WeatherPreferences(Set<String> citiesSet, boolean showHumidity, boolean showWind,
-                               boolean showProbabilityOfPrecipitation) {
+                               boolean showProbabilityOfPrecipitation, String temperatureUnit) {
         this.citiesSet = citiesSet;
         this.showHumidity = showHumidity;
         this.showWind = showWind;
         this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
+        this.temperatureUnit = temperatureUnit;
     }
 
     public Set<String> getCitiesSet() {
@@ -33,6 +35,10 @@ public class WeatherPreferences {
         return showProbabilityOfPrecipitation;
     }
 
+    public String getTemperatureUnit() {
+        return temperatureUnit;
+    }
+
     public void setCitiesSet(Set<String> citiesSet) {
         this.citiesSet = citiesSet;
     }
@@ -49,12 +55,17 @@ public class WeatherPreferences {
         this.showProbabilityOfPrecipitation = showProbabilityOfPrecipitation;
     }
 
+    public void setTemperatureUnit(String temperatureUnit) {
+        this.temperatureUnit = temperatureUnit;
+    }
+
     public static class Builder {
 
         private Set<String> citiesSet;
         private boolean showHumidity;
         private boolean showWind;
         private boolean showProbabilityOfPrecipitation;
+        private String temperatureUnit;
 
         public Builder setCitiesSet(Set<String> citiesSet) {
             this.citiesSet = citiesSet;
@@ -76,8 +87,13 @@ public class WeatherPreferences {
             return this;
         }
 
+        public Builder setTemperatureUnit(String temperatureUnit) {
+            this.temperatureUnit = temperatureUnit;
+            return this;
+        }
+
         public WeatherPreferences create() {
-            return new WeatherPreferences(citiesSet, showHumidity, showWind, showProbabilityOfPrecipitation);
+            return new WeatherPreferences(citiesSet, showHumidity, showWind, showProbabilityOfPrecipitation, temperatureUnit);
         }
     }
 }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -130,10 +131,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         private static final String PREF_HUMIDITY = "pref_show_humidity";
         private static final String PREF_WIND = "pref_show_wind";
         private static final String PREF_SHOW_PROBABILITY_OF_PRECIPITATION = "pref_show_probability_of_precipitation";
+        private static final String PREF_TEMPERATURE_UNITS = "pref_interface_temperature_unit";
 
         private SwitchPreference prefHumidity;
         private SwitchPreference prefWind;
         private SwitchPreference prefPoP;
+        private ListPreference prefTemperatureList;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -143,6 +146,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             prefHumidity = (SwitchPreference) findPreference(PREF_HUMIDITY);
             prefWind = (SwitchPreference) findPreference(PREF_WIND);
             prefPoP = (SwitchPreference) findPreference(PREF_SHOW_PROBABILITY_OF_PRECIPITATION);
+            prefTemperatureList = (ListPreference) findPreference(PREF_TEMPERATURE_UNITS);
 
             WeatherPreferences weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
             prefHumidity.setChecked(weatherPreferences.isShowHumidity());
@@ -178,6 +182,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 case PREF_SHOW_PROBABILITY_OF_PRECIPITATION:
                     weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
                     weatherPreferences.setShowProbabilityOfPrecipitation(prefPoP.isChecked());
+                    SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherPreferences);
+                    break;
+                case PREF_TEMPERATURE_UNITS:
+                    weatherPreferences = SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+                    weatherPreferences.setTemperatureUnit(prefTemperatureList.getValue());
                     SettingsRepositoryImpl.getInstance().saveSettings(getActivity(), weatherPreferences);
                     break;
                 default:
