@@ -227,6 +227,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
             double temp = 1.8 * (currentTemp - 273) + 32;
             item.setTemperature(String.format(Locale.getDefault(), "%.0f %s", temp, temperatureUnit));
         }
+
         String windSpeedUnit = getWeatherConfig().getWindSpeedUnit();
         double currentWindSpeed = Double.valueOf(item.getWindSpeed());
         if (windSpeedUnit.equals(getContext().getString(R.string.unit_meter_second))) {
@@ -236,6 +237,8 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
             // TODO convert
             item.setWind(String.format(Locale.getDefault(), "%.0f %s", currentWindSpeed, windSpeedUnit));
         }
+
+        item.setHumidity(String.format(Locale.getDefault(), "%s %s", item.getHumidity(), getContext().getString(R.string.unit_percentage)));
         return item;
     }
 }
