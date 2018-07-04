@@ -235,7 +235,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         }
         else if (windSpeedUnit.equals(getContext().getString(R.string.unit_miles_hour))) {
             // TODO convert
-            item.setWind(String.format(Locale.getDefault(), "%.0f %s", currentWindSpeed, windSpeedUnit));
+            item.setWind(String.format(Locale.getDefault(), "%.0f %s", currentWindSpeed, getContext().getString(R.string.unit_meter_second)));
         }
 
         item.setHumidity(String.format(Locale.getDefault(), "%s %s", item.getHumidity(), getContext().getString(R.string.unit_percentage)));
