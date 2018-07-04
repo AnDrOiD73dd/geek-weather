@@ -157,21 +157,22 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         addCityDialog.dismiss();
         final String cityName = s.trim();
         if (!cityName.isEmpty()) {
-            SettingsRepositoryImpl.getInstance().addCity(getActivity(), cityName);
-            dataSource.add(WeatherSimpleEntry.createDefault(cityName));
+            WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.createDefault(cityName);
+            dataSource.add(weatherSimpleEntry);
             adapter.notifyDataSetChanged();
-            loadAllWeather();
+            loadItemWeather(weatherSimpleEntry);
         }
     }
 
     private void loadAllWeather() {
-        for (int i = 0; i < dataSource.size(); i++) {
-            loadItemWeather(dataSource.get(i), i);
+        for (WeatherSimpleEntry item : dataSource) {
+            loadItemWeather(item);
         }
     }
 
-    private void loadItemWeather(WeatherSimpleEntry item, final int position) {
+    private void loadItemWeather(WeatherSimpleEntry item) {
         final String cityName = item.getCityName();
+        final int position = dataSource.indexOf(item);
         if (item.equals(WeatherSimpleEntry.createDefault(cityName))) {
             OpenWeatherMapModel openWeatherMapModel = OpenWeatherRepositoryImpl.getInstance().getByCityName(cityName);
             if (openWeatherMapModel != null) {
