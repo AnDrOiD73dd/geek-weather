@@ -7,6 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
 import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
 
 @Entity(indices = {@Index(value = {"city_name"}, unique = true)})
@@ -74,5 +75,30 @@ public class WeatherEntity {
         int humidity = openWeatherMapModel.getMain().getHumidity();
         float wind = openWeatherMapModel.getWind().getSpeed();
         return new WeatherEntity(openWeatherMapModel.getName(), temperature, humidity, wind);
+    }
+
+    public static WeatherEntity map(WeatherSimpleEntry weatherSimpleEntry) {
+        if (weatherSimpleEntry == null) {
+            return null;
+        }
+        float temperature;
+        try {
+            temperature = Float.valueOf(weatherSimpleEntry.getTemperature());
+        } catch (NumberFormatException e) {
+            temperature = 0;
+        }
+        int humidity;
+        try {
+            humidity = Integer.valueOf(weatherSimpleEntry.getHumidity());
+        } catch (NumberFormatException e) {
+            humidity = 0;
+        }
+        float wind;
+        try {
+            wind = Float.valueOf(weatherSimpleEntry.getWindSpeed());
+        } catch (NumberFormatException e) {
+            wind = 0;
+        }
+        return new WeatherEntity(weatherSimpleEntry.getCityName(), temperature, humidity, wind);
     }
 }

@@ -26,10 +26,12 @@ public class WeatherApi {
     }
 
     public void initDb(Context context) {
-        database =  Room.databaseBuilder(context, WeatherDatabase.class, DATABASE_NAME).build();
+        database =  Room.databaseBuilder(context, WeatherDatabase.class, DATABASE_NAME)
+                .allowMainThreadQueries()
+                .build();
     }
 
-    private WeatherDatabase getDatabase() {
+    public WeatherDatabase getDatabase() {
         return database;
     }
 }
