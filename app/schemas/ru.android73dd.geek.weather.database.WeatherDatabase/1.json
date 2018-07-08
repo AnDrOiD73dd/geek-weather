@@ -1,0 +1,60 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "041f73823265efb85c1c30b5e0f22f57",
+    "entities": [
+      {
+        "tableName": "WeatherEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`city_name` TEXT NOT NULL, `temperature` REAL NOT NULL, `humidity` INTEGER NOT NULL, `wind_speed` REAL NOT NULL, PRIMARY KEY(`city_name`))",
+        "fields": [
+          {
+            "fieldPath": "cityName",
+            "columnName": "city_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temperature",
+            "columnName": "temperature",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "humidity",
+            "columnName": "humidity",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "windSpeed",
+            "columnName": "wind_speed",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "city_name"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_WeatherEntity_city_name",
+            "unique": true,
+            "columnNames": [
+              "city_name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_WeatherEntity_city_name` ON `${TABLE_NAME}` (`city_name`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"041f73823265efb85c1c30b5e0f22f57\")"
+    ]
+  }
+}
