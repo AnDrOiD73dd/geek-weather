@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather.ui;
+package ru.android73dd.geek.weather.ui.settings;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -19,6 +19,7 @@ import java.util.List;
 import ru.android73dd.geek.weather.R;
 import ru.android73dd.geek.weather.model.WeatherPreferences;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
+import ru.android73dd.geek.weather.ui.settings.AppCompatPreferenceActivity;
 import ru.android73dd.geek.weather.utils.Logger;
 
 /**

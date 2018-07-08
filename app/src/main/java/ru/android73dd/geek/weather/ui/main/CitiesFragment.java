@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather.ui;
+package ru.android73dd.geek.weather.ui.main;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -30,6 +30,7 @@ import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
 import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
 import ru.android73dd.geek.weather.network.openweathermap.OpenWeatherRequester;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
+import ru.android73dd.geek.weather.ui.BaseFragment;
 import ru.android73dd.geek.weather.ui.dialog.AddCityDialogFragment;
 import ru.android73dd.geek.weather.utils.Logger;
 

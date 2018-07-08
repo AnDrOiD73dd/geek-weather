@@ -10,7 +10,7 @@ import ru.android73dd.geek.weather.ui.dialog.AboutDeveloperDialogFragment;
 
 public class BaseFragment extends Fragment {
 
-    protected void showAboutDeveloper() {
+    public void showAboutDeveloper() {
         FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
         if (manager != null) {
             AboutDeveloperDialogFragment aboutDeveloperFragment = new AboutDeveloperDialogFragment();

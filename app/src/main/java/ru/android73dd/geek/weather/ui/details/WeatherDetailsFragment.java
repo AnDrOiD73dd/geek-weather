@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather.ui;
+package ru.android73dd.geek.weather.ui.details;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

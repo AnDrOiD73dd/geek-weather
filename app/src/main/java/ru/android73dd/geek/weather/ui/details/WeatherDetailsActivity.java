@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather.ui;
+package ru.android73dd.geek.weather.ui.details;
 
 import android.content.Context;
 import android.content.Intent;
