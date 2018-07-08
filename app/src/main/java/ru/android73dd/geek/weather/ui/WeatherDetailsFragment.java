@@ -11,9 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.android73dd.geek.weather.R;
+import ru.android73dd.geek.weather.WeatherApi;
+import ru.android73dd.geek.weather.database.WeatherEntity;
 import ru.android73dd.geek.weather.model.WeatherPreferences;
 import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
 import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
+import ru.android73dd.geek.weather.model.openweathermap.Weather;
 import ru.android73dd.geek.weather.repository.OpenWeatherRepositoryImpl;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.Utils;
@@ -28,11 +31,9 @@ public class WeatherDetailsFragment extends Fragment {
     private TextView tvTempValue;
     private TextView tvHumidityValue;
     private TextView tvWindValue;
-    private TextView tvProbabilityOfPrecipitationValue;
     private LinearLayout llTemperature;
     private LinearLayout llHumidity;
     private LinearLayout llWind;
-    private LinearLayout llProbabilityOfPrecipitation;
 
     public static WeatherDetailsFragment newInstance(String cityName) {
         WeatherDetailsFragment detailsFragment = new WeatherDetailsFragment();
@@ -64,10 +65,10 @@ public class WeatherDetailsFragment extends Fragment {
     private void updateUI(WeatherPreferences weatherPreferences) {
         String cityName = getArguments().getString(KEY_CITY_NAME);
         updateUI(cityName, Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT),
-                weatherPreferences.isShowHumidity(), weatherPreferences.isShowWind(), weatherPreferences.isShowProbabilityOfPrecipitation());
+                weatherPreferences.isShowHumidity(), weatherPreferences.isShowWind());
     }
 
-    private void updateUI(String cityName, String date, boolean showHumidity, boolean showWind, boolean showProbabilityOfPrecipitation) {
+    private void updateUI(String cityName, String date, boolean showHumidity, boolean showWind) {
         tvCityName.setText(cityName);
         tvDate.setVisibility(cityName.isEmpty() ? View.GONE : View.VISIBLE);
         tvDate.setText(date);
@@ -75,7 +76,6 @@ public class WeatherDetailsFragment extends Fragment {
         llTemperature.setVisibility(cityName.isEmpty() ? View.GONE : View.VISIBLE);
         llHumidity.setVisibility(showHumidity ? View.VISIBLE : View.GONE);
         llWind.setVisibility(showWind ? View.VISIBLE : View.GONE);
-        llProbabilityOfPrecipitation.setVisibility(showProbabilityOfPrecipitation ? View.VISIBLE : View.GONE);
     }
 
     private void initViews(View layout) {
@@ -85,22 +85,23 @@ public class WeatherDetailsFragment extends Fragment {
         tvTempValue = layout.findViewById(R.id.tv_temperature_value);
         tvHumidityValue = layout.findViewById(R.id.tv_humidity_value);
         tvWindValue = layout.findViewById(R.id.tv_wind_value);
-        tvProbabilityOfPrecipitationValue = layout.findViewById(R.id.tv_probability_of_precipitation_value);
         llTemperature = layout.findViewById(R.id.ll_temperature);
         llHumidity = layout.findViewById(R.id.ll_humidity);
         llWind = layout.findViewById(R.id.ll_wind);
-        llProbabilityOfPrecipitation = layout.findViewById(R.id.ll_probability_of_precipitation);
     }
 
     private void setValues() {
         String cityName = getArguments().getString(KEY_CITY_NAME);
         tvCityName.setText(cityName);
         tvDate.setText(Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT));
-        OpenWeatherMapModel openWeatherMapModel = OpenWeatherRepositoryImpl.getInstance().getByCityName(cityName);
-        WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(openWeatherMapModel);
+//        OpenWeatherMapModel openWeatherMapModel = OpenWeatherRepositoryImpl.getInstance().getByCityName(cityName);\
+        WeatherEntity weatherEntity = WeatherApi.getInstance().getDatabase().weatherDao().getWeatherByCityName(cityName);
+        WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(weatherEntity);
+        if (weatherSimpleEntry == null) {
+            weatherSimpleEntry = WeatherSimpleEntry.createDefault(cityName);
+        }
         tvTempValue.setText(weatherSimpleEntry .getTemperature());
         tvHumidityValue.setText(weatherSimpleEntry.getHumidity());
-        tvWindValue.setText(weatherSimpleEntry.getWind());
-        tvProbabilityOfPrecipitationValue.setText(weatherSimpleEntry.getProbabilityOfPrecipitation());
+        tvWindValue.setText(weatherSimpleEntry.getWindSpeed());
     }
 }

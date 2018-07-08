@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="unit_wind_speed" translatable="false">м/с</string>
+    <string name="unit_meter_second">м/с</string>
+    <string name="unit_miles_hour">миля/ч</string>
+    <string-array name="wind_units_array">
+        <item>м/с</item>
+        <item>миля/ч</item>
+    </string-array>
     <string name="hello_text">Погода</string>
     <string name="title_temperature">Температура</string>
     <string name="title_humidity">Влажность</string>
-    <string name="title_wind">Ветер</string>
-    <string name="title_probability_of_precipitation">Вероятность осадков</string>
+    <string name="title_wind_speed">Ветер</string>
     <string name="choose_city_hint_text">Название города</string>
     <string name="app_name">Погода</string>
     <string name="show_weather">Показать погоду</string>
@@ -14,8 +18,7 @@
     <string name="pref_header_interface">Интерфейс</string>
     <string name="pref_header_notifications">Уведомления</string>
     <string name="pref_summary_humidity">Включите, чтобы загружать информацию о влажности</string>
-    <string name="pref_summary_wind">Включите, чтобы загружать информацию о ветре</string>
-    <string name="pref_summary_probability_of_precipitation">Включите, чтобы загружать информацию о вероятности осадков</string>
+    <string name="pref_summary_wind_speed">Включите, чтобы загружать информацию о ветре</string>
 
     <string name="author_name">Евгений Улейкин</string>
     <string name="nav_group_communicate_title">Связь</string>
@@ -27,4 +30,9 @@
     <string name="settings_title">Настройки</string>
 
     <string name="error_load_data">Ошибка при загрузке данных</string>
+    <string name="pref_temperature_units_title">Единица измерения температуры</string>
+    <string name="pref_temperature_units_summary">Выберите единицу измерения температуры</string>
+    <string name="pref_wind_speed_units_title">Единица измерения скорости ветра</string>
+    <string name="pref_wind_speed_units_summary">Выберите единицу измерения скорости ветра</string>
+    <string name="title_probability_of_precipitation">Вероятность осадков</string>
 </resources>

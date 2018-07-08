@@ -8,14 +8,24 @@
 
     <SwitchPreference
         android:key="pref_show_wind"
-        android:title="@string/title_wind"
-        android:summary="@string/pref_summary_wind"
+        android:title="@string/title_wind_speed"
+        android:summary="@string/pref_summary_wind_speed"
         android:defaultValue="true" />
 
-    <SwitchPreference
-        android:key="pref_show_probability_of_precipitation"
-        android:title="@string/title_probability_of_precipitation"
-        android:summary="@string/pref_summary_probability_of_precipitation"
-        android:defaultValue="true" />
+    <ListPreference
+        android:key="pref_interface_temperature_unit"
+        android:title="@string/pref_temperature_units_title"
+        android:summary="@string/pref_temperature_units_summary"
+        android:defaultValue="@string/unit_cesium"
+        android:entries="@array/temperature_units_array"
+        android:entryValues="@array/temperature_units_array"/>
+
+    <ListPreference
+        android:key="pref_interface_wind_unit"
+        android:title="@string/pref_wind_speed_units_title"
+        android:summary="@string/pref_wind_speed_units_summary"
+        android:defaultValue="@string/unit_meter_second"
+        android:entries="@array/wind_units_array"
+        android:entryValues="@array/wind_units_array"/>
 
 </PreferenceScreen>

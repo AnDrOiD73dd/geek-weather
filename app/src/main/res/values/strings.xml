@@ -1,13 +1,22 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="unit_cesium" translatable="false">°C</string>
+    <string name="unit_fahrenheit" translatable="false">°F</string>
+    <string-array name="temperature_units_array">
+        <item>°C</item>
+        <item>°F</item>
+    </string-array>
     <string name="unit_percentage" translatable="false">%</string>
-    <string name="unit_wind_speed" translatable="false">m/s</string>
+    <string name="unit_meter_second">m/s</string>
+    <string name="unit_miles_hour">mph</string>
+    <string-array name="wind_units_array">
+        <item>m/s</item>
+        <item>mph</item>
+    </string-array>
     <string name="hello_text">Weather</string>
     <string name="title_temperature">Temperature</string>
     <string name="title_humidity">Humidity</string>
-    <string name="title_wind">Wind</string>
-    <string name="title_probability_of_precipitation">Probability of precipitation</string>
+    <string name="title_wind_speed">Wind speed</string>
     <string name="show_weather">Show weather</string>
     <string name="choose_city_hint_text">City name</string>
     <string name="weather_status_content_description">Weather status</string>
@@ -15,22 +24,26 @@
     <string name="pref_header_interface">Интерфейс</string>
     <string name="pref_header_notifications">Notifications</string>
     <string name="pref_summary_humidity">Turn on to load info about humidity</string>
-    <string name="pref_summary_wind">Turn on to load info about wind</string>
-    <string name="pref_summary_probability_of_precipitation">Turn on to load info about probability of precipitation</string>
+    <string name="pref_summary_wind_speed">Turn on to load info about wind speed</string>
 
     <string name="author_name">Evgeny Uleikin</string>
-    <string name="author_email">android73.dd@gmail.com</string>
+    <string name="author_email" translatable="false">android73.dd@gmail.com</string>
     <string name="nav_group_communicate_title">Communicate</string>
     <string name="nav_about_developer_title">About developer</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="fragment_about_developer_title">About developer</string>
-    <string name="fragment_about_developer_body">Evgeny Uleikin\nandroid73.dd@gmail.com</string>
-    <string name="ok">OK</string>
+    <string name="fragment_about_developer_body" translatable="false">Evgeny Uleikin\nandroid73.dd@gmail.com</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="add_city_fragment_city_name_hint">City name</string>
     <string name="add_city_fragment_city_name_title">Please enter city name</string>
     <string name="button_add">Add</string>
     <string name="settings_title">Settings</string>
 
     <string name="error_load_data">An error occurred while loading weather</string>
+    <string name="pref_temperature_units_title">Temperature unit</string>
+    <string name="pref_wind_speed_units_title">Wind speed unit</string>
+    <string name="pref_wind_speed_units_summary">Select the unit of wind speed</string>
+    <string name="pref_temperature_units_summary">Select the unit of temperature</string>
+    <string name="title_probability_of_precipitation">Probability of precipitation</string>
 </resources>
