@@ -28,12 +28,9 @@ import ru.android73dd.geek.weather.model.WeatherAdapter;
 import ru.android73dd.geek.weather.model.WeatherPreferences;
 import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
 import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
-import ru.android73dd.geek.weather.model.openweathermap.Weather;
 import ru.android73dd.geek.weather.network.openweathermap.OpenWeatherRequester;
-import ru.android73dd.geek.weather.repository.OpenWeatherRepositoryImpl;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.ui.dialog.AddCityDialogFragment;
-import ru.android73dd.geek.weather.utils.DataSourceBuilder;
 import ru.android73dd.geek.weather.utils.Logger;
 
 public class CitiesFragment extends BaseFragment implements View.OnClickListener,
@@ -134,7 +131,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     private void setupAdapter() {
 //        DataSourceBuilder builder = new DataSourceBuilder(getActivity());
 //        dataSource = builder.build();
-        List<WeatherEntity> weatherEntities = WeatherApi.getInstance().getDatabase().weatherDao().getAll();
+        List<WeatherEntity> weatherEntities = WeatherApi.getDatabase(getContext()).weatherDao().getAll();
         List<WeatherSimpleEntry> weatherSimpleEntries = new ArrayList<>();
         for (WeatherEntity entity : weatherEntities) {
             WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(entity);
@@ -172,7 +169,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         final String cityName = s.trim();
         if (!cityName.isEmpty()) {
             WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.createDefault(cityName);
-            WeatherApi.getInstance().getDatabase().weatherDao().insert(WeatherEntity.map(weatherSimpleEntry));
+            WeatherApi.getDatabase(getContext()).weatherDao().insert(WeatherEntity.map(weatherSimpleEntry));
             dataSource.add(weatherSimpleEntry);
             adapter.notifyDataSetChanged();
             loadItemWeather(weatherSimpleEntry);
@@ -195,7 +192,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
 //                adapter.notifyDataSetChanged();
 //                return;
 //            }
-            WeatherEntity weatherEntity = WeatherApi.getInstance().getDatabase().weatherDao().getWeatherByCityName(cityName);
+            WeatherEntity weatherEntity =  WeatherApi.getDatabase(getContext()).weatherDao().getWeatherByCityName(cityName);
             if (weatherEntity != null) {
                 WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(weatherEntity);
                 weatherSimpleEntry = setDataUnits(weatherSimpleEntry);
@@ -215,7 +212,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
                         OpenWeatherMapModel openWeatherMapModel = response.body();
                         if (openWeatherMapModel != null) {
 //                            OpenWeatherRepositoryImpl.getInstance().add(openWeatherMapModel);
-                            WeatherApi.getInstance().getDatabase().weatherDao()
+                            WeatherApi.getDatabase(getContext()).weatherDao()
                                     .update(WeatherEntity.map(openWeatherMapModel));
                             WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(openWeatherMapModel);
                             weatherSimpleEntry = setDataUnits(weatherSimpleEntry);

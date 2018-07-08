@@ -9,29 +9,14 @@ public class WeatherApi {
 
     private static final String DATABASE_NAME = "WeatherDatabase";
 
-    private static WeatherApi instance;
-    private WeatherDatabase database;
+    private static WeatherDatabase database;
 
-    public static WeatherApi getInstance() {
-        WeatherApi localInstance = instance;
-        if (localInstance == null) {
-            synchronized (WeatherApi.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new WeatherApi();
-                }
-            }
+    public static WeatherDatabase getDatabase(Context context) {
+        if (database == null) {
+            database =  Room.databaseBuilder(context, WeatherDatabase.class, DATABASE_NAME)
+                    .allowMainThreadQueries()
+                    .build();
         }
-        return localInstance;
-    }
-
-    public void initDb(Context context) {
-        database =  Room.databaseBuilder(context, WeatherDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries()
-                .build();
-    }
-
-    public WeatherDatabase getDatabase() {
         return database;
     }
 }

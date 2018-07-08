@@ -1,8 +1,8 @@
 package ru.android73dd.geek.weather.ui;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +15,6 @@ import ru.android73dd.geek.weather.WeatherApi;
 import ru.android73dd.geek.weather.database.WeatherEntity;
 import ru.android73dd.geek.weather.model.WeatherPreferences;
 import ru.android73dd.geek.weather.model.WeatherSimpleEntry;
-import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
-import ru.android73dd.geek.weather.model.openweathermap.Weather;
-import ru.android73dd.geek.weather.repository.OpenWeatherRepositoryImpl;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.Utils;
 
@@ -95,7 +92,7 @@ public class WeatherDetailsFragment extends Fragment {
         tvCityName.setText(cityName);
         tvDate.setText(Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT));
 //        OpenWeatherMapModel openWeatherMapModel = OpenWeatherRepositoryImpl.getInstance().getByCityName(cityName);\
-        WeatherEntity weatherEntity = WeatherApi.getInstance().getDatabase().weatherDao().getWeatherByCityName(cityName);
+        WeatherEntity weatherEntity =  WeatherApi.getDatabase(getContext()).weatherDao().getWeatherByCityName(cityName);
         WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(weatherEntity);
         if (weatherSimpleEntry == null) {
             weatherSimpleEntry = WeatherSimpleEntry.createDefault(cityName);

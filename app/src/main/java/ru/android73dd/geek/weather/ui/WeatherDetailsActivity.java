@@ -21,12 +21,12 @@ public class WeatherDetailsActivity extends AppCompatActivity {
 
         String cityName = getIntent().getExtras().getString(EXTRA_CITY_NAME, "");
 
-        WeatherDetailsFragment details = (WeatherDetailsFragment) getFragmentManager().findFragmentById(R.id.weather_container);
+        WeatherDetailsFragment details = (WeatherDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.weather_container);
         if (details == null) {
             details = WeatherDetailsFragment.newInstance(cityName);
-            getFragmentManager().beginTransaction().add(R.id.weather_container, details).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.weather_container, details).commit();
         } else {
-            getFragmentManager().beginTransaction().replace(R.id.weather_container, details).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.weather_container, details).commit();
         }
     }
 
