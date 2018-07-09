@@ -73,7 +73,8 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         FloatingActionButton fab = layout.findViewById(R.id.fab_add_city);
         fab.setOnClickListener(this);
 
-        adapter = new WeatherAdapter(new ArrayList<WeatherSimpleEntry>(), getWeatherConfig());
+        dataSource = new ArrayList<>();
+        adapter = new WeatherAdapter(dataSource, getWeatherConfig());
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
 
@@ -81,7 +82,8 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         citiesViewModel.getCitiesData().observe(this, new Observer<List<WeatherSimpleEntry>>() {
             @Override
             public void onChanged(@Nullable List<WeatherSimpleEntry> weatherSimpleEntries) {
-                adapter.setDataSource(weatherSimpleEntries);
+                dataSource = weatherSimpleEntries;
+                adapter.setDataSource(dataSource);
                 adapter.notifyDataSetChanged();
             }
         });
