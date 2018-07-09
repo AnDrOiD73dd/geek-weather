@@ -94,13 +94,6 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-//        setupAdapter();
-//        loadAllWeather();
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         listener = null;
@@ -172,9 +165,6 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
             WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.createDefault(cityName);
             WeatherApi.getDatabase(getContext()).weatherDao().insert(WeatherEntity.map(weatherSimpleEntry));
             citiesViewModel.loadItemWeather(weatherSimpleEntry);
-//            dataSource.add(weatherSimpleEntry);
-//            adapter.notifyDataSetChanged();
-//            loadItemWeather(weatherSimpleEntry);
         }
     }
 
