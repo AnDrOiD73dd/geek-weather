@@ -30,6 +30,8 @@ import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
 import ru.android73dd.geek.weather.network.openweathermap.OpenWeatherRequester;
 import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.Logger;
+import ru.android73dd.geek.weather.utils.Utils;
+
 
 public class CitiesViewModel extends AndroidViewModel implements LifecycleObserver {
 
@@ -87,41 +89,13 @@ public class CitiesViewModel extends AndroidViewModel implements LifecycleObserv
     private List<WeatherSimpleEntry> mapAll(List<WeatherEntity> weatherEntities) {
         List<WeatherSimpleEntry> res = new ArrayList<>();
         for (WeatherEntity item : weatherEntities) {
-            res.add(setDataUnits(WeatherSimpleEntry.map(item)));
+            res.add(Utils.setDataUnits(getApplication(), WeatherSimpleEntry.map(item), getWeatherConfig()));
         }
         return res;
     }
 
     private WeatherPreferences getWeatherConfig() {
         return SettingsRepositoryImpl.getInstance().getSettings(getApplication());
-    }
-
-    private WeatherSimpleEntry setDataUnits(WeatherSimpleEntry item) {
-        String temperatureUnit = getWeatherConfig().getTemperatureUnit();
-        double currentTemp = Double.valueOf(item.getTemperature());
-        if (temperatureUnit.equals(getApplication().getString(R.string.unit_cesium))) {
-            double temp = currentTemp - 273.15;
-            item.setTemperature(String.format(Locale.getDefault(), "%.0f %s", temp, temperatureUnit));
-        }
-        else if (temperatureUnit.equals(getApplication().getString(R.string.unit_fahrenheit))) {
-            double temp = 1.8 * (currentTemp - 273) + 32;
-            item.setTemperature(String.format(Locale.getDefault(), "%.0f %s", temp, temperatureUnit));
-        }
-
-        String windSpeedUnit = getWeatherConfig().getWindSpeedUnit();
-        double currentWindSpeed = Double.valueOf(item.getWindSpeed());
-        if (windSpeedUnit.equals(getApplication().getString(R.string.unit_meter_second))) {
-            item.setWind(String.format(Locale.getDefault(), "%.0f %s", currentWindSpeed, windSpeedUnit));
-        }
-        else if (windSpeedUnit.equals(getApplication().getString(R.string.unit_miles_hour))) {
-            // TODO convert
-            item.setWind(String.format(Locale.getDefault(), "%.0f %s", currentWindSpeed,
-                    getApplication().getString(R.string.unit_meter_second)));
-        }
-
-        item.setHumidity(String.format(Locale.getDefault(), "%s %s", item.getHumidity(),
-                getApplication().getString(R.string.unit_percentage)));
-        return item;
     }
 
     private void loadAllWeather() {

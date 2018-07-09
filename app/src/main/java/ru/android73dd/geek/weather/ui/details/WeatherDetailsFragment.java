@@ -1,5 +1,8 @@
 package ru.android73dd.geek.weather.ui.details;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,6 +34,8 @@ public class WeatherDetailsFragment extends Fragment {
     private LinearLayout llTemperature;
     private LinearLayout llHumidity;
     private LinearLayout llWind;
+    private DetailsViewModel detailsViewModel;
+    private String cityName;
 
     public static WeatherDetailsFragment newInstance(String cityName) {
         WeatherDetailsFragment detailsFragment = new WeatherDetailsFragment();
@@ -45,6 +50,19 @@ public class WeatherDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_details, container, false);
         initViews(layout);
+
+        cityName = getArguments().getString(KEY_CITY_NAME);
+        ViewModelProvider.AndroidViewModelFactory factory = new DetailsViewModelFactory(getActivity().getApplication(), cityName);
+        detailsViewModel = ViewModelProviders.of(getActivity(), factory).get(DetailsViewModel.class);
+        detailsViewModel.getData().observe(this, new Observer<WeatherSimpleEntry>() {
+                    @Override
+                    public void onChanged(@Nullable WeatherSimpleEntry weatherSimpleEntry) {
+                        setValues(weatherSimpleEntry);
+                    }
+                });
+
+        getLifecycle().addObserver(detailsViewModel);
+
         return layout;
     }
 
@@ -52,7 +70,6 @@ public class WeatherDetailsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         updateUI(getWeatherConfig());
-        setValues();
     }
 
     public WeatherPreferences getWeatherConfig() {
@@ -60,7 +77,6 @@ public class WeatherDetailsFragment extends Fragment {
     }
 
     private void updateUI(WeatherPreferences weatherPreferences) {
-        String cityName = getArguments().getString(KEY_CITY_NAME);
         updateUI(cityName, Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT),
                 weatherPreferences.isShowHumidity(), weatherPreferences.isShowWind());
     }
@@ -87,16 +103,9 @@ public class WeatherDetailsFragment extends Fragment {
         llWind = layout.findViewById(R.id.ll_wind);
     }
 
-    private void setValues() {
-        String cityName = getArguments().getString(KEY_CITY_NAME);
-        tvCityName.setText(cityName);
+    private void setValues(WeatherSimpleEntry weatherSimpleEntry) {
+        tvCityName.setText(weatherSimpleEntry.getCityName());
         tvDate.setText(Utils.getCurrentTime(Utils.DEFAULT_SIMPLE_DATE_FORMAT));
-//        OpenWeatherMapModel openWeatherMapModel = OpenWeatherRepositoryImpl.getInstance().getByCityName(cityName);\
-        WeatherEntity weatherEntity =  WeatherApi.getDatabase(getContext()).weatherDao().getWeatherByCityName(cityName);
-        WeatherSimpleEntry weatherSimpleEntry = WeatherSimpleEntry.map(weatherEntity);
-        if (weatherSimpleEntry == null) {
-            weatherSimpleEntry = WeatherSimpleEntry.createDefault(cityName);
-        }
         tvTempValue.setText(weatherSimpleEntry .getTemperature());
         tvHumidityValue.setText(weatherSimpleEntry.getHumidity());
         tvWindValue.setText(weatherSimpleEntry.getWindSpeed());

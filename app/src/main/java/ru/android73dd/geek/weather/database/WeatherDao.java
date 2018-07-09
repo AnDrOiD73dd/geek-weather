@@ -17,7 +17,7 @@ public interface WeatherDao {
     LiveData<List<WeatherEntity>> getAll();
 
     @Query("SELECT * FROM WeatherEntity WHERE city_name LIKE :cityName")
-    WeatherEntity getWeatherByCityName(String cityName);
+    LiveData<WeatherEntity> getWeatherByCityName(String cityName);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(WeatherEntity entity);
