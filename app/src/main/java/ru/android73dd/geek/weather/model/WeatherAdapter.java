@@ -24,6 +24,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         this.weatherPreferences = weatherPreferences;
     }
 
+    public void setDataSource(List<WeatherSimpleEntry> dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
