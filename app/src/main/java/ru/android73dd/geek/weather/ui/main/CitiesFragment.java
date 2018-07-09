@@ -2,7 +2,10 @@ package ru.android73dd.geek.weather.ui.main;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -40,6 +43,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     private WeatherAdapter adapter;
     private AddCityDialogFragment addCityDialog;
     private CitiesViewModel citiesViewModel;
+    private BroadcastReceiver broadcastReceiver;
 
     public CitiesFragment() {
         // Required empty public constructor
@@ -58,6 +62,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        addLoadErrorReceiver();
     }
 
     @Override
@@ -100,6 +105,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         if (addCityDialog != null) {
             addCityDialog.setListener(null);
         }
+        removeLoadErrorReceiver();
     }
 
     @Override
@@ -170,5 +176,21 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
 
     private void showToast(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+    }
+
+    private void addLoadErrorReceiver() {
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String error = intent.getStringExtra(CitiesViewModel.KEY_LOAD_ERROR_TEXT);
+                showToast(error);
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter(CitiesViewModel.ACTION_LOAD_ERROR);
+        getActivity().registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    private void removeLoadErrorReceiver() {
+        getActivity().unregisterReceiver(broadcastReceiver);
     }
 }

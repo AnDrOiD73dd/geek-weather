@@ -8,6 +8,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.OnLifecycleEvent;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.TreeSet;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +32,9 @@ import ru.android73dd.geek.weather.repository.SettingsRepositoryImpl;
 import ru.android73dd.geek.weather.utils.Logger;
 
 public class CitiesViewModel extends AndroidViewModel implements LifecycleObserver {
+
+    public final static String ACTION_LOAD_ERROR = "ru.android73dd.geek.weather.load_error";
+    public final static String KEY_LOAD_ERROR_TEXT = "klet";
 
     private MutableLiveData<List<WeatherSimpleEntry>> citiesList = new MutableLiveData<>();
     private Observer<List<WeatherEntity>> dbEventListener = new Observer<List<WeatherEntity>>() {
@@ -130,6 +135,8 @@ public class CitiesViewModel extends AndroidViewModel implements LifecycleObserv
         OpenWeatherRequester openWeatherRequester = new OpenWeatherRequester();
         openWeatherRequester.getWeather(cityName, new Callback<OpenWeatherMapModel>() {
 
+            String error = String.format("%s: %s", getApplication().getString(R.string.error_load_data), cityName);
+
             @Override
             public void onResponse(Call<OpenWeatherMapModel> call, Response<OpenWeatherMapModel> response) {
                 if (response.code() == 200) {
@@ -139,15 +146,21 @@ public class CitiesViewModel extends AndroidViewModel implements LifecycleObserv
                     }
                 }
                 else {
-//                    showToast(error);
+                    notifyListeners(error);
                 }
             }
 
             @Override
             public void onFailure(Call<OpenWeatherMapModel> call, Throwable t) {
                 Logger.d(t.toString());
-//                showToast(error);
+                notifyListeners(error);
             }
         });
+    }
+
+    private void notifyListeners(String error) {
+        Intent intent = new Intent(ACTION_LOAD_ERROR);
+        intent.putExtra(KEY_LOAD_ERROR_TEXT, error);
+        getApplication().sendBroadcast(intent);
     }
 }
