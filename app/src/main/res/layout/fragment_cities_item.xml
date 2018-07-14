@@ -11,99 +11,114 @@
     android:elevation="@dimen/list_item_elevation"
     card_view:cardCornerRadius="@dimen/list_item_card_corner_radius">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/main_margin">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/ll_general"
+        <CheckBox
+            android:id="@+id/cb_delete_item"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
-            <TextView
-                android:id="@+id/tv_city_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TitleTextAppearance"/>
-
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/SubTitleTextAppearance"/>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/main_margin">
 
-            <TextView
-                android:id="@+id/tv_temperature_value"
-                style="@style/TitleTextAppearance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <ImageView
-                android:id="@+id/iv_status"
+            <LinearLayout
+                android:id="@+id/ll_general"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/main_marginBottom"
-                android:contentDescription="@string/weather_status_content_description"
-                app:srcCompat="@drawable/weather_sunny" />
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_city_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TitleTextAppearance"/>
 
-        <LinearLayout
-            android:id="@+id/ll_humidity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/ll_general">
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SubTitleTextAppearance"/>
 
-            <TextView
-                android:id="@+id/tv_humidity_title"
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_humidity"
-                style="@style/CommonTextStyle"/>
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_humidity_value"
+                <TextView
+                    android:id="@+id/tv_temperature_value"
+                    style="@style/TitleTextAppearance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/iv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/main_marginBottom"
+                    android:contentDescription="@string/weather_status_content_description"
+                    app:srcCompat="@drawable/weather_sunny" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_humidity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/weather_value_margin_start"
-                style="@style/CommonTextStyle"/>
+                android:orientation="horizontal"
+                android:layout_below="@id/ll_general">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_humidity_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_humidity"
+                    style="@style/CommonTextStyle"/>
 
-        <LinearLayout
-            android:id="@+id/ll_wind"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/ll_humidity">
+                <TextView
+                    android:id="@+id/tv_humidity_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/weather_value_margin_start"
+                    style="@style/CommonTextStyle"/>
 
-            <TextView
-                android:id="@+id/tv_wind_title"
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_wind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_wind_speed"
-                style="@style/CommonTextStyle"/>
+                android:orientation="horizontal"
+                android:layout_below="@id/ll_humidity">
 
-            <TextView
-                android:id="@+id/tv_wind_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/weather_value_margin_start"
-                style="@style/CommonTextStyle"/>
+                <TextView
+                    android:id="@+id/tv_wind_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_wind_speed"
+                    style="@style/CommonTextStyle"/>
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_wind_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/weather_value_margin_start"
+                    style="@style/CommonTextStyle"/>
 
-    </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
 </android.support.v7.widget.CardView>

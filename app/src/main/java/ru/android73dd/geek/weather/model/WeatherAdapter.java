@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +20,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     private List<WeatherSimpleEntry> dataSource;
     private WeatherPreferences weatherPreferences;
     private OnItemClickListener itemClickListener;
+    private onCheckDeleteCountChangeListener onCheckDeleteCountChangeListener;
+    private int checkedCounter;
 
     public WeatherAdapter(List<WeatherSimpleEntry> dataSource, WeatherPreferences weatherPreferences) {
         this.dataSource = dataSource;
@@ -48,14 +52,30 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     public interface OnItemClickListener {
         void onItemClick(View view , int position);
+        void onLongClick(View view , int position);
+    }
+
+    public interface onCheckDeleteCountChangeListener {
+        void onCheckDeleteCountChange(int count);
+    }
+
+    public void setOnCheckDeleteCountChangeListener (onCheckDeleteCountChangeListener listener){
+        onCheckDeleteCountChangeListener = listener;
+    }
+
+    private void notifyCheckDeleteCount(int count) {
+        if (onCheckDeleteCountChangeListener != null) {
+            onCheckDeleteCountChangeListener.onCheckDeleteCountChange(count);
+        }
     }
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener){
         this.itemClickListener = itemClickListener;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener {
 
+        private CheckBox cbDelete;
         private TextView cityName;
         private ImageView statusPic;
         private TextView temperature;
@@ -75,7 +95,19 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
                     }
                 }
             });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onLongClick(v, getAdapterPosition());
+                        return true;
+                    }
+                    return false;
+                }
+            });
 
+            cbDelete = itemView.findViewById(R.id.cb_delete_item);
+            cbDelete.setOnCheckedChangeListener(this);
             cityName = itemView.findViewById(R.id.tv_city_name);
             statusPic = itemView.findViewById(R.id.iv_status);
             temperature = itemView.findViewById(R.id.tv_temperature_value);
@@ -89,11 +121,14 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         void bind(int position) {
             if (getLayoutPosition() != RecyclerView.NO_POSITION) {
                 WeatherSimpleEntry item = dataSource.get(position);
-                setData(item);
+                setupViewData(item);
             }
         }
 
-        private void setData(WeatherSimpleEntry item) {
+        private void setupViewData(WeatherSimpleEntry item) {
+            cbDelete.setVisibility(item.isShowDelete() ? View.VISIBLE : View.GONE);
+            cbDelete.setChecked(item.isDeleteChecked());
+
             cityName.setText(item.getCityName());
             statusPic.setImageResource(item.getStatusPic());
             temperature.setText(item.getTemperature());
@@ -103,6 +138,20 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
             wind.setText(item.getWindSpeed());
             llWind.setVisibility(weatherPreferences.isShowWind() ? View.VISIBLE : View.GONE);
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (getLayoutPosition() != RecyclerView.NO_POSITION) {
+                WeatherSimpleEntry item = dataSource.get(this.getAdapterPosition());
+                item.setDeleteChecked(isChecked);
+                if (isChecked) {
+                    checkedCounter++;
+                } else {
+                    checkedCounter--;
+                }
+                notifyCheckDeleteCount(checkedCounter);
+            }
         }
     }
 }
