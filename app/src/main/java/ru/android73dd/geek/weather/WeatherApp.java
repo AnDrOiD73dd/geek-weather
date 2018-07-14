@@ -9,6 +9,5 @@ public class WeatherApp extends Application {
     public void onCreate() {
         super.onCreate();
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        WeatherApi.getInstance().initDb(getApplicationContext());
     }
 }

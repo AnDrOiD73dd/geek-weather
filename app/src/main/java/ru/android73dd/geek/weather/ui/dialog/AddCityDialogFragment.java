@@ -17,6 +17,8 @@ import ru.android73dd.geek.weather.R;
 
 public class AddCityDialogFragment extends DialogFragment {
 
+    public static final String TAG = "Add city dialog";
+
     private ActionListener listener;
 
     @NonNull
