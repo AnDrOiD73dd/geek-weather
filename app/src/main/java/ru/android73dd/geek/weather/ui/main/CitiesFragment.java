@@ -137,9 +137,21 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete:
+                setMenuShowDelete(false);
+                itemsShowDelete(false);
+                deleteCheckedItems();
+                adapter.notifyDataSetChanged();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void deleteCheckedItems() {
+        for (WeatherSimpleEntry item : dataSource) {
+            if (item.isDeleteChecked()) {
+                WeatherApi.getDatabase(getActivity()).weatherDao().delete(item.getCityName());
+            }
         }
     }
 
