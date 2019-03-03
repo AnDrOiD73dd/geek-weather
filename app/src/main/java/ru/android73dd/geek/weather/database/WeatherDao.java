@@ -30,4 +30,7 @@ public interface WeatherDao {
 
     @Delete
     void delete(WeatherEntity entity);
+
+    @Query("DELETE FROM WeatherEntity WHERE city_name LIKE :cityName")
+    void delete(String cityName);
 }

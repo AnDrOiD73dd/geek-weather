@@ -15,8 +15,8 @@ import android.view.MenuItem;
 
 import ru.android73dd.geek.weather.R;
 import ru.android73dd.geek.weather.ui.BaseFragment;
-import ru.android73dd.geek.weather.ui.settings.SettingsActivity;
 import ru.android73dd.geek.weather.ui.details.WeatherDetailsActivity;
+import ru.android73dd.geek.weather.ui.settings.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,

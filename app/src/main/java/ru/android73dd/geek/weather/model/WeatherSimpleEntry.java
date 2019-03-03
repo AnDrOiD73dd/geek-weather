@@ -8,7 +8,10 @@ import ru.android73dd.geek.weather.model.openweathermap.OpenWeatherMapModel;
 
 public class WeatherSimpleEntry {
 
+
     private static String unknown = "N/A";
+    private boolean isDeleteChecked;
+    private boolean isShowDelete;
     private String cityName;
     private int statusPic;
     private String temperature;
@@ -17,11 +20,29 @@ public class WeatherSimpleEntry {
 
     public WeatherSimpleEntry(String cityName, int statusPic, String temperature, String humidity,
                               String wind) {
+        this.isDeleteChecked = false;
+        this.isShowDelete = false;
         this.cityName = cityName;
         this.statusPic = statusPic;
         this.temperature = temperature;
         this.humidity = humidity;
         this.wind = wind;
+    }
+
+    public boolean isDeleteChecked() {
+        return isDeleteChecked;
+    }
+
+    public void setDeleteChecked(boolean deleteChecked) {
+        isDeleteChecked = deleteChecked;
+    }
+
+    public boolean isShowDelete() {
+        return isShowDelete;
+    }
+
+    public void setShowDelete(boolean showDelete) {
+        isShowDelete = showDelete;
     }
 
     public String getCityName() {

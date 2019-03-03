@@ -15,6 +15,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -35,7 +38,7 @@ import ru.android73dd.geek.weather.ui.dialog.AddCityDialogFragment;
 import ru.android73dd.geek.weather.utils.Logger;
 
 public class CitiesFragment extends BaseFragment implements View.OnClickListener,
-        WeatherAdapter.OnItemClickListener, AddCityDialogFragment.ActionListener {
+        WeatherAdapter.OnItemClickListener, AddCityDialogFragment.ActionListener, WeatherAdapter.onCheckDeleteCountChangeListener {
 
     private OnFragmentInteractionListener listener;
     private RecyclerView recyclerView;
@@ -44,6 +47,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     private AddCityDialogFragment addCityDialog;
     private CitiesViewModel citiesViewModel;
     private BroadcastReceiver broadcastReceiver;
+    private Menu menu;
 
     public CitiesFragment() {
         // Required empty public constructor
@@ -69,11 +73,7 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_cities, container, false);
 
-        recyclerView = layout.findViewById(R.id.rv_cities_list);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+        setHasOptionsMenu(true);
 
         FloatingActionButton fab = layout.findViewById(R.id.fab_add_city);
         fab.setOnClickListener(this);
@@ -81,6 +81,13 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         dataSource = new ArrayList<>();
         adapter = new WeatherAdapter(dataSource, getWeatherConfig());
         adapter.setOnItemClickListener(this);
+        adapter.setOnCheckDeleteCountChangeListener(this);
+
+        recyclerView = layout.findViewById(R.id.rv_cities_list);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
         citiesViewModel = ViewModelProviders.of(getActivity()).get(CitiesViewModel.class);
@@ -94,7 +101,6 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         });
 
         getLifecycle().addObserver(citiesViewModel);
-
         return layout;
     }
 
@@ -102,10 +108,51 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
     public void onDetach() {
         super.onDetach();
         listener = null;
+        menu = null;
         if (addCityDialog != null) {
             addCityDialog.setListener(null);
         }
         removeLoadErrorReceiver();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getActivity().getMenuInflater().inflate(R.menu.activity_main_menu, menu);
+        this.menu = menu;
+    }
+
+    private boolean isMenuShowDelete() {
+        MenuItem menuItem = menu.findItem(R.id.action_delete);
+        return menuItem != null && menuItem.isVisible();
+    }
+
+    private void setMenuShowDelete(boolean flag) {
+        MenuItem menuItem = menu.findItem(R.id.action_delete);
+        if (menuItem != null) {
+            menuItem.setVisible(flag);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                setMenuShowDelete(false);
+                itemsShowDelete(false);
+                deleteCheckedItems();
+                adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void deleteCheckedItems() {
+        for (WeatherSimpleEntry item : dataSource) {
+            if (item.isDeleteChecked()) {
+                WeatherApi.getDatabase(getActivity()).weatherDao().delete(item.getCityName());
+            }
+        }
     }
 
     @Override
@@ -126,8 +173,32 @@ public class CitiesFragment extends BaseFragment implements View.OnClickListener
         listener.onItemClicked(weatherSimpleEntry.getCityName());
     }
 
+    @Override
+    public void onLongClick(View view, int position) {
+        if (!isMenuShowDelete()) {
+            setMenuShowDelete(true);
+        }
+        itemsShowDelete(true);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void itemsShowDelete(boolean visible) {
+        for (WeatherSimpleEntry weatherSimpleEntry : dataSource) {
+            weatherSimpleEntry.setShowDelete(visible);
+        }
+    }
+
     public WeatherPreferences getWeatherConfig() {
         return SettingsRepositoryImpl.getInstance().getSettings(getActivity());
+    }
+
+    @Override
+    public void onCheckDeleteCountChange(int count) {
+        if (count == 0) {
+            setMenuShowDelete(false);
+            itemsShowDelete(false);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     /**

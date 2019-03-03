@@ -35,4 +35,5 @@
     <string name="pref_wind_speed_units_title">Единица измерения скорости ветра</string>
     <string name="pref_wind_speed_units_summary">Выберите единицу измерения скорости ветра</string>
     <string name="title_probability_of_precipitation">Вероятность осадков</string>
+    <string name="action_delete_title">Удалить</string>
 </resources>
