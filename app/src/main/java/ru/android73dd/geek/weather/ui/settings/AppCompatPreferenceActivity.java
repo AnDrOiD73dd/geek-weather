@@ -1,4 +1,4 @@
-package ru.android73dd.geek.weather.ui;
+package ru.android73dd.geek.weather.ui.settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

@@ -12,6 +12,8 @@ import ru.android73dd.geek.weather.R;
 
 public class AboutDeveloperDialogFragment extends DialogFragment {
 
+    public static final String TAG = "about developer dialog";
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
